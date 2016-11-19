@@ -1,0 +1,25 @@
+{
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "ecmaFeatures": {
+        "jsx": true
+    },
+    "globals": {
+    },
+    "plugins": [
+    ],
+    "extends": "eslint-config-airbnb",
+    "rules": {
+        "comma-dangle": 0,
+        "no-console": 0,
+        "id-length": 0,
+        "react/prop-types": 0,
+        "max-len": [2, {"code": 300, "tabWidth": 4, "ignoreUrls": true}],
+        "react/jsx-boolean-value": 0
+    },
+    "settings": {
+        "import/extensions": [".js", ".jsx"]
+    }
+}

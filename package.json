@@ -1,0 +1,48 @@
+{
+  "name": "react-audio",
+  "version": "0.0.1",
+  "description": "A customizable html5 audio player for React.js",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/wenliangdai/react-audio.git",
+    "type": "git"
+  },
+  "config": {
+    "port": "8080"
+  },
+  "scripts": {
+    "test": "mocha --compilers js:babel-register --recursive",
+    "prestart": "opener http://localhost:$npm_package_config_port",
+    "start": "webpack-dev-server",
+    "prebuild": "yarn run clean",
+    "build": "NODE_ENV=production webpack",
+    "clean": "rimraf ./dist && mkdir dist",
+    "lint": "./node_modules/.bin/eslint 'src/**/*.@(js|jsx)'"
+  },
+  "author": "Wenliang Dai <daiwenliang123@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-transform-object-assign": "^6.8.0",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "eslint": "^3.8.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^2.0.1",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.4.1",
+    "opener": "^1.4.2",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-merge": "^0.15.0"
+  },
+  "dependencies": {
+    "lodash": "^4.16.4",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "whatwg-fetch": "^1.0.0"
+  }
+}
