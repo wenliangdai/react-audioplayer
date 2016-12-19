@@ -1,20 +1,20 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './components/containers/App';
+import Audio from './components/containers/Audio';
 import { resetStyle } from './components/utility/styles';
 
-const SomeApp = () => (
+const App = () => (
   <div
     style={Object.assign({}, resetStyle, {
       width: '800px',
       height: '400px'
     })}
   >
-    <App />
+    <Audio color="#F44336" />
   </div>
 );
 
 render(
-  <SomeApp />,
+  <App />,
   document.getElementById('app')
 );

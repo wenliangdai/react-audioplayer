@@ -1,8 +1,13 @@
 import React, { PropTypes } from 'react';
-import { SkipNextBtn, PlayBtn, SkipPrevBtn, LoopBtn, VolumnBtn } from '../ui/Buttons';
+import { SkipNextBtn, PlayBtn, SkipPrevBtn, LoopBtn, VolumeBtn } from '../ui/buttons/index';
 import { resetStyle } from '../utility/styles';
 
 class Controls extends React.Component {
+  static propTypes = {
+    color: PropTypes.string,
+    togglePlayPause: PropTypes.func,
+    playing: PropTypes.bool
+  };
   getStyle() {
     const defaultStyle = Object.assign({}, resetStyle, style.container);
     if (this.props.style) {
@@ -15,12 +20,16 @@ class Controls extends React.Component {
       <div style={this.getStyle()}>
         <div style={style.left}>
           <SkipPrevBtn color={this.props.color} />
-          <PlayBtn color={this.props.color} />
+          <PlayBtn
+            playing={this.props.playing}
+            togglePlayPause={this.props.togglePlayPause}
+            color={this.props.color}
+          />
           <SkipNextBtn color={this.props.color} />
         </div>
         <div style={style.right}>
           <LoopBtn color={this.props.color} />
-          <VolumnBtn
+          <VolumeBtn
             initialVolume={0}
             color={this.props.color}
           />
@@ -29,12 +38,6 @@ class Controls extends React.Component {
     );
   }
 }
-Controls.propTypes = {
-  color: PropTypes.string
-};
-Controls.defaultProps = {
-  color: '#212121'
-};
 
 const style = {
   container: {

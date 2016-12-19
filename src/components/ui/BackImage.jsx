@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { resetStyle } from '../utility/styles';
 
 class BackImage extends React.Component {
@@ -19,13 +19,13 @@ class BackImage extends React.Component {
         <img
           width="100%"
           height="100%"
-          style={{objectFit: 'cover'}}
+          style={{ objectFit: 'cover' }}
           src={this.props.src}
           alt=""
         />
       </div>
     );
   }
-};
+}
 
 export default BackImage;

@@ -4,32 +4,36 @@ import Controls from './Controls';
 import BottomRightGroup from './BottomRightGroup';
 import { resetStyle } from '../utility/styles';
 
-class BottomStack extends React.Component {
-  render() {
-    return (
-      <div
-        className="trackContainer"
-        style={Object.assign({}, resetStyle, style)}
-      >
-        <Controls color={this.props.color} />
-        <Timeline
-          color={this.props.color}
-          duration={this.props.duration}
-        />
-        <BottomRightGroup color={this.props.color} />
-      </div>
-    );
-  }
-  componentDidMount() {
-    console.log(document.querySelector('.trackContainer').getBoundingClientRect());
-  }
-}
+const BottomStack = ({
+  togglePlayPause,
+  playing,
+  color,
+  progress,
+  duration,
+  setProgress
+}) => (
+  <div style={Object.assign({}, resetStyle, style)}>
+    <Controls
+      color={color}
+      togglePlayPause={togglePlayPause}
+      playing={playing}
+    />
+    <Timeline
+      duration={duration}
+      color={color}
+      progress={progress}
+      setProgress={setProgress}
+    />
+    <BottomRightGroup color={color} />
+  </div>
+);
 BottomStack.propTypes = {
-  duration: PropTypes.number.isRequired,
-  color: PropTypes.string
-};
-BottomStack.defaultProps = {
-  color: '#212121'
+  color: PropTypes.string,
+  togglePlayPause: PropTypes.func,
+  playing: PropTypes.bool,
+  progress: PropTypes.number,
+  duration: PropTypes.number,
+  setProgress: PropTypes.func
 };
 
 const style = {
