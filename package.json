@@ -12,7 +12,6 @@
   },
   "scripts": {
     "test": "NODE_ENV=test mocha --compilers js:babel-register --recursive",
-    "prestart": "opener http://localhost:$npm_package_config_port",
     "start": "NODE_ENV=development webpack-dev-server",
     "prebuild": "yarn run clean",
     "build": "NODE_ENV=production webpack",
@@ -38,18 +37,17 @@
     "eslint-plugin-import": "^2.0.1",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.4.1",
+    "lodash": "^4.17.2",
     "node-sass": "^4.0.0",
-    "opener": "^1.4.2",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "rimraf": "^2.5.4",
     "sass-loader": "^4.1.0",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.2",
+    "webpack": "2.2.0-rc.1",
     "webpack-dev-server": "^1.16.2",
-    "webpack-merge": "^0.15.0"
+    "webpack-merge": "^1.1.2",
+    "whatwg-fetch": "^2.0.1"
   },
-  "dependencies": {
-    "lodash": "^4.16.4",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
-    "whatwg-fetch": "^1.0.0"
-  }
+  "dependencies": {}
 }

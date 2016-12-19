@@ -12,40 +12,48 @@ var PATHS = {
 };
 
 var common = {
-  entry: ['whatwg-fetch', path.join(PATHS.src, 'index.jsx')],
+  entry: [path.join(PATHS.src, 'index.jsx')],
   output: {
     path: PATHS.dist,
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/static/',
+    library: 'reactAudio',
+    libraryTarget: 'var'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
+        exclude: [
+          /node_modules/
+        ],
         loader: 'babel-loader'
       },
       {
         test: /\.scss$/,
-        exclude: path.resolve(__dirname, 'src/globalStyles'),
-        loaders: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass?sourceMap=true&sourceMapContents=true'
+        exclude: [
+          path.resolve(__dirname, 'src/globalStyles')
+        ],
+        loaders: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass-loader?sourceMap=true&sourceMapContents=true'
       },
       {
         test: /\.scss$/,
-        include: path.resolve(__dirname, 'src/globalStyles'),
-        loaders: 'style!css-loader!sass?sourceMap=true&sourceMapContents=true'
+        include: [
+          path.resolve(__dirname, 'src/globalStyles')
+        ],
+        loaders: 'style-loader!css-loader!sass-loader?sourceMap=true&sourceMapContents=true'
       }
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.scss']
+    extensions: ['.js', '.jsx', '.scss']
   },
-  postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ]
+  target: 'web'
 };
-
+// module.exports = common;
 if (TARGET === 'start') {
   module.exports = merge(common, {
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'source-map',
     devServer: {
       contentBase: PATHS.src,
       historyApiFallback: true,
@@ -71,7 +79,6 @@ if (TARGET === 'build') {
   module.exports = merge(common, {
     devtool: 'cheap-module-source-map',
     plugins: [
-      new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify(env)
@@ -82,6 +89,20 @@ if (TARGET === 'build') {
           warnings: false
         }
       })
-    ]
+    ],
+    externals: {
+      react: { // UMD
+        commonjs: "react",
+        commonjs2: "react",
+        amd: "react",
+        root: "React"
+      },
+      lodash: {
+        commonjs: "lodash",
+        commonjs2: "lodash",
+        amd: "lodash",
+        root: "_"
+      }
+    }
   });
 }
