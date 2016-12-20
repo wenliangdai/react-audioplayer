@@ -9,9 +9,9 @@
   },
   "scripts": {
     "test": "NODE_ENV=test mocha --compilers js:babel-register --recursive",
-    "start": "NODE_ENV=development webpack-dev-server --config webpack.config.babel.js --progress",
+    "start": "NODE_ENV=development webpack-dev-server --config ./config/webpack.config.babel.js --progress",
     "prebuild": "yarn run clean",
-    "build": "NODE_ENV=production webpack  --config webpack.config.babel.js --progress",
+    "build": "NODE_ENV=production webpack  --config ./config/webpack.config.babel.js --progress",
     "clean": "rimraf ./dist && mkdir dist",
     "lint": "./node_modules/.bin/eslint 'src/**/*.@(js|jsx)'"
   },

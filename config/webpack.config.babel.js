@@ -4,11 +4,12 @@ import devConfig from './webpack.dev.config.babel';
 import prodConfig from './webpack.prod.config.babel';
 
 const CONFIG = process.env.npm_lifecycle_event === 'build' ? prodConfig : devConfig;
+const ROOT_DIR = path.resolve(__dirname, '..');
 
 export default merge({
-  entry: path.join(__dirname, 'src/index.jsx'),
+  entry: path.join(ROOT_DIR, 'src/index.jsx'),
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(ROOT_DIR, 'dist'),
     filename: 'bundle.js',
     publicPath: '/static/',
     library: 'reactAudio',
@@ -25,7 +26,7 @@ export default merge({
       },
       {
         test: /\.css$/,
-        include: [ path.join(__dirname, 'src/globalStyles') ],
+        include: [ path.join(ROOT_DIR, 'src/globalStyles') ],
         loaders: [
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
@@ -34,8 +35,8 @@ export default merge({
       },
       {
         test: /\.css$/,
-        include: [ path.join(__dirname, 'src') ],
-        exclude: [ path.join(__dirname, 'src/globalStyles') ],
+        include: [ path.join(ROOT_DIR, 'src') ],
+        exclude: [ path.join(ROOT_DIR, 'src/globalStyles') ],
         loaders: [
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
