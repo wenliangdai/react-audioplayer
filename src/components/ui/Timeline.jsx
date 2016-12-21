@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React, { PropTypes } from 'react';
-import { resetStyle } from '../utility/styles';
 import { timeLine } from '../../styles/audioElements.css';
 
 class Timeline extends React.Component {
