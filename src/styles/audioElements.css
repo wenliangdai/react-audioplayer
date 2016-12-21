@@ -1,0 +1,42 @@
+:root {
+  --button-svg: {
+    width: auto;
+    height: 40px;
+    flex: 1 1 auto;
+    background-color: #fff;
+    cursor: pointer;
+  };
+}
+
+.svgBtnDefault {
+  @apply --button-svg;
+}
+
+.timeLine {
+  flex: 0 1 auto;
+  width: 400px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.bottomStack {
+  flex: 0 1 auto;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.backImage {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 0;
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

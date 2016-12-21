@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Timeline from '../ui/Timeline';
 import Controls from './Controls';
 import BottomRightGroup from './BottomRightGroup';
-import { resetStyle } from '../utility/styles';
+import { bottomStack } from '../../styles/audioElements.css';
 
 const BottomStack = ({
   togglePlayPause,
@@ -12,7 +12,7 @@ const BottomStack = ({
   duration,
   setProgress
 }) => (
-  <div style={Object.assign({}, resetStyle, style)}>
+  <div className={bottomStack}>
     <Controls
       color={color}
       togglePlayPause={togglePlayPause}
@@ -34,15 +34,6 @@ BottomStack.propTypes = {
   progress: PropTypes.number,
   duration: PropTypes.number,
   setProgress: PropTypes.func
-};
-
-const style = {
-  flex: '0 1 auto',
-  width: '100%',
-  height: '60px',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center'
 };
 
 export default BottomStack;

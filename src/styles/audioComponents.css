@@ -1,0 +1,49 @@
+.boxShadowShallow {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.boxShadowMiddle {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.boxShadowDeep {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.audio {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 400px;
+  height: 100%;
+  min-height: 360px;
+  margin: auto;
+}
+
+.bottomRightGroup {
+  width: 100px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.controls {
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: 200px;
+  min-height: 60px;
+  width: 200px;
+  height: 60px;
+
+  &_left {
+    flex: 4 1 auto;
+    display: flex;
+  }
+
+  &_right {
+    flex: 1 1 auto;
+    display: flex;
+  }
+}

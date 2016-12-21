@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import BackImage from '../ui/BackImage';
 import BottomStack from './BottomStack';
-import { resetStyle, boxShadowSmall } from '../utility/styles';
+import { audio, boxShadowShallow } from '../../styles/audioComponents.css';
 
 class Audio extends React.Component {
   static propTypes = {
@@ -85,21 +85,6 @@ class Audio extends React.Component {
       this.intervalId = null;
     }
   }
-  getStyle() {
-    const defaultStyle = Object.assign({}, resetStyle, boxShadowSmall, {
-      display: 'flex',
-      flexDirection: 'column',
-      width: '100%',
-      minWidth: '400px',
-      height: '100%',
-      minHeight: '360px',
-      margin: 'auto'
-    });
-    if (this.props.style) {
-      return Object.assign({}, defaultStyle, this.props.style);
-    }
-    return defaultStyle;
-  }
   loadSrc(source) {
     this.audioElement.src = source;
     this.audioElement.load();
@@ -113,7 +98,7 @@ class Audio extends React.Component {
   }
   render() {
     return (
-      <div style={this.getStyle()}>
+      <div className={`${audio} ${boxShadowShallow}`}>
         <BackImage src="//oglm0zj29.bkt.gdipper.com/images/Adele.jpg" />
         <BottomStack
           color={this.props.color}

@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from './Button';
+import { svgBtnDefault } from '../../../styles/audioElements.css';
 
 export default class VolumeBtn extends Button {
   constructor(props) {
@@ -40,7 +41,7 @@ export default class VolumeBtn extends Button {
   }
   render() {
     return (
-      <button style={this.getStyle()}>
+      <button className={svgBtnDefault}>
         { this.getShape() }
       </button>
     );

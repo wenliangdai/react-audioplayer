@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { LikeBtn, ShareBtn } from '../ui/buttons/index';
-import { resetStyle } from '../utility/styles';
+import { bottomRightGroup } from '../../styles/audioComponents.css';
 
 class BottomRightGroup extends React.Component {
   static propTypes = {
@@ -13,19 +13,12 @@ class BottomRightGroup extends React.Component {
 
   render() {
     return (
-      <div style={Object.assign({}, resetStyle, style)}>
+      <div className={bottomRightGroup}>
         <LikeBtn color={this.props.color} />
         <ShareBtn color={this.props.color} />
       </div>
     );
   }
 }
-
-const style = {
-  width: '100px',
-  height: '60px',
-  display: 'flex',
-  alignItems: 'center'
-};
 
 export default BottomRightGroup;

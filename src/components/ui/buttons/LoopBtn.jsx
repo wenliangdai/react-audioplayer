@@ -1,10 +1,11 @@
 import React from 'react';
 import Button from './Button';
+import { svgBtnDefault } from '../../../styles/audioElements.css';
 
 export default class LoopBtn extends Button {
   render() {
     return (
-      <button style={this.getStyle()}>
+      <button className={svgBtnDefault}>
         <svg width="17px" height="13px" viewBox="140 23 17 13" version="1.1" xmlns="http://www.w3.org/2000/svg">
           <g id="LoopPrevBtn" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" transform="translate(148.000000, 29.894737) scale(-1, 1) translate(-148.000000, -29.894737) translate(140.000000, 24.000000)">
             <g id="Arrow-Top" transform="translate(0.842105, 0.000000)" fill={`${this.props.color}`}>

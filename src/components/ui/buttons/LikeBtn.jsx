@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Button from './Button';
+import { svgBtnDefault } from '../../../styles/audioElements.css';
 
 export default class LikeBtn extends Button {
   static propTypes = {
@@ -49,7 +50,7 @@ export default class LikeBtn extends Button {
   render() {
     return (
       <button
-        style={this.getStyle()}
+        className={svgBtnDefault}
         onClick={this.toggle}
       >
         { this.getShape() }

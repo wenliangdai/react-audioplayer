@@ -1,10 +1,11 @@
 {
   "presets": [
     "react",
-    "babel-preset-latest"
+    ["babel-preset-latest", {"modules": false}]
   ],
   "plugins": [
     "transform-object-assign",
-    ["transform-class-properties", { "spec": true }]
+    ["transform-class-properties", { "spec": true }],
+    "react-hot-loader/babel"
   ]
 }

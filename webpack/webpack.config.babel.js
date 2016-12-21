@@ -7,7 +7,12 @@ const CONFIG = process.env.npm_lifecycle_event === 'build' ? prodConfig : devCon
 const ROOT_DIR = path.resolve(__dirname, '..');
 
 export default merge({
-  entry: path.join(ROOT_DIR, 'src/index.jsx'),
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    path.join(ROOT_DIR, 'src/index.jsx')
+  ],
   output: {
     path: path.join(ROOT_DIR, 'dist'),
     filename: 'bundle.js',
@@ -26,18 +31,8 @@ export default merge({
       },
       {
         test: /\.css$/,
-        include: [ path.join(ROOT_DIR, 'src/globalStyles') ],
-        loaders: [
-          'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-          'postcss-loader'
-        ]
-      },
-      {
-        test: /\.css$/,
         include: [ path.join(ROOT_DIR, 'src') ],
-        exclude: [ path.join(ROOT_DIR, 'src/globalStyles') ],
-        loaders: [
+        use: [
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
           'postcss-loader?sourceMap=inline'
@@ -45,6 +40,7 @@ export default merge({
       }
     ]
   },
-  resolve: { extensions: ['.js', '.jsx', '.scss'] },
+  resolve: { extensions: ['.js', '.jsx', '.css'] },
+  context: path.resolve(__dirname, 'src'),
   target: 'web'
 }, CONFIG);

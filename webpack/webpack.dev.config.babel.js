@@ -8,14 +8,16 @@ const config = {
     contentBase: path.join(ROOT_DIR, 'src'),
     historyApiFallback: true,
     hot: true,
-    inline: true,
-    progress: true,
+    // inline: true,
+    // progress: true,
     host: '0.0.0.0',
-    port: '8080',
+    port: 8080,
+    publicPath: '/static/',
     stats: 'normal' // customize terminal console info
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development')
