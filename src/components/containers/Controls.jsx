@@ -5,20 +5,28 @@ import {controls, controls_left, controls_right} from '../../styles/audioCompone
 class Controls extends React.Component {
   static propTypes = {
     color: PropTypes.string,
+    playing: PropTypes.bool,
     togglePlayPause: PropTypes.func,
-    playing: PropTypes.bool
+    skipToNext: PropTypes.func,
+    skipToPrevious: PropTypes.func
   };
   render() {
     return (
       <div className={controls}>
         <div className={controls_left}>
-          <SkipPrevBtn color={this.props.color} />
-          <PlayBtn
-            playing={this.props.playing}
-            togglePlayPause={this.props.togglePlayPause}
+          <SkipPrevBtn
             color={this.props.color}
+            onClick={this.props.skipToPrevious}
           />
-          <SkipNextBtn color={this.props.color} />
+          <PlayBtn
+            color={this.props.color}
+            playing={this.props.playing}
+            onClick={this.props.togglePlayPause}
+          />
+          <SkipNextBtn
+            color={this.props.color}
+            onClick={this.props.skipToNext}
+          />
         </div>
         <div className={controls_right}>
           <LoopBtn color={this.props.color} />

@@ -5,18 +5,22 @@ import BottomRightGroup from './BottomRightGroup';
 import { bottomStack } from '../../styles/audioElements.css';
 
 const BottomStack = ({
-  togglePlayPause,
-  playing,
   color,
+  playing,
   progress,
   duration,
-  setProgress
+  togglePlayPause,
+  setProgress,
+  skipToNext,
+  skipToPrevious
 }) => (
   <div className={bottomStack}>
     <Controls
       color={color}
-      togglePlayPause={togglePlayPause}
       playing={playing}
+      togglePlayPause={togglePlayPause}
+      skipToNext={skipToNext}
+      skipToPrevious={skipToPrevious}
     />
     <Timeline
       duration={duration}

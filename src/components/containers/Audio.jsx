@@ -8,14 +8,14 @@ const Audio = ({
   color,
   backImageUrl,
   HOCStates,
-  HOCCallbacks
+  HOCHandlers
 }) => (
   <div className={`${audio} ${boxShadowShallow}`}>
     <BackImage src={backImageUrl} />
     <BottomStack
       color={color}
       {...HOCStates}
-      {...HOCCallbacks}
+      {...HOCHandlers}
     />
   </div>
 );

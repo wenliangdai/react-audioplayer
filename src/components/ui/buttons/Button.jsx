@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-class Button extends React.Component {
+class Button extends React.PureComponent {
   static propTypes = {
     onClick: PropTypes.func,
     style: PropTypes.shape({}),

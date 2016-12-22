@@ -4,8 +4,9 @@ import { svgBtnDefault } from '../../../styles/audioElements.css';
 
 export default class PlayBtn extends Button {
   static propTypes = {
-    togglePlayPause: PropTypes.func,
-    playing: PropTypes.bool
+    color: PropTypes.string,
+    playing: PropTypes.bool,
+    onClick: PropTypes.func
   };
   getShape() {
     if (this.props.playing) {
@@ -30,7 +31,7 @@ export default class PlayBtn extends Button {
     return (
       <button
         className={svgBtnDefault}
-        onClick={this.props.togglePlayPause}
+        onClick={this.props.onClick}
       >
         { this.getShape() }
       </button>
