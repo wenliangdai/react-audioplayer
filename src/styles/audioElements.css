@@ -18,6 +18,10 @@
   height: 60px;
   display: flex;
   align-items: center;
+
+  & > svg {
+    cursor: pointer;
+  }
 }
 
 .bottomStack {

@@ -86,6 +86,7 @@ class Timeline extends React.Component {
           width={trackWidth}
           height={draggerLength}
           viewBox={`0 0 ${trackWidth} ${draggerLength}`}
+          onClick={this.onClickTrack}
           onMouseOver={() => {
             this.setState({ showDragger: true });
           }}
@@ -93,7 +94,7 @@ class Timeline extends React.Component {
             this.setState({ showDragger: false });
           }}
         >
-          <g onClick={this.onClickTrack}>
+          <g>
             <rect
               x={draggerLength / 2}
               y={halfHeightDiff}

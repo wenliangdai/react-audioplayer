@@ -39,3 +39,6 @@ yarn.lock
 
 # IDE
 .idea/
+
+# Test song data
+src/songs/*
