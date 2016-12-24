@@ -7,9 +7,11 @@ import { bottomStack } from '../../styles/audioElements.css';
 const BottomStack = ({
   color,
   playing,
+  playingState,
   progress,
   duration,
   togglePlayPause,
+  togglePlayingState,
   setProgress,
   skipToNext,
   skipToPrevious
@@ -18,7 +20,9 @@ const BottomStack = ({
     <Controls
       color={color}
       playing={playing}
+      playingState={playingState}
       togglePlayPause={togglePlayPause}
+      togglePlayingState={togglePlayingState}
       skipToNext={skipToNext}
       skipToPrevious={skipToPrevious}
     />

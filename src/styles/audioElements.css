@@ -1,8 +1,11 @@
 :root {
   --button-svg: {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: auto;
     height: 40px;
-    flex: 1 1 auto;
     background-color: #fff;
     cursor: pointer;
   };

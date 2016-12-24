@@ -6,7 +6,9 @@ class Controls extends React.Component {
   static propTypes = {
     color: PropTypes.string,
     playing: PropTypes.bool,
+    playingState: PropTypes.number,
     togglePlayPause: PropTypes.func,
+    togglePlayingState: PropTypes.func,
     skipToNext: PropTypes.func,
     skipToPrevious: PropTypes.func
   };
@@ -29,7 +31,11 @@ class Controls extends React.Component {
           />
         </div>
         <div className={controls_right}>
-          <LoopBtn color={this.props.color} />
+          <LoopBtn
+            color={this.props.color}
+            playingState={this.props.playingState}
+            onClick={this.props.togglePlayingState}
+          />
           <VolumeBtn
             initialVolume={0}
             color={this.props.color}

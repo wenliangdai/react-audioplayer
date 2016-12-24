@@ -29,9 +29,11 @@ class Timeline extends React.Component {
     this.clearEventListeners = this.clearEventListeners.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    const lengthPerSecond = this.state.width / nextProps.duration;
-    const length = nextProps.progress * lengthPerSecond;
-    this.changeTranslate(length);
+    if (nextProps.duration !== 0) {
+      const lengthPerSecond = this.state.width / nextProps.duration;
+      const length = nextProps.progress * lengthPerSecond;
+      this.changeTranslate(length);
+    }
   }
   onMouseDown(e) {
     this.setState({ holding: true });

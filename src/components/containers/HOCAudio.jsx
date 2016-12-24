@@ -27,14 +27,23 @@ const HOCAudio = (Audio) => {
       this.setProgress = this.setProgress.bind(this);
       this.skipToNext = this.skipToNext.bind(this);
       this.skipToPrevious = this.skipToPrevious.bind(this);
+      this.setCycleNumPos = this.setCycleNumPos.bind(this);
+      this.togglePlayingState = this.togglePlayingState.bind(this);
 
+      const discardPileSize = Math.ceil(props.playlist.length / 2);
       this.state = {
-        autoPlay: this.props.autoPlay,
+        autoPlay: props.autoPlay,
         playing: false,
+        currentPlaylistPos: 0,
+        playingState: 0, // 0: cycle, 1: repeat, 2: shuffle
         progress: 0,
-        duration: 0
+        duration: 0,
+        shuffleState: {
+          size: discardPileSize,
+          drawPile: [...Array(props.playlist.length).keys()], // initialise full playlist indexes
+          discardPile: new Array()
+        }
       };
-      this.currentPlaylistPos = 0;
     }
     componentDidMount() {
       console.log('Audio mounted!');
@@ -63,15 +72,6 @@ const HOCAudio = (Audio) => {
         duration: this.audioElement.duration
       });
     }
-    onEnded() {
-      console.log('audio onended');
-      if (this.currentPlaylistPos + 1 < this.props.playlist.length) {
-        this.currentPlaylistPos++;
-        this.loadSrc();
-      }
-      this.clearInterval();
-      this.setState({ progress: 0 });
-    }
     onPlay() {
       console.log('audio onplay');
       this.setState({ playing: true });
@@ -84,15 +84,63 @@ const HOCAudio = (Audio) => {
       this.setState({ playing: false });
       this.clearInterval();
     }
+    onEnded() {
+      console.log('audio onended');
+      switch (this.state.playingState) {
+        case 0:
+          this.skipToNext();
+          break;
+        case 1:
+          this.setState({ progress: 0 });
+          this.togglePlayPause();
+          break;
+        case 2:
+          const ss = this.state.shuffleState;
+          const currentSongIndex = ss.drawPile.indexOf(this.state.currentPlaylistPos);
+          const newDrawPile = ss.drawPile;
+          const newDiscardPile = ss.discardPile;
+          if (currentSongIndex !== -1) {
+            newDrawPile.splice(currentSongIndex, 1);
+            newDiscardPile.push(this.state.currentPlaylistPos);
+          }
+          const index = Math.floor(Math.random() * ss.drawPile.length);
+          const sliced = newDrawPile.slice(index, index + 1);
+          this.setState({
+            currentPlaylistPos: sliced[0],
+            shuffleState: {
+              size: ss.size,
+              drawPile: newDrawPile,
+              discardPile: newDiscardPile
+            }
+          });
+          if (newDiscardPile.length === ss.size) {
+            const shiftedElement = newDiscardPile.shift();
+            newDrawPile.push(shiftedElement);
+            this.setState({
+              shuffleState: {
+                size: ss.size,
+                drawPile: newDrawPile,
+                discardPile: newDiscardPile
+              }
+            });
+          }
+          this.loadSrc();
+          break;
+        default:
+          console.log('onend BUG!!!');
+          break;
+      }
+    }
     onVolumeChange() {
       console.log('audio onvolumechange');
     }
     setProgress(progress) {
-      console.log(progress);
+      console.log(`progress is set to ${progress}`);
       this.audioElement.currentTime = progress;
       this.setState({ progress });
     }
     clearInterval() {
+      console.log('interval cleared');
       if (this.intervalId !== null) {
         clearInterval(this.intervalId);
         this.intervalId = null;
@@ -100,12 +148,15 @@ const HOCAudio = (Audio) => {
     }
     loadSrc() {
       console.log('load src');
-      if (this.currentPlaylistPos < this.props.playlist.length) {
-        this.audioElement.src = this.props.playlist[this.currentPlaylistPos].src;
+      if (this.state.currentPlaylistPos < this.props.playlist.length) {
+        this.audioElement.src = this.props.playlist[this.state.currentPlaylistPos].src;
         this.audioElement.load();
+        this.setState({ progress: 0 });
+        this.clearInterval();
       }
     }
     togglePlayPause() {
+      console.log('toggle playpause');
       if (this.state.playing) {
         this.audioElement.pause();
       } else {
@@ -113,36 +164,45 @@ const HOCAudio = (Audio) => {
       }
     }
     skipToNext() {
-      if (this.currentPlaylistPos < this.props.playlist.length - 1) {
-        this.currentPlaylistPos++;
-      } else if (this.props.playlist.length > 0) {
-        this.currentPlaylistPos = 0;
-      }
+      console.log('skip to next');
+      this.state.currentPlaylistPos = this.setCycleNumPos(this.state.currentPlaylistPos, 1, this.props.playlist.length);
       this.loadSrc();
-      this.setState({ progress: 0 });
-      this.clearInterval();
     }
     skipToPrevious() {
-      if (this.currentPlaylistPos > 0) {
-        this.currentPlaylistPos--;
-      } else if (this.props.playlist.length > 0) {
-        this.currentPlaylistPos = this.props.playlist.length - 1;
-      }
+      console.log('skip to next');
+      this.state.currentPlaylistPos = this.setCycleNumPos(this.state.currentPlaylistPos, -1, this.props.playlist.length);
       this.loadSrc();
-      this.setState({ progress: 0 });
-      this.clearInterval();
+    }
+    togglePlayingState() {
+      this.setState({
+        playingState: this.setCycleNumPos(this.state.playingState, 1, 3)
+      });
+    }
+    setCycleNumPos(currentVal, change, length) {
+      let newPos = currentVal + change;
+      if (newPos >= length) {
+        newPos -= length;
+      }
+      if (newPos < 0) {
+        newPos += length;
+      }
+      return newPos;
     }
     render() {
+      console.log('HOCAudio rendered!');
+      console.log(this.state);
       const newProps = {
         color: this.props.color,
-        backImageUrl: this.props.playlist[this.currentPlaylistPos].img,
+        backImageUrl: this.props.playlist[this.state.currentPlaylistPos].img,
         HOCStates: {
           playing: this.state.playing,
+          playingState: this.state.playingState,
           progress: this.state.progress,
           duration: this.state.duration
         },
         HOCHandlers: {
           togglePlayPause: this.togglePlayPause,
+          togglePlayingState: this.togglePlayingState,
           setProgress: this.setProgress,
           skipToNext: this.skipToNext,
           skipToPrevious: this.skipToPrevious
