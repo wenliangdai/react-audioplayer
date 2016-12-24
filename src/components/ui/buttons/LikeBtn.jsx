@@ -1,16 +1,13 @@
 import React, { PropTypes } from 'react';
 import Button from './Button';
-import { svgBtnDefault } from '../../../styles/audioElements.css';
 
-export default class LikeBtn extends Button {
+export default class LikeBtn extends React.PureComponent {
   static propTypes = {
     liked: PropTypes.bool
   };
-
   static defaultProps = {
     liked: false
   };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -23,16 +20,16 @@ export default class LikeBtn extends Button {
       liked: !this.state.liked
     });
   }
-  getShape() {
-    if (this.state.liked) {
-      return (
-        <svg width="20px" height="18px" viewBox="23 21 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <g id="Like" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" transform="translate(23.000000, 21.000000)">
-            <path d="M10,3.375 C9.25555556,1.4265 7.17,0 5,0 C2.17444444,0 0,2.1735 0,5.0625 C0,9.032625 4.21444444,12.10275 10,18 C15.7855556,12.10275 20,9.032625 20,5.0625 C20,2.1735 17.8255556,0 15,0 C12.8277778,0 10.7444444,1.4265 10,3.375 Z" id="Shape" fill={`${this.props.color}`} />
-          </g>
-        </svg>
-      );
-    }
+  renderLike() {
+    return (
+      <svg width="20px" height="18px" viewBox="23 21 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <g id="Like" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" transform="translate(23.000000, 21.000000)">
+          <path d="M10,3.375 C9.25555556,1.4265 7.17,0 5,0 C2.17444444,0 0,2.1735 0,5.0625 C0,9.032625 4.21444444,12.10275 10,18 C15.7855556,12.10275 20,9.032625 20,5.0625 C20,2.1735 17.8255556,0 15,0 C12.8277778,0 10.7444444,1.4265 10,3.375 Z" id="Shape" fill={`${this.props.color}`} />
+        </g>
+      </svg>
+    );
+  }
+  renderDislike() {
     return (
       <svg width="20px" height="18px" viewBox="21 20 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -49,12 +46,9 @@ export default class LikeBtn extends Button {
   }
   render() {
     return (
-      <button
-        className={svgBtnDefault}
-        onClick={this.toggle}
-      >
-        { this.getShape() }
-      </button>
+      <Button {...this.props}>
+        { this.state.liked ? this.renderLike() : this.renderDislike() }
+      </Button>
     );
   }
 }

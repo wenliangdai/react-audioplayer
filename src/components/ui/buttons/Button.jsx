@@ -1,30 +1,24 @@
 import React, { PropTypes } from 'react';
+import { svgBtnDefault } from '../../../styles/audioElements.css';
 
 class Button extends React.PureComponent {
   static propTypes = {
     onClick: PropTypes.func,
-    style: PropTypes.shape({}),
     color: PropTypes.string
   };
   static defaultProps = {
-    color: '#212121'
+    color: '#212121',
+    onClick: null
   };
-  getStyle() {
-    const defaultStyle = {
-      width: 'auto',
-      height: '40px',
-      flex: '1 1 auto',
-      margin: '0',
-      padding: '0',
-      backgroundColor: '#fff',
-      border: 'none',
-      outline: 'none',
-      cursor: 'pointer'
-    };
-    if (this.props.style) {
-      return Object.assign({}, defaultStyle, this.props.style);
-    }
-    return defaultStyle;
+  render() {
+    return (
+      <button
+        className={svgBtnDefault}
+        onClick={this.props.onClick}
+      >
+        { this.props.children }
+      </button>
+    );
   }
 }
 

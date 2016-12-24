@@ -1,8 +1,7 @@
 import React from 'react';
 import Button from './Button';
-import { svgBtnDefault } from '../../../styles/audioElements.css';
 
-export default class VolumeBtn extends Button {
+export default class VolumeBtn extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,9 +40,9 @@ export default class VolumeBtn extends Button {
   }
   render() {
     return (
-      <button className={svgBtnDefault}>
+      <Button {...this.props}>
         { this.getShape() }
-      </button>
+      </Button>
     );
   }
 }
