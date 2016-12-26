@@ -7,7 +7,9 @@ import PauseBtn from './PauseBtn';
 import ShareBtn from './ShareBtn';
 import SkipNextBtn from './SkipNextBtn';
 import SkipPrevBtn from './SkipPrevBtn';
-import VolumeBtn from './VolumeBtn';
+import VolumeHighBtn from './VolumeHighBtn';
+import VolumeLowBtn from './VolumeLowBtn';
+import VolumeMutedBtn from './VolumeMutedBtn';
 
 export {
   LikeBtn,
@@ -19,5 +21,7 @@ export {
   ShareBtn,
   SkipNextBtn,
   SkipPrevBtn,
-  VolumeBtn
+  VolumeHighBtn,
+  VolumeLowBtn,
+  VolumeMutedBtn
 };

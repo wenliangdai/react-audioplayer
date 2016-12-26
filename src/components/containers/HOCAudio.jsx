@@ -30,7 +30,6 @@ const HOCAudio = (Audio) => {
       this.skipToPrevious = this.skipToPrevious.bind(this);
       this.setCycleNumPos = this.setCycleNumPos.bind(this);
       this.togglePlayingState = this.togglePlayingState.bind(this);
-      this.toggleMuted = this.toggleMuted.bind(this);
 
       const discardPileSize = Math.ceil(props.playlist.length / 2);
       this.state = {

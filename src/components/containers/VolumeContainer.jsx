@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { VolumeBtn } from '../ui/buttons/index';
+import { VolumeHighBtn, VolumeLowBtn, VolumeMutedBtn } from '../ui/buttons/index';
 import { volumeContainer, volumeAdjustBox, boxShadowShallow } from '../../styles/audioComponents.css';
 
 class VolumeContainer extends React.PureComponent {
@@ -127,10 +127,21 @@ class VolumeContainer extends React.PureComponent {
             </g>
           </svg>
         </div>
-        <VolumeBtn
-          color={this.props.color}
-          onClick={this.onClickMute}
-        />
+        {
+          this.state.volume > 0 ?
+          (this.state.volume > 50 ?
+          <VolumeHighBtn
+            color={this.props.color}
+            onClick={this.onClickMute}
+          /> : <VolumeLowBtn
+            color={this.props.color}
+            onClick={this.onClickMute}
+          />) :
+          <VolumeMutedBtn
+            color={this.props.color}
+            onClick={this.onClickMute}
+          />
+        }
       </div>
     );
   }
