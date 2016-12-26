@@ -46,7 +46,7 @@ export default class LikeBtn extends React.PureComponent {
   }
   render() {
     return (
-      <Button {...this.props}>
+      <Button {...this.props} onClick={this.toggle}>
         { this.state.liked ? this.renderLike() : this.renderDislike() }
       </Button>
     );

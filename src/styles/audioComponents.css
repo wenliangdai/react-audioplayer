@@ -47,3 +47,25 @@
     display: flex;
   }
 }
+
+.volumeAdjustBox {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 30px;
+  height: 100px;
+  transform: translate3d(-10.5px, -100px, 0);
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+
+  & p {
+    font-size: 14px;
+  }
+
+  & svg > g {
+    cursor: pointer;
+  }
+}

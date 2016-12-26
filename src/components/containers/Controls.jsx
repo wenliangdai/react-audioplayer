@@ -1,12 +1,15 @@
 import React, { PropTypes } from 'react';
 import * as Buttons from '../ui/buttons/index';
-import {controls, controls_left, controls_right} from '../../styles/audioComponents.css';
+import VolumeContainer from './VolumeContainer';
+import { controls, controls_left, controls_right } from '../../styles/audioComponents.css';
 
 class Controls extends React.Component {
   static propTypes = {
     color: PropTypes.string,
     playing: PropTypes.bool,
+    volume: PropTypes.number,
     playingState: PropTypes.number,
+    setVolume: PropTypes.func,
     togglePlayPause: PropTypes.func,
     togglePlayingState: PropTypes.func,
     skipToNext: PropTypes.func,
@@ -54,9 +57,10 @@ class Controls extends React.Component {
             color={this.props.color}
             onClick={this.props.togglePlayingState}
           />
-          <Buttons.VolumeBtn
-            initialVolume={0}
+          <VolumeContainer
             color={this.props.color}
+            volume={this.props.volume}
+            setVolume={this.props.setVolume}
           />
         </div>
       </div>

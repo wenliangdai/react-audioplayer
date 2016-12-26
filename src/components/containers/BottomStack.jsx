@@ -10,8 +10,10 @@ const BottomStack = ({
   playingState,
   progress,
   duration,
+  volume,
   togglePlayPause,
   togglePlayingState,
+  setVolume,
   setProgress,
   skipToNext,
   skipToPrevious
@@ -21,6 +23,8 @@ const BottomStack = ({
       color={color}
       playing={playing}
       playingState={playingState}
+      volume={volume}
+      setVolume={setVolume}
       togglePlayPause={togglePlayPause}
       togglePlayingState={togglePlayingState}
       skipToNext={skipToNext}

@@ -18,46 +18,62 @@ class Timeline extends React.Component {
     this.state = {
       width: this.props.width || 400,
       translate: 0,
-      time: 0,
-      holding: false,
-      showDragger: false,
-      lastProgress: 0
+      time: 0
     };
+    this.holding = false;
+    this.hovering = false;
     this.changeTranslate = this.changeTranslate.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
     this.onClickTrack = this.onClickTrack.bind(this);
     this.clearEventListeners = this.clearEventListeners.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.duration !== 0) {
+    if (nextProps.duration !== 0 && !this.holding) {
       const lengthPerSecond = this.state.width / nextProps.duration;
       const length = nextProps.progress * lengthPerSecond;
       this.changeTranslate(length);
     }
   }
+  onMouseOver(e) {
+    this.hovering = true;
+  }
+  onMouseOut(e) {
+    this.hovering = false;
+  }
   onMouseDown(e) {
-    this.setState({ holding: true });
+    console.log('on moust down');
+    this.holding = true;
     document.onmousemove = this.onMouseMove(e.clientX, this.state.translate);
     document.onmouseup = this.clearEventListeners;
   }
   onMouseMove(offset, startPosition) {
     return (event) => {
-      if (this.state.holding) {
-        const translate = (event.clientX - offset) + startPosition;
+      if (this.holding) {
+        const translate = event.clientX - offset + startPosition;
         this.changeTranslate(translate);
       }
     };
   }
-  clearEventListeners() {
+  clearEventListeners(e) {
+    console.log('on mouse up');
     document.onmousemove = null;
     document.onmouseup = null;
-    this.setState({ holding: false });
+    if (!this.hovering) {
+      this.holding = false;
+    }
     this.props.setProgress(_.divide(this.state.translate, this.state.width) * this.props.duration);
   }
   onClickTrack(e) {
-    const val = e.clientX - e.target.parentNode.getBoundingClientRect().left;
-    this.changeTranslate(val);
-    this.props.setProgress(_.divide(val, this.state.width) * this.props.duration);
+    if (!this.holding) {
+      console.log('on click track');
+      const val = e.clientX - e.target.parentNode.getBoundingClientRect().left;
+      this.changeTranslate(val);
+      this.props.setProgress(_.divide(val, this.state.width) * this.props.duration);
+    } else {
+      this.holding = false;
+    }
   }
   getSVGWidth() {
     return this.state.width;
@@ -89,12 +105,8 @@ class Timeline extends React.Component {
           height={draggerLength}
           viewBox={`0 0 ${trackWidth} ${draggerLength}`}
           onClick={this.onClickTrack}
-          onMouseOver={() => {
-            this.setState({ showDragger: true });
-          }}
-          onMouseOut={() => {
-            this.setState({ showDragger: false });
-          }}
+          onMouseOver={this.onMouseOver}
+          onMouseOut={this.onMouseOut}
         >
           <g>
             <rect
@@ -114,11 +126,7 @@ class Timeline extends React.Component {
           </g>
           <g
             transform={`translate(${this.state.translate})`}
-            cursor="pointer"
             onMouseDown={this.onMouseDown}
-            style={{
-              // display: (this.state.showDragger || this.state.holding) ? 'inline' : 'none'
-            }}
           >
             <rect x="0" y="0" width={draggerLength} height={draggerLength} fill={`${this.props.color}`} rx="10" ry="10" />
             <rect x={halfHeightDiff} y={halfHeightDiff} width={trackHeight} height={trackHeight} fill="#fff" rx="10" ry="10" />

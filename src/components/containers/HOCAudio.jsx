@@ -24,11 +24,13 @@ const HOCAudio = (Audio) => {
       this.onEnded = this.onEnded.bind(this);
       this.onPlay = this.onPlay.bind(this);
       this.onPause = this.onPause.bind(this);
+      this.setVolume = this.setVolume.bind(this);
       this.setProgress = this.setProgress.bind(this);
       this.skipToNext = this.skipToNext.bind(this);
       this.skipToPrevious = this.skipToPrevious.bind(this);
       this.setCycleNumPos = this.setCycleNumPos.bind(this);
       this.togglePlayingState = this.togglePlayingState.bind(this);
+      this.toggleMuted = this.toggleMuted.bind(this);
 
       const discardPileSize = Math.ceil(props.playlist.length / 2);
       this.state = {
@@ -38,6 +40,7 @@ const HOCAudio = (Audio) => {
         playingState: 0, // 0: cycle, 1: repeat, 2: shuffle
         progress: 0,
         duration: 0,
+        volume: 1,
         shuffleState: {
           size: discardPileSize,
           drawPile: [...Array(props.playlist.length).keys()], // initialise full playlist indexes
@@ -57,6 +60,7 @@ const HOCAudio = (Audio) => {
       this.audioElement.addEventListener('volumechange', this.onVolumeChange);
 
       this.loadSrc();
+      this.setState({ volume: this.audioElement.volume });
     }
     componentWillUnmount() {
       this.audioElement.removeEventListener('canplay');
@@ -131,8 +135,10 @@ const HOCAudio = (Audio) => {
           break;
       }
     }
-    onVolumeChange() {
-      console.log('audio onvolumechange');
+    setVolume(volume) {
+      console.log(`volume is set to ${volume}`);
+      this.audioElement.volume = volume;
+      this.setState({ volume: volume });
     }
     setProgress(progress) {
       console.log(`progress is set to ${progress}`);
@@ -189,8 +195,6 @@ const HOCAudio = (Audio) => {
       return newPos;
     }
     render() {
-      console.log('HOCAudio rendered!');
-      console.log(this.state);
       const newProps = {
         color: this.props.color,
         backImageUrl: this.props.playlist[this.state.currentPlaylistPos].img,
@@ -198,11 +202,13 @@ const HOCAudio = (Audio) => {
           playing: this.state.playing,
           playingState: this.state.playingState,
           progress: this.state.progress,
-          duration: this.state.duration
+          duration: this.state.duration,
+          volume: this.state.volume * 100
         },
         HOCHandlers: {
           togglePlayPause: this.togglePlayPause,
           togglePlayingState: this.togglePlayingState,
+          setVolume: this.setVolume,
           setProgress: this.setProgress,
           skipToNext: this.skipToNext,
           skipToPrevious: this.skipToPrevious
