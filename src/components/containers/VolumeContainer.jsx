@@ -20,6 +20,8 @@ class VolumeContainer extends React.PureComponent {
     this.volumeWidth = 4;
     this.draggerLength = 12;
     this.holding = false;
+    this.onmousemoveSaver = null;
+    this.onmouseupSaver = null;
     this.onClick = this.onClick.bind(this);
     this.onClickMute = this.onClickMute.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
@@ -41,6 +43,12 @@ class VolumeContainer extends React.PureComponent {
   }
   onMouseDown(e) {
     this.holding = true;
+    if (document.onmousemove) {
+      this.onmousemoveSaver = document.onmousemove;
+    }
+    if (document.onmouseup) {
+      this.onmouseupSaver = document.onmouseup;
+    }
     document.onmousemove = this.onMouseDragging(e.clientY, this.state.translate);
     document.onmouseup = this.clearEventListeners;
   }
@@ -63,8 +71,8 @@ class VolumeContainer extends React.PureComponent {
     };
   }
   clearEventListeners() {
-    document.onmousemove = null;
-    document.onmouseup = null;
+    document.onmousemove = this.onmousemoveSaver;
+    document.onmouseup = this.onmouseupSaver;
     this.holding = false;
     this.props.setVolume(this.state.volume / 100);
   }

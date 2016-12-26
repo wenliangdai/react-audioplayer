@@ -22,6 +22,8 @@ class Timeline extends React.Component {
     };
     this.holding = false;
     this.hovering = false;
+    this.onmousemoveSaver = null;
+    this.onmouseupSaver = null;
     this.changeTranslate = this.changeTranslate.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
@@ -43,8 +45,13 @@ class Timeline extends React.Component {
     this.hovering = false;
   }
   onMouseDown(e) {
-    console.log('on moust down');
     this.holding = true;
+    if (document.onmousemove) {
+      this.onmousemoveSaver = document.onmousemove;
+    }
+    if (document.onmouseup) {
+      this.onmouseupSaver = document.onmouseup;
+    }
     document.onmousemove = this.onMouseMove(e.clientX, this.state.translate);
     document.onmouseup = this.clearEventListeners;
   }
@@ -57,9 +64,8 @@ class Timeline extends React.Component {
     };
   }
   clearEventListeners(e) {
-    console.log('on mouse up');
-    document.onmousemove = null;
-    document.onmouseup = null;
+    document.onmousemove = this.onmousemoveSaver;
+    document.onmouseup = this.onmouseupSaver;
     if (!this.hovering) {
       this.holding = false;
     }
@@ -138,7 +144,6 @@ class Timeline extends React.Component {
   componentDidMount() {
     const trackWidth = (document.querySelector(`.${timeLine}`).getBoundingClientRect().width || 400) - this.getSVGHeight();
     this.setState({
-      // Set the width of track to the width of its container
       width: trackWidth
     });
   }
