@@ -1,18 +1,17 @@
 import _ from 'lodash';
 import React, { PropTypes } from 'react';
-import { timeLine } from '../../styles/audioElements.css';
+import { timeLine } from '../styles/audioElements.css';
 
 class Timeline extends React.Component {
   static propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     duration: PropTypes.number.isRequired,
-    progress: PropTypes.number.isRequired,
+    progress: PropTypes.number.isRequired
+  };
+  static contextTypes = {
     color: PropTypes.string
-  };
-  static defaultProps = {
-    color: '#212121'
-  };
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -127,14 +126,14 @@ class Timeline extends React.Component {
               y={halfHeightDiff}
               width={this.state.translate}
               height={trackHeight}
-              fill={`${this.props.color}`} rx="2" ry="2"
+              fill={`${this.context.color}`} rx="2" ry="2"
             />
           </g>
           <g
             transform={`translate(${this.state.translate})`}
             onMouseDown={this.onMouseDown}
           >
-            <rect x="0" y="0" width={draggerLength} height={draggerLength} fill={`${this.props.color}`} rx="10" ry="10" />
+            <rect x="0" y="0" width={draggerLength} height={draggerLength} fill={`${this.context.color}`} rx="10" ry="10" />
             <rect x={halfHeightDiff} y={halfHeightDiff} width={trackHeight} height={trackHeight} fill="#fff" rx="10" ry="10" />
           </g>
         </svg>

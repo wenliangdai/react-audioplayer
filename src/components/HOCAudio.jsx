@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const HOCAudio = (Audio) => {
-  return class AudioWrapper extends React.Component {
+  return class HOCAudioComponent extends React.Component {
     static propTypes = {
       autoPlay: PropTypes.bool,
       playlist: PropTypes.arrayOf(PropTypes.shape({
@@ -62,6 +62,7 @@ const HOCAudio = (Audio) => {
       this.setState({ volume: this.audioElement.volume });
     }
     componentWillUnmount() {
+      this.clearInterval();
       this.audioElement.removeEventListener('canplay');
       this.audioElement.removeEventListener('ended');
       this.audioElement.removeEventListener('play');
@@ -196,22 +197,27 @@ const HOCAudio = (Audio) => {
     render() {
       const newProps = {
         color: this.props.color,
-        backImageUrl: this.props.playlist[this.state.currentPlaylistPos].img,
-        HOCStates: {
+        songImageSrc: this.props.playlist[this.state.currentPlaylistPos].img,
+        controlStates: {
           playing: this.state.playing,
           playingState: this.state.playingState,
-          progress: this.state.progress,
-          duration: this.state.duration,
           volume: this.state.volume * 100
         },
-        HOCHandlers: {
+        controlCallbacks: {
+          setVolume: this.setVolume,
           togglePlayPause: this.togglePlayPause,
           togglePlayingState: this.togglePlayingState,
-          setVolume: this.setVolume,
-          setProgress: this.setProgress,
           skipToNext: this.skipToNext,
           skipToPrevious: this.skipToPrevious
-        }
+        },
+        timelineStates: {
+          progress: this.state.progress,
+          duration: this.state.duration
+        },
+        timelineCallbacks: {
+          setProgress: this.setProgress
+        },
+        children: this.props.children
       }
       return <Audio {...newProps} />;
     }

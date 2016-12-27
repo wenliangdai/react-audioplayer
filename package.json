@@ -29,6 +29,7 @@
     "babel-preset-latest": "^6.16.0",
     "babel-preset-react": "^6.16.0",
     "css-loader": "^0.26.1",
+    "doiuse": "^2.5.0",
     "eslint": "3.x",
     "eslint-config-airbnb": "^12.0.0",
     "eslint-plugin-import": "^2.0.1",

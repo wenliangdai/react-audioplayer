@@ -1,12 +1,16 @@
 import React, { PropTypes } from 'react';
-import { VolumeHighBtn, VolumeLowBtn, VolumeMutedBtn } from '../ui/buttons/index';
-import { volumeContainer, volumeAdjustBox, boxShadowShallow } from '../../styles/audioComponents.css';
+import { VolumeHighBtn, VolumeLowBtn, VolumeMutedBtn } from './buttons/index';
+import { volumeContainer, volumeAdjustBox, boxShadowShallow, volumeAdjustBoxToBottom } from '../styles/audioComponents.css';
 
 class VolumeContainer extends React.PureComponent {
   static propTypes = {
     color: PropTypes.string,
+    downwards: PropTypes.bool,
     volume: PropTypes.number,
     setVolume: PropTypes.func
+  };
+  static defaultProps = {
+    downwards: false
   };
   constructor(props) {
     super(props);
@@ -93,13 +97,17 @@ class VolumeContainer extends React.PureComponent {
   render() {
     const offsetX = (this.svgWidth - this.volumeWidth) / 2;
     const offsetY = this.draggerLength / 2;
+    let boxClassName = `${volumeAdjustBox} ${boxShadowShallow}`;
+    if (this.props.downwards) {
+      boxClassName = `${volumeAdjustBox} ${boxShadowShallow} ${volumeAdjustBoxToBottom}`;
+    }
     return (
       <div
         className={volumeContainer}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
       >
-        <div className={`${volumeAdjustBox} ${boxShadowShallow}`}>
+        <div className={boxClassName}>
           <p>{this.state.volume}</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"

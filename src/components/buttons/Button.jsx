@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { svgBtnDefault } from '../../../styles/audioElements.css';
+import { svgBtnDefault } from '../../styles/audioElements.css';
 
 class Button extends React.PureComponent {
   static propTypes = {

@@ -4,7 +4,7 @@ import RepeatBtn from './RepeatBtn';
 import ShuffleBtn from './ShuffleBtn';
 import PlayBtn from './PlayBtn';
 import PauseBtn from './PauseBtn';
-import ShareBtn from './ShareBtn';
+import PlaylistBtn from './PlaylistBtn';
 import SkipNextBtn from './SkipNextBtn';
 import SkipPrevBtn from './SkipPrevBtn';
 import VolumeHighBtn from './VolumeHighBtn';
@@ -18,7 +18,7 @@ export {
   ShuffleBtn,
   PlayBtn,
   PauseBtn,
-  ShareBtn,
+  PlaylistBtn,
   SkipNextBtn,
   SkipPrevBtn,
   VolumeHighBtn,
