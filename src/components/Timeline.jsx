@@ -89,7 +89,6 @@ class Timeline extends React.Component {
   changeTranslate(translate) {
     let newTranslate = translate;
     const max = this.getSVGWidth();
-
     if (translate < 0) { newTranslate = 0; }
     if (translate > max) { newTranslate = max; }
     this.setState({
@@ -98,17 +97,17 @@ class Timeline extends React.Component {
     });
   }
   render() {
-    const trackWidth = this.getSVGWidth() + this.getSVGHeight();
+    const containerWidth = this.getSVGWidth() + 12;
     const trackHeight = 4;
     const draggerLength = 12;
     const halfHeightDiff = 4; // (draggerLength - trackHeight) / 2
     return (
-      <div className={timeLine}>
+      <div className={timeLine} style={{width: containerWidth}}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width={trackWidth}
+          width={containerWidth}
           height={draggerLength}
-          viewBox={`0 0 ${trackWidth} ${draggerLength}`}
+          viewBox={`0 0 ${containerWidth} ${draggerLength}`}
           onClick={this.onClickTrack}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
@@ -117,7 +116,7 @@ class Timeline extends React.Component {
             <rect
               x={draggerLength / 2}
               y={halfHeightDiff}
-              width={trackWidth - (draggerLength)}
+              width={containerWidth - (draggerLength)}
               height={trackHeight}
               fill="#E0E0E0" rx="2" ry="2"
             />
@@ -141,7 +140,7 @@ class Timeline extends React.Component {
     );
   }
   componentDidMount() {
-    const trackWidth = (document.querySelector(`.${timeLine}`).getBoundingClientRect().width || 400) - this.getSVGHeight();
+    const trackWidth = Math.round(document.querySelector(`.${timeLine}`).parentNode.getBoundingClientRect().width / 2 - 12);
     this.setState({
       width: trackWidth
     });

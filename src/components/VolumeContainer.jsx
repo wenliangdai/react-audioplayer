@@ -4,13 +4,15 @@ import { volumeContainer, volumeAdjustBox, boxShadowShallow, volumeAdjustBoxToBo
 
 class VolumeContainer extends React.PureComponent {
   static propTypes = {
-    color: PropTypes.string,
     downwards: PropTypes.bool,
     volume: PropTypes.number,
     setVolume: PropTypes.func
   };
   static defaultProps = {
     downwards: false
+  };
+  static contextTypes = {
+    color: PropTypes.string
   };
   constructor(props) {
     super(props);
@@ -123,7 +125,7 @@ class VolumeContainer extends React.PureComponent {
                 y={offsetY}
                 width={this.volumeWidth}
                 height={this.svgHeight - this.draggerLength}
-                fill={`${this.props.color}`} rx="2" ry="2"
+                fill={`${this.context.color}`} rx="2" ry="2"
               />
               <rect
                 x={offsetX}
@@ -138,7 +140,7 @@ class VolumeContainer extends React.PureComponent {
               onMouseDown={this.onMouseDown}
               onMouseMove={this.onMouseDragging}
             >
-              <rect x="0" y="0" width={this.svgWidth} height='12' fill={`${this.props.color}`} rx="10" ry="10" />
+              <rect x="0" y="0" width={this.svgWidth} height='12' fill={`${this.context.color}`} rx="10" ry="10" />
               <rect x={offsetX} y={offsetX} width={this.volumeWidth} height={this.volumeWidth} fill="#fff" rx="10" ry="10" />
             </g>
           </svg>
@@ -147,14 +149,11 @@ class VolumeContainer extends React.PureComponent {
           this.state.volume > 0 ?
           (this.state.volume > 50 ?
           <VolumeHighBtn
-            color={this.props.color}
             onClick={this.onClickMute}
           /> : <VolumeLowBtn
-            color={this.props.color}
             onClick={this.onClickMute}
           />) :
           <VolumeMutedBtn
-            color={this.props.color}
             onClick={this.onClickMute}
           />
         }
