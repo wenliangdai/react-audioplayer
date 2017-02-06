@@ -1,5 +1,6 @@
-import _ from 'lodash';
 import React, { PropTypes } from 'react';
+import ProgressBar from './ProgressBar';
+import ProgressBarHandler from './ProgressBarHandler';
 import { timeLine } from '../styles/audioElements.css';
 
 class Timeline extends React.Component {
@@ -68,14 +69,13 @@ class Timeline extends React.Component {
     if (!this.hovering) {
       this.holding = false;
     }
-    this.props.setProgress(_.divide(this.state.translate, this.state.width) * this.props.duration);
+    this.props.setProgress((this.state.translate / this.state.width) * this.props.duration);
   }
   onClickTrack(e) {
     if (!this.holding) {
-      console.log('on click track');
       const val = e.clientX - e.target.parentNode.getBoundingClientRect().left;
       this.changeTranslate(val);
-      this.props.setProgress(_.divide(val, this.state.width) * this.props.duration);
+      this.props.setProgress((val / this.state.width) * this.props.duration);
     } else {
       this.holding = false;
     }
@@ -93,49 +93,30 @@ class Timeline extends React.Component {
     if (translate > max) { newTranslate = max; }
     this.setState({
       translate: newTranslate,
-      time: Math.floor(_.divide(newTranslate, max) * this.props.duration)
+      time: Math.floor((newTranslate / max) * this.props.duration)
     });
   }
   render() {
     const containerWidth = this.getSVGWidth() + 12;
     const trackHeight = 4;
     const draggerLength = 12;
-    const halfHeightDiff = 4; // (draggerLength - trackHeight) / 2
     return (
       <div className={timeLine} style={{width: containerWidth}}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
+        <ProgressBar
           width={containerWidth}
           height={draggerLength}
-          viewBox={`0 0 ${containerWidth} ${draggerLength}`}
+          trackHeight={trackHeight}
+          translate={this.state.translate}
           onClick={this.onClickTrack}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
         >
-          <g>
-            <rect
-              x={draggerLength / 2}
-              y={halfHeightDiff}
-              width={containerWidth - (draggerLength)}
-              height={trackHeight}
-              fill="#E0E0E0" rx="2" ry="2"
-            />
-            <rect
-              x={draggerLength / 2}
-              y={halfHeightDiff}
-              width={this.state.translate}
-              height={trackHeight}
-              fill={`${this.context.color}`} rx="2" ry="2"
-            />
-          </g>
-          <g
-            transform={`translate(${this.state.translate})`}
+          <ProgressBarHandler
+            length={draggerLength}
+            translate={this.state.translate}
             onMouseDown={this.onMouseDown}
-          >
-            <rect x="0" y="0" width={draggerLength} height={draggerLength} fill={`${this.context.color}`} rx="10" ry="10" />
-            <rect x={halfHeightDiff} y={halfHeightDiff} width={trackHeight} height={trackHeight} fill="#fff" rx="10" ry="10" />
-          </g>
-        </svg>
+          />
+        </ProgressBar>
       </div>
     );
   }
