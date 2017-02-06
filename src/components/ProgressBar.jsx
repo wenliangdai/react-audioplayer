@@ -40,8 +40,17 @@ const ProgressBar = ({
       { children }
     </svg>
   );
-}
+};
+ProgressBar.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  trackHeight: PropTypes.number.isRequired,
+  translate: PropTypes.number.isRequired,
+  onClick: PropTypes.func,
+  onMouseOver: PropTypes.func,
+  onMouseOut: PropTypes.func
+};
 ProgressBar.contextTypes = {
   color: PropTypes.string
-}
+};
 export default ProgressBar;

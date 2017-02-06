@@ -14,13 +14,12 @@ const progressBarHandler = ({
   </g>
 );
 progressBarHandler.propTypes = {
-  length: PropTypes.number,
-  translate: PropTypes.number,
-  color: PropTypes.string,
+  length: PropTypes.number.isRequired,
+  translate: PropTypes.number.isRequired,
   onMouseDown: PropTypes.func
 };
 progressBarHandler.contextTypes = {
   color: PropTypes.string
-}
+};
 
 export default progressBarHandler;
