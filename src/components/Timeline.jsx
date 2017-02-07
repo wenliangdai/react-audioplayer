@@ -10,9 +10,6 @@ class Timeline extends React.Component {
     duration: PropTypes.number.isRequired,
     progress: PropTypes.number.isRequired
   };
-  static contextTypes = {
-    color: PropTypes.string
-  }
   constructor(props) {
     super(props);
     this.state = {
@@ -52,13 +49,13 @@ class Timeline extends React.Component {
     if (document.onmouseup) {
       this.onmouseupSaver = document.onmouseup;
     }
-    document.onmousemove = this.onMouseMove(e.clientX, this.state.translate);
+    document.onmousemove = this.onMouseMove(e.pageX, this.state.translate);
     document.onmouseup = this.clearEventListeners;
   }
   onMouseMove(offset, startPosition) {
     return (event) => {
       if (this.holding) {
-        const translate = event.clientX - offset + startPosition;
+        const translate = event.pageX - offset + startPosition;
         this.changeTranslate(translate);
       }
     };
@@ -73,7 +70,7 @@ class Timeline extends React.Component {
   }
   onClickTrack(e) {
     if (!this.holding) {
-      const val = e.clientX - e.target.parentNode.getBoundingClientRect().left;
+      const val = e.pageX - e.target.parentNode.getBoundingClientRect().left;
       this.changeTranslate(val);
       this.props.setProgress((val / this.state.width) * this.props.duration);
     } else {
@@ -113,7 +110,7 @@ class Timeline extends React.Component {
         >
           <ProgressBarHandler
             length={draggerLength}
-            translate={this.state.translate}
+            translate={`translate(${this.state.translate})`}
             onMouseDown={this.onMouseDown}
           />
         </ProgressBar>

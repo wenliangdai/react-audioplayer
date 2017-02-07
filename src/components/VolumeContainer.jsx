@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import { VolumeHighBtn, VolumeLowBtn, VolumeMutedBtn } from './buttons/index';
+import ProgressBarHandler from './ProgressBarHandler';
+import VolumeBar from './VolumeBar';
 import { volumeContainer, volumeAdjustBox, boxShadowShallow, volumeAdjustBoxToBottom } from '../styles/audioComponents.css';
 
 class VolumeContainer extends React.PureComponent {
@@ -10,9 +12,6 @@ class VolumeContainer extends React.PureComponent {
   };
   static defaultProps = {
     downwards: false
-  };
-  static contextTypes = {
-    color: PropTypes.string
   };
   constructor(props) {
     super(props);
@@ -32,20 +31,20 @@ class VolumeContainer extends React.PureComponent {
     this.onClickMute = this.onClickMute.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseDragging = this.onMouseDragging.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
     this.clearEventListeners = this.clearEventListeners.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     if (!this.holding) {
       this.setState({
-        translate: (100 - nextProps.volume) * 0.54,
+        translate: (100 - nextProps.volume) * 0.6,
         volume: Math.round(nextProps.volume)
       });
     }
   }
   onClick(e) {
-    const newVolume = Math.round(100 - (e.clientY - e.target.getBoundingClientRect().top) / 0.54) / 100;
+    const newVolume = Math.round(100 - (e.clientY - e.target.getBoundingClientRect().top) / 0.6) / 100;
     this.props.setVolume(newVolume);
-    console.log(newVolume);
   }
   onMouseDown(e) {
     this.holding = true;
@@ -65,12 +64,12 @@ class VolumeContainer extends React.PureComponent {
         if (newTranslate < 0) {
           newTranslate = 0;
         }
-        if (newTranslate > 54) {
-          newTranslate = 54;
+        if (newTranslate > 60) {
+          newTranslate = 60;
         }
         this.setState({
           translate: newTranslate,
-          volume: Math.round(100 - newTranslate / 0.54)
+          volume: Math.round(100 - newTranslate / 0.6)
         });
         this.props.setVolume(this.state.volume / 100);
       }
@@ -80,13 +79,18 @@ class VolumeContainer extends React.PureComponent {
     document.onmousemove = this.onmousemoveSaver;
     document.onmouseup = this.onmouseupSaver;
     this.holding = false;
+    if (!document.querySelector('.volumebar-show-hide').hidden) {
+      document.querySelector('.volumebar-show-hide').hidden = true;
+    }
     this.props.setVolume(this.state.volume / 100);
   }
   onMouseOver(e) {
-    document.querySelector(`.${volumeAdjustBox}`).style.display = 'flex';
+    document.querySelector('.volumebar-show-hide').hidden = false;
   }
   onMouseOut(e) {
-    document.querySelector(`.${volumeAdjustBox}`).style.display = 'none';
+    if (!this.holding) {
+      document.querySelector('.volumebar-show-hide').hidden = true;
+    }
   }
   onClickMute(e) {
     if (this.state.volume > 0) {
@@ -109,42 +113,24 @@ class VolumeContainer extends React.PureComponent {
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
       >
-        <div className={boxClassName}>
-          <p>{this.state.volume}</p>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width={this.svgWidth}
-            height={this.svgHeight}
-            viewBox={`0 0 ${this.svgWidth} ${this.svgHeight - this.draggerLength}`}
-          >
-            <g
+        <section className='volumebar-show-hide' hidden>
+          <div className={boxClassName} hidden>
+            <p>{this.state.volume}</p>
+            <VolumeBar
+              width={this.svgWidth}
+              height={this.svgHeight}
+              barWidth={this.volumeWidth}
+              translate={this.state.translate}
               onClick={this.onClick}
             >
-              <rect
-                x={offsetX}
-                y={offsetY}
-                width={this.volumeWidth}
-                height={this.svgHeight - this.draggerLength}
-                fill={`${this.context.color}`} rx="2" ry="2"
+              <ProgressBarHandler
+                length={this.svgWidth}
+                translate={`translate(0, ${this.state.translate})`}
+                onMouseDown={this.onMouseDown}
               />
-              <rect
-                x={offsetX}
-                y={offsetY}
-                width={this.volumeWidth}
-                height={this.state.translate}
-                fill="#E0E0E0" rx="2" ry="2"
-              />
-            </g>
-            <g
-              transform={`translate(0, ${this.state.translate})`}
-              onMouseDown={this.onMouseDown}
-              onMouseMove={this.onMouseDragging}
-            >
-              <rect x="0" y="0" width={this.svgWidth} height='12' fill={`${this.context.color}`} rx="10" ry="10" />
-              <rect x={offsetX} y={offsetX} width={this.volumeWidth} height={this.volumeWidth} fill="#fff" rx="10" ry="10" />
-            </g>
-          </svg>
-        </div>
+            </VolumeBar>
+          </div>
+        </section>
         {
           this.state.volume > 0 ?
           (this.state.volume > 50 ?

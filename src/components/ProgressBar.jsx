@@ -25,7 +25,7 @@ const ProgressBar = ({
         <rect
           x={height / 2}
           y={diff}
-          width={width - (height)}
+          width={width - height}
           height={trackHeight}
           fill="#E0E0E0" rx="2" ry="2"
         />
