@@ -31,7 +31,6 @@ class MainPlayer extends React.PureComponent {
            </ButtonGroup> :
            null
          }
-
       </div>
     );
   }

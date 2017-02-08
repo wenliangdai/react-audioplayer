@@ -5,7 +5,7 @@ import { timeLine } from '../styles/audioElements.css';
 
 class Timeline extends React.Component {
   static propTypes = {
-    width: PropTypes.number,
+    barWidth: PropTypes.number,
     height: PropTypes.number,
     duration: PropTypes.number.isRequired,
     progress: PropTypes.number.isRequired
@@ -13,35 +13,26 @@ class Timeline extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: this.props.width || 400,
-      translate: 0,
-      time: 0
+      barWidth: this.props.width || 0,
+      translate: 0
     };
     this.holding = false;
-    this.hovering = false;
     this.onmousemoveSaver = null;
     this.onmouseupSaver = null;
     this.changeTranslate = this.changeTranslate.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
-    this.onMouseOver = this.onMouseOver.bind(this);
-    this.onMouseOut = this.onMouseOut.bind(this);
     this.onClickTrack = this.onClickTrack.bind(this);
     this.clearEventListeners = this.clearEventListeners.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.duration !== 0 && !this.holding) {
-      const lengthPerSecond = this.state.width / nextProps.duration;
+      const lengthPerSecond = this.state.barWidth / nextProps.duration;
       const length = nextProps.progress * lengthPerSecond;
       this.changeTranslate(length);
     }
   }
-  onMouseOver(e) {
-    this.hovering = true;
-  }
-  onMouseOut(e) {
-    this.hovering = false;
-  }
   onMouseDown(e) {
+    e.stopPropagation();
     this.holding = true;
     if (document.onmousemove) {
       this.onmousemoveSaver = document.onmousemove;
@@ -63,53 +54,39 @@ class Timeline extends React.Component {
   clearEventListeners(e) {
     document.onmousemove = this.onmousemoveSaver;
     document.onmouseup = this.onmouseupSaver;
-    if (!this.hovering) {
-      this.holding = false;
-    }
-    this.props.setProgress((this.state.translate / this.state.width) * this.props.duration);
+    this.holding = false;
+    this.props.setProgress((this.state.translate / this.state.barWidth) * this.props.duration);
   }
   onClickTrack(e) {
-    if (!this.holding) {
-      const val = e.pageX - e.target.parentNode.getBoundingClientRect().left;
-      this.changeTranslate(val);
-      this.props.setProgress((val / this.state.width) * this.props.duration);
-    } else {
-      this.holding = false;
-    }
+    e.stopPropagation();
+    const timelineDisToLeft = e.target.parentNode.getBoundingClientRect().left;
+    const diff = e.pageX - timelineDisToLeft;
+    this.changeTranslate(diff);
+    this.props.setProgress((diff / this.state.barWidth) * this.props.duration);
   }
-  getSVGWidth() {
-    return this.state.width;
-  }
-  getSVGHeight() {
-    return this.props.height || 12;
-  }
-  changeTranslate(translate) {
-    let newTranslate = translate;
-    const max = this.getSVGWidth();
-    if (translate < 0) { newTranslate = 0; }
-    if (translate > max) { newTranslate = max; }
-    this.setState({
-      translate: newTranslate,
-      time: Math.floor((newTranslate / max) * this.props.duration)
-    });
+  changeTranslate(newTranslate) {
+    let translate = newTranslate;
+    const max = this.state.barWidth;
+    if (translate < 0) { translate = 0; }
+    if (translate > max) { translate = max; }
+    this.setState({ translate });
   }
   render() {
-    const containerWidth = this.getSVGWidth() + 12;
-    const trackHeight = 4;
-    const draggerLength = 12;
+    const handlerLength = 12;
+    const containerWidth = this.state.barWidth + handlerLength;
+    const barHeight = 4;
     return (
       <div className={timeLine} style={{width: containerWidth}}>
         <ProgressBar
           width={containerWidth}
-          height={draggerLength}
-          trackHeight={trackHeight}
+          height={handlerLength}
+          barWidth={this.state.barWidth}
+          barHeight={barHeight}
           translate={this.state.translate}
           onClick={this.onClickTrack}
-          onMouseOver={this.onMouseOver}
-          onMouseOut={this.onMouseOut}
         >
           <ProgressBarHandler
-            length={draggerLength}
+            length={handlerLength}
             translate={`translate(${this.state.translate})`}
             onMouseDown={this.onMouseDown}
           />
@@ -118,9 +95,8 @@ class Timeline extends React.Component {
     );
   }
   componentDidMount() {
-    const trackWidth = Math.round(document.querySelector(`.${timeLine}`).parentNode.getBoundingClientRect().width / 2 - 12);
     this.setState({
-      width: trackWidth
+      barWidth: Math.round(document.querySelector(`.${timeLine}`).parentNode.getBoundingClientRect().width / 2)
     });
   }
 }

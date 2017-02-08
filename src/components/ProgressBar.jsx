@@ -3,37 +3,41 @@ import React, { PropTypes } from 'react';
 const ProgressBar = ({
   width,
   height,
-  trackHeight,
+  barWidth,
+  barHeight,
   translate,
   onClick,
-  onMouseOver,
-  onMouseOut,
   children
 }, { color }) => {
-  const diff = (height - trackHeight) / 2;
+  const diff = (height - barHeight) / 2;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
-      onClick={onClick}
-      onMouseOver={onMouseOver}
-      onMouseOut={onMouseOut}
     >
-      <g>
+      <g onClick={onClick}>
+        {/* A rect to expand the area of clicking */}
+        <rect
+          x={height / 2}
+          y='0'
+          width={barWidth}
+          height={height}
+          opacity='0'
+        />
         <rect
           x={height / 2}
           y={diff}
-          width={width - height}
-          height={trackHeight}
+          width={barWidth}
+          height={barHeight}
           fill="#E0E0E0" rx="2" ry="2"
         />
         <rect
           x={height / 2}
           y={diff}
           width={translate}
-          height={trackHeight}
+          height={barHeight}
           fill={`${color}`} rx="2" ry="2"
         />
       </g>
@@ -44,11 +48,9 @@ const ProgressBar = ({
 ProgressBar.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  trackHeight: PropTypes.number.isRequired,
+  barHeight: PropTypes.number.isRequired,
   translate: PropTypes.number.isRequired,
-  onClick: PropTypes.func,
-  onMouseOver: PropTypes.func,
-  onMouseOut: PropTypes.func
+  onClick: PropTypes.func
 };
 ProgressBar.contextTypes = {
   color: PropTypes.string

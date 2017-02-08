@@ -20,7 +20,7 @@
   display: flex;
   align-items: center;
 
-  & > svg {
+  & > svg > g {
     cursor: pointer;
   }
 }

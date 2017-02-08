@@ -141,9 +141,13 @@ const HOCAudio = (Audio) => {
       this.setState({ volume: volume });
     }
     setProgress(progress) {
-      console.log(`progress is set to ${progress}`);
+      const duration = this.audioElement.duration;
+      if (progress > duration) {
+        progress = duration;
+      }
       this.audioElement.currentTime = progress;
       this.setState({ progress });
+      console.log(`progress is set to ${progress}`);
     }
     clearInterval() {
       console.log('interval cleared');
