@@ -18,6 +18,7 @@ const HOCAudio = (Audio) => {
     constructor(props) {
       super(props);
       // bind methods
+      this.playNext = props.autoPlay; // A boolean to determine whether to play the next song or not
       this.loadSrc = this.loadSrc.bind(this);
       this.togglePlayPause = this.togglePlayPause.bind(this);
       this.onCanPlay = this.onCanPlay.bind(this);
@@ -30,10 +31,10 @@ const HOCAudio = (Audio) => {
       this.skipToPrevious = this.skipToPrevious.bind(this);
       this.setCycleNumPos = this.setCycleNumPos.bind(this);
       this.togglePlayingState = this.togglePlayingState.bind(this);
+      // this.handleEndedProgress = this.handleEndedProgress.bind(this);
 
       const discardPileSize = Math.ceil(props.playlist.length / 2);
       this.state = {
-        autoPlay: props.autoPlay,
         playing: false,
         currentPlaylistPos: 0,
         playingState: 0, // 0: cycle, 1: repeat, 2: shuffle
@@ -51,7 +52,6 @@ const HOCAudio = (Audio) => {
       console.log('Audio mounted!');
       // set audio element event listeners
       this.audioElement = document.createElement('audio');
-      this.audioElement.autoplay = this.props.autoPlay;
       this.audioElement.addEventListener('canplay', this.onCanPlay);
       this.audioElement.addEventListener('ended', this.onEnded);
       this.audioElement.addEventListener('play', this.onPlay);
@@ -62,7 +62,7 @@ const HOCAudio = (Audio) => {
       this.setState({ volume: this.audioElement.volume });
     }
     componentWillUnmount() {
-      this.clearInterval();
+      this._clearInterval();
       this.audioElement.removeEventListener('canplay');
       this.audioElement.removeEventListener('ended');
       this.audioElement.removeEventListener('play');
@@ -72,12 +72,14 @@ const HOCAudio = (Audio) => {
     }
     onCanPlay() {
       console.log('audio oncanplay');
+      this.playNext = this.state.playing ? true : false;
       this.setState({
         duration: this.audioElement.duration
       });
     }
     onPlay() {
       console.log('audio onplay');
+      this.playNext = true;
       this.setState({ playing: true });
       this.intervalId = setInterval(() => {
         this.setState({ progress: this.audioElement.currentTime });
@@ -86,16 +88,23 @@ const HOCAudio = (Audio) => {
     onPause() {
       console.log('audio onpause');
       this.setState({ playing: false });
-      this.clearInterval();
+      this._clearInterval();
     }
     onEnded() {
       console.log('audio onended');
+      if (this.playNext) {
+        this.handleEndedProgress();
+      }
+    }
+    handleEndedProgress() {
+      this.playNext = true;
       switch (this.state.playingState) {
         case 0:
           this.skipToNext();
           break;
         case 1:
           this.setState({ progress: 0 });
+          this.audioElement.currentTime = 0;
           this.togglePlayPause();
           break;
         case 2:
@@ -149,7 +158,7 @@ const HOCAudio = (Audio) => {
       this.setState({ progress });
       console.log(`progress is set to ${progress}`);
     }
-    clearInterval() {
+    _clearInterval() {
       console.log('interval cleared');
       if (this.intervalId !== null) {
         clearInterval(this.intervalId);
@@ -161,14 +170,20 @@ const HOCAudio = (Audio) => {
       if (this.state.currentPlaylistPos < this.props.playlist.length) {
         this.audioElement.src = this.props.playlist[this.state.currentPlaylistPos].src;
         this.audioElement.load();
+        if (this.playNext) {
+          this.audioElement.play();
+        }
         this.setState({ progress: 0 });
-        this.clearInterval();
+        this._clearInterval();
       }
     }
     togglePlayPause() {
       console.log('toggle playpause');
+      console.log(this.state.progress, this.audioElement.duration, this.audioElement.currentTime);
       if (this.state.playing) {
         this.audioElement.pause();
+      } else if (this.audioElement.currentTime === this.audioElement.duration) {
+        this.handleEndedProgress();
       } else {
         this.audioElement.play();
       }

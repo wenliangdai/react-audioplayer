@@ -33,6 +33,7 @@ class Timeline extends React.Component {
   }
   onMouseDown(e) {
     e.stopPropagation();
+    console.log('Timeline: onMouseDown');
     this.holding = true;
     if (document.onmousemove) {
       this.onmousemoveSaver = document.onmousemove;
@@ -59,6 +60,7 @@ class Timeline extends React.Component {
   }
   onClickTrack(e) {
     e.stopPropagation();
+    console.log('Timeline: onClickTrack');
     const timelineDisToLeft = e.target.parentNode.getBoundingClientRect().left;
     const diff = e.pageX - timelineDisToLeft;
     this.changeTranslate(diff);
@@ -84,6 +86,7 @@ class Timeline extends React.Component {
           barHeight={barHeight}
           translate={this.state.translate}
           onClick={this.onClickTrack}
+          onMouseDown={this.onMouseDown}
         >
           <ProgressBarHandler
             length={handlerLength}

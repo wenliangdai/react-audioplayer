@@ -7,6 +7,7 @@ const ProgressBar = ({
   barHeight,
   translate,
   onClick,
+  onMouseDown,
   children
 }, { color }) => {
   const diff = (height - barHeight) / 2;
@@ -17,7 +18,10 @@ const ProgressBar = ({
       height={height}
       viewBox={`0 0 ${width} ${height}`}
     >
-      <g onClick={onClick}>
+      <g
+        onClick={onClick}
+        // onMouseDown={onMouseDown}
+      >
         {/* A rect to expand the area of clicking */}
         <rect
           x={height / 2}

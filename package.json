@@ -51,5 +51,7 @@
     "webpack-dev-server": "2.2.0",
     "webpack-merge": "^2.4.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react-spinner": "^0.2.6"
+  }
 }
