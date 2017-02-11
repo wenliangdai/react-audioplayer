@@ -17,54 +17,59 @@ class Timeline extends React.Component {
       translate: 0
     };
     this.holding = false;
+    this.shouldTogglePlayPause = this.props.playing;
     this.onmousemoveSaver = null;
     this.onmouseupSaver = null;
     this.changeTranslate = this.changeTranslate.bind(this);
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onClickTrack = this.onClickTrack.bind(this);
-    this.clearEventListeners = this.clearEventListeners.bind(this);
+    this._onMouseDownProgressBar = this._onMouseDownProgressBar.bind(this);
+    this._onMouseDownProgressBarHandler = this._onMouseDownProgressBarHandler.bind(this);
+    this._onMouseUp = this._onMouseUp.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.duration !== 0 && !this.holding) {
       const lengthPerSecond = this.state.barWidth / nextProps.duration;
       const length = nextProps.progress * lengthPerSecond;
       this.changeTranslate(length);
+      this.shouldTogglePlayPause = nextProps.playing;
     }
   }
-  onMouseDown(e) {
+  _onMouseDownProgressBar(e) {
     e.stopPropagation();
-    console.log('Timeline: onMouseDown');
+    console.log('Timeline: _onMouseDownProgressBar');
+    if (this.shouldTogglePlayPause) { this.props.togglePlayPause(); }
+    const timelineDisToLeft = e.target.parentNode.getBoundingClientRect().left;
+    const newTranslate = e.pageX - timelineDisToLeft;
+    this.changeTranslate(newTranslate);
+    this.props.setProgress((newTranslate / this.state.barWidth) * this.props.duration);
     this.holding = true;
-    if (document.onmousemove) {
-      this.onmousemoveSaver = document.onmousemove;
-    }
-    if (document.onmouseup) {
-      this.onmouseupSaver = document.onmouseup;
-    }
-    document.onmousemove = this.onMouseMove(e.pageX, this.state.translate);
-    document.onmouseup = this.clearEventListeners;
+    if (document.onmousemove) { this.onmousemoveSaver = document.onmousemove; }
+    if (document.onmouseup) { this.onmouseupSaver = document.onmouseup; }
+    document.onmousemove = this._onMouseMove(e.pageX, newTranslate);
+    document.onmouseup = this._onMouseUp;
   }
-  onMouseMove(offset, startPosition) {
+  _onMouseDownProgressBarHandler(e) {
+    e.stopPropagation();
+    this.holding = true;
+    if (this.shouldTogglePlayPause) { this.props.togglePlayPause(); }
+    if (document.onmousemove) { this.onmousemoveSaver = document.onmousemove; }
+    if (document.onmouseup) { this.onmouseupSaver = document.onmouseup; }
+    document.onmousemove = this._onMouseMove(e.pageX, this.state.translate);
+    document.onmouseup = this._onMouseUp;
+  }
+  _onMouseMove(mouseDownX, startTranslate) {
     return (event) => {
       if (this.holding) {
-        const translate = event.pageX - offset + startPosition;
+        const translate = event.pageX - mouseDownX + startTranslate;
         this.changeTranslate(translate);
       }
     };
   }
-  clearEventListeners(e) {
+  _onMouseUp(e) {
+    if (this.shouldTogglePlayPause) { this.props.togglePlayPause(); }
     document.onmousemove = this.onmousemoveSaver;
     document.onmouseup = this.onmouseupSaver;
     this.holding = false;
     this.props.setProgress((this.state.translate / this.state.barWidth) * this.props.duration);
-  }
-  onClickTrack(e) {
-    e.stopPropagation();
-    console.log('Timeline: onClickTrack');
-    const timelineDisToLeft = e.target.parentNode.getBoundingClientRect().left;
-    const diff = e.pageX - timelineDisToLeft;
-    this.changeTranslate(diff);
-    this.props.setProgress((diff / this.state.barWidth) * this.props.duration);
   }
   changeTranslate(newTranslate) {
     let translate = newTranslate;
@@ -85,13 +90,12 @@ class Timeline extends React.Component {
           barWidth={this.state.barWidth}
           barHeight={barHeight}
           translate={this.state.translate}
-          onClick={this.onClickTrack}
-          onMouseDown={this.onMouseDown}
+          onMouseDown={this._onMouseDownProgressBar}
         >
           <ProgressBarHandler
             length={handlerLength}
             translate={`translate(${this.state.translate})`}
-            onMouseDown={this.onMouseDown}
+            onMouseDown={this._onMouseDownProgressBarHandler}
           />
         </ProgressBar>
       </div>

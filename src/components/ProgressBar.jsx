@@ -6,7 +6,6 @@ const ProgressBar = ({
   barWidth,
   barHeight,
   translate,
-  onClick,
   onMouseDown,
   children
 }, { color }) => {
@@ -18,10 +17,7 @@ const ProgressBar = ({
       height={height}
       viewBox={`0 0 ${width} ${height}`}
     >
-      <g
-        onClick={onClick}
-        // onMouseDown={onMouseDown}
-      >
+      <g onMouseDown={onMouseDown}>
         {/* A rect to expand the area of clicking */}
         <rect
           x={height / 2}
@@ -54,7 +50,7 @@ ProgressBar.propTypes = {
   height: PropTypes.number.isRequired,
   barHeight: PropTypes.number.isRequired,
   translate: PropTypes.number.isRequired,
-  onClick: PropTypes.func
+  onMouseDown: PropTypes.func
 };
 ProgressBar.contextTypes = {
   color: PropTypes.string

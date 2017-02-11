@@ -230,11 +230,13 @@ const HOCAudio = (Audio) => {
           skipToPrevious: this.skipToPrevious
         },
         timelineStates: {
+          playing: this.state.playing,
           progress: this.state.progress,
           duration: this.state.duration
         },
         timelineCallbacks: {
-          setProgress: this.setProgress
+          setProgress: this.setProgress,
+          togglePlayPause: this.togglePlayPause
         },
         children: this.props.children
       }
