@@ -11,7 +11,6 @@ class Audio extends React.PureComponent {
   }
   render() {
     const {
-      color,
       songImageSrc,
       controlStates,
       controlCallbacks,

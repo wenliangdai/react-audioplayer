@@ -18,7 +18,14 @@
   width: 400px;
   height: 60px;
   display: flex;
+  flex-direction: colume;
+  justify-content: space-around;
   align-items: center;
+  border: 1px solid black;
+
+  & > svg {
+    border: 1px solid black;
+  }
 
   & > svg > g {
     cursor: pointer;

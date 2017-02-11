@@ -7,30 +7,31 @@ import { mainPlayer } from '../styles/audioElements.css';
 class MainPlayer extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
-    style: PropTypes.object
+    style: PropTypes.shape({})
   };
   static defaultProps = {
-    className: ''
+    className: '',
+    style: {}
   };
   render() {
     const className = `${mainPlayer} ${this.props.className}`.trim();
     return (
       <div className={className} style={this.props.style}>
-         <Controls
-           {...this.props.controlStates}
-           {...this.props.controlCallbacks}
-         />
-         <Timeline
-           {...this.props.timelineStates}
-           {...this.props.timelineCallbacks}
-         />
-         {
-           React.Children.count(this.props.children) > 0 ?
-           <ButtonGroup>
-             { this.props.children }
-           </ButtonGroup> :
-           null
-         }
+        <Controls
+          {...this.props.controlStates}
+          {...this.props.controlCallbacks}
+        />
+        <Timeline
+          {...this.props.timelineStates}
+          {...this.props.timelineCallbacks}
+        />
+        {
+          React.Children.count(this.props.children) > 0 ?
+            <ButtonGroup>
+              { this.props.children }
+            </ButtonGroup> :
+            null
+        }
       </div>
     );
   }

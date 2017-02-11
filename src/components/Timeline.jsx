@@ -6,14 +6,15 @@ import { timeLine } from '../styles/audioElements.css';
 class Timeline extends React.Component {
   static propTypes = {
     barWidth: PropTypes.number,
-    height: PropTypes.number,
-    duration: PropTypes.number.isRequired,
-    progress: PropTypes.number.isRequired
+    duration: PropTypes.number.isRequired
+  };
+  static defaultProps = {
+    barWidth: 0
   };
   constructor(props) {
     super(props);
     this.state = {
-      barWidth: this.props.width || 0,
+      barWidth: this.props.barWidth,
       translate: 0
     };
     this.holding = false;
@@ -59,12 +60,12 @@ class Timeline extends React.Component {
   _onMouseMove(mouseDownX, startTranslate) {
     return (event) => {
       if (this.holding) {
-        const translate = event.pageX - mouseDownX + startTranslate;
+        const translate = (event.pageX - mouseDownX) + startTranslate;
         this.changeTranslate(translate);
       }
     };
   }
-  _onMouseUp(e) {
+  _onMouseUp() {
     if (this.shouldTogglePlayPause) { this.props.togglePlayPause(); }
     document.onmousemove = this.onmousemoveSaver;
     document.onmouseup = this.onmouseupSaver;
@@ -83,7 +84,7 @@ class Timeline extends React.Component {
     const containerWidth = this.state.barWidth + handlerLength;
     const barHeight = 4;
     return (
-      <div className={timeLine} style={{width: containerWidth}}>
+      <div className={timeLine} style={{ width: containerWidth }}>
         <ProgressBar
           width={containerWidth}
           height={handlerLength}

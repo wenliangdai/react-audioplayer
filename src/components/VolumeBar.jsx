@@ -19,14 +19,14 @@ const VolumeBar = ({
       <g onClick={onClick}>
         <rect
           x={diff}
-          y={width/2}
+          y={width / 2}
           width={barWidth}
           height={height - width}
           fill={color} rx="2" ry="2"
         />
         <rect
           x={diff}
-          y={width/2}
+          y={width / 2}
           width={barWidth}
           height={translate}
           fill="#E0E0E0" rx="2" ry="2"
@@ -41,7 +41,7 @@ VolumeBar.propTypes = {
   height: PropTypes.number.isRequired,
   barWidth: PropTypes.number.isRequired,
   translate: PropTypes.number.isRequired,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
 };
 VolumeBar.contextTypes = {
   color: PropTypes.string

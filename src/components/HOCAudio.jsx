@@ -29,7 +29,6 @@ const HOCAudio = (Audio) => {
       this.setProgress = this.setProgress.bind(this);
       this.skipToNext = this.skipToNext.bind(this);
       this.skipToPrevious = this.skipToPrevious.bind(this);
-      this.setCycleNumPos = this.setCycleNumPos.bind(this);
       this.togglePlayingState = this.togglePlayingState.bind(this);
       // this.handleEndedProgress = this.handleEndedProgress.bind(this);
 
@@ -44,7 +43,7 @@ const HOCAudio = (Audio) => {
         shuffleState: {
           size: discardPileSize,
           drawPile: [...Array(props.playlist.length).keys()], // initialise full playlist indexes
-          discardPile: new Array()
+          discardPile: []
         }
       };
     }
@@ -72,7 +71,7 @@ const HOCAudio = (Audio) => {
     }
     onCanPlay() {
       console.log('audio oncanplay');
-      this.playNext = this.state.playing ? true : false;
+      this.playNext = this.state.playing;
       this.setState({
         duration: this.audioElement.duration
       });
@@ -99,15 +98,17 @@ const HOCAudio = (Audio) => {
     handleEndedProgress() {
       this.playNext = true;
       switch (this.state.playingState) {
-        case 0:
+        case 0: {
           this.skipToNext();
           break;
-        case 1:
+        }
+        case 1: {
           this.setState({ progress: 0 });
           this.audioElement.currentTime = 0;
           this.togglePlayPause();
           break;
-        case 2:
+        }
+        case 2: {
           const ss = this.state.shuffleState;
           const currentSongIndex = ss.drawPile.indexOf(this.state.currentPlaylistPos);
           const newDrawPile = ss.drawPile;
@@ -139,17 +140,20 @@ const HOCAudio = (Audio) => {
           }
           this.loadSrc();
           break;
-        default:
+        }
+        default: {
           console.log('onend BUG!!!');
           break;
+        }
       }
     }
     setVolume(volume) {
       console.log(`volume is set to ${volume}`);
       this.audioElement.volume = volume;
-      this.setState({ volume: volume });
+      this.setState({ volume });
     }
-    setProgress(progress) {
+    setProgress(newProgress) {
+      let progress = newProgress;
       const duration = this.audioElement.duration;
       if (progress > duration) {
         progress = duration;
@@ -239,10 +243,10 @@ const HOCAudio = (Audio) => {
           togglePlayPause: this.togglePlayPause
         },
         children: this.props.children
-      }
+      };
       return <Audio {...newProps} />;
     }
-  }
-}
+  };
+};
 
 export default HOCAudio;

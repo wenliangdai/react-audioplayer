@@ -3,11 +3,9 @@ import { svgBtnDefault } from '../../styles/audioElements.css';
 
 class Button extends React.PureComponent {
   static propTypes = {
-    onClick: PropTypes.func,
-    color: PropTypes.string
+    onClick: PropTypes.func
   };
   static defaultProps = {
-    color: '#212121',
     onClick: null
   };
   render() {

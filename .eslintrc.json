@@ -20,13 +20,16 @@
         "max-len": [
           2,
           {
-            "code": 100,
+            "code": 150,
             "tabWidth": 4,
             "ignoreUrls": true,
             "ignoreStrings": true
           }
         ],
-        "react/jsx-boolean-value": 0
+        "react/jsx-boolean-value": 0,
+        "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+        "class-methods-use-this": "off",
+        "import/no-extraneous-dependencies": "warn"
     },
     "settings": {
         "import/extensions": [".js", ".jsx"]
