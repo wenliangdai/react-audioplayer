@@ -234,6 +234,7 @@ const HOCAudio = (Audio) => {
           skipToPrevious: this.skipToPrevious
         },
         timelineStates: {
+          title: this.props.playlist[this.state.currentPlaylistPos].name,
           playing: this.state.playing,
           progress: this.state.progress,
           duration: this.state.duration

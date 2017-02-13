@@ -18,14 +18,9 @@
   width: 400px;
   height: 60px;
   display: flex;
-  flex-direction: colume;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  border: 1px solid black;
-
-  & > svg {
-    border: 1px solid black;
-  }
 
   & > svg > g {
     cursor: pointer;
@@ -56,5 +51,19 @@
     height: 100%;
     background-size: cover;
     background-position: center center;
+  }
+}
+
+.audioTitleTime {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  padding: 0 6px;
+  letter-spacing: 0.8px;
+
+  & > div {
+    display: flex;
   }
 }

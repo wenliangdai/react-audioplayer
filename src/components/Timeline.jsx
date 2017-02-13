@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import AudioTitleTime from './AudioTitleTime';
 import ProgressBar from './ProgressBar';
 import ProgressBarHandler from './ProgressBarHandler';
 import { timeLine } from '../styles/audioElements.css';
@@ -85,6 +86,11 @@ class Timeline extends React.Component {
     const barHeight = 4;
     return (
       <div className={timeLine} style={{ width: containerWidth }}>
+        <AudioTitleTime
+          title={this.props.title}
+          progress={(this.state.translate / this.state.barWidth) * this.props.duration}
+          duration={this.props.duration}
+        />
         <ProgressBar
           width={containerWidth}
           height={handlerLength}
