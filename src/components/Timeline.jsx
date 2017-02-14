@@ -42,7 +42,6 @@ class Timeline extends React.Component {
     const timelineDisToLeft = e.target.parentNode.getBoundingClientRect().left;
     const newTranslate = e.pageX - timelineDisToLeft;
     this.changeTranslate(newTranslate);
-    this.props.setProgress((newTranslate / this.state.barWidth) * this.props.duration);
     this.holding = true;
     if (document.onmousemove) { this.onmousemoveSaver = document.onmousemove; }
     if (document.onmouseup) { this.onmouseupSaver = document.onmouseup; }
@@ -67,7 +66,12 @@ class Timeline extends React.Component {
     };
   }
   _onMouseUp() {
-    if (this.shouldTogglePlayPause) { this.props.togglePlayPause(); }
+    console.log('Timeline: _onMouseUp()');
+    /* When the _onMouseUp() event happen really quick after the _onMouseDownProgressBar(),
+       i.e. React hasn't called setState, enqueue a togglePlayPause() to the loop. */
+    if (this.shouldTogglePlayPause && this.props.playing) { setTimeout(() => this.props.togglePlayPause(), 0); }
+    // Normally, when this.shouldTogglePlayPause is true, this.props.playing should be false, except the case above.
+    if (this.shouldTogglePlayPause && !this.props.playing) { this.props.togglePlayPause(); }
     document.onmousemove = this.onmousemoveSaver;
     document.onmouseup = this.onmouseupSaver;
     this.holding = false;

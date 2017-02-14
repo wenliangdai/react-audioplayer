@@ -1,0 +1,5 @@
+exports[`test Time show correct time string when given different currentTime prop 1`] = `
+<p>
+  3:20
+</p>
+`;

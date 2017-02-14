@@ -30,7 +30,6 @@ const HOCAudio = (Audio) => {
       this.skipToNext = this.skipToNext.bind(this);
       this.skipToPrevious = this.skipToPrevious.bind(this);
       this.togglePlayingState = this.togglePlayingState.bind(this);
-      // this.handleEndedProgress = this.handleEndedProgress.bind(this);
 
       const discardPileSize = Math.ceil(props.playlist.length / 2);
       this.state = {
@@ -183,8 +182,8 @@ const HOCAudio = (Audio) => {
     }
     togglePlayPause() {
       console.log('toggle playpause');
-      console.log(this.state.progress, this.audioElement.duration, this.audioElement.currentTime);
       if (this.state.playing) {
+        console.log('togglePlayPause(): playing');
         this.audioElement.pause();
       } else if (this.audioElement.currentTime === this.audioElement.duration) {
         this.handleEndedProgress();

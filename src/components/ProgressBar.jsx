@@ -38,7 +38,7 @@ const ProgressBar = ({
           y={diff}
           width={translate}
           height={barHeight}
-          fill={`${color}`} rx="2" ry="2"
+          fill={color} rx="2" ry="2"
         />
       </g>
       { children }
