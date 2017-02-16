@@ -25,11 +25,7 @@ const Time = ({ time }) => {
   const second = Math.floor(remaining);
   const timeString = makeTimeString(hour, minute, second);
 
-  return (
-    <p>
-      {timeString}
-    </p>
-  );
+  return <p>{timeString}</p>;
 };
 
 export default Time;

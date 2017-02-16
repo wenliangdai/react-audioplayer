@@ -5,17 +5,19 @@ class SongImage extends React.PureComponent {
   static propTypes = {
     src: PropTypes.string.isRequired,
     className: PropTypes.string,
-    style: PropTypes.shape({})
+    height: PropTypes.number
   };
   static defaultProps = {
     src: '',
     className: '',
-    style: {}
+    height: 340
   };
   render() {
     const className = `${songImage} ${this.props.className}`.trim();
     return (
-      <div className={className} style={this.props.style}>
+      <div className={className} style={{
+        height: `${this.props.height}px`
+      }}>
         {
           // If the browser doesn't support CSS3 object-fit, then use a <div> with background-image instead.
           ('objectFit' in document.documentElement.style) ?

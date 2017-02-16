@@ -5,6 +5,7 @@ import ButtonGroup from './ButtonGroup';
 import { mainPlayer } from '../styles/audioElements.css';
 
 const MainPlayer = ({
+  width,
   className,
   style,
   controlStates,
@@ -21,6 +22,7 @@ const MainPlayer = ({
         {...controlCallbacks}
       />
       <Timeline
+        appWidth={width}
         {...timelineStates}
         {...timelineCallbacks}
       />

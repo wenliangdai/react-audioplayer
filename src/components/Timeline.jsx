@@ -2,20 +2,20 @@ import React, { PropTypes } from 'react';
 import AudioTitleTime from './AudioTitleTime';
 import ProgressBar from './ProgressBar';
 import ProgressBarHandler from './ProgressBarHandler';
-import { timeLine } from '../styles/audioElements.css';
+import style from '../styles/audioElements.css';
 
 class Timeline extends React.Component {
   static propTypes = {
-    barWidth: PropTypes.number,
+    appWidth: PropTypes.number,
     duration: PropTypes.number.isRequired
   };
   static defaultProps = {
-    barWidth: 0
+    appWidth: 0
   };
   constructor(props) {
     super(props);
     this.state = {
-      barWidth: this.props.barWidth,
+      barWidth: props.appWidth / 2,
       translate: 0
     };
     this.holding = false;
@@ -89,7 +89,7 @@ class Timeline extends React.Component {
     const containerWidth = this.state.barWidth + handlerLength;
     const barHeight = 4;
     return (
-      <div className={timeLine} style={{ width: containerWidth }}>
+      <div className={style.timeLine} style={{ width: containerWidth }}>
         <AudioTitleTime
           title={this.props.title}
           progress={(this.state.translate / this.state.barWidth) * this.props.duration}
@@ -113,9 +113,11 @@ class Timeline extends React.Component {
     );
   }
   componentDidMount() {
-    this.setState({
-      barWidth: Math.round(document.querySelector(`.${timeLine}`).parentNode.getBoundingClientRect().width / 2)
-    });
+    if (this.state.barWidth === 0) {
+      this.setState({
+        barWidth: Math.round(document.querySelector(`.${style.timeLine}`).parentNode.getBoundingClientRect().width / 2)
+      });
+    }
   }
 }
 

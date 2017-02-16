@@ -1,5 +1,9 @@
 import React, { PropTypes } from 'react';
 import HOCAudio from './HOCAudio';
+import SongImage from './SongImage';
+import MainPlayer from './MainPlayer';
+import { LikeBtn, PlaylistBtn } from './buttons/index';
+import style from '../styles/audioReset.css';
 import { audio, boxShadowShallow } from '../styles/audioComponents.css';
 
 class Audio extends React.PureComponent {
@@ -11,6 +15,8 @@ class Audio extends React.PureComponent {
   }
   render() {
     const {
+      width,
+      songImage,
       songImageSrc,
       controlStates,
       controlCallbacks,
@@ -18,25 +24,32 @@ class Audio extends React.PureComponent {
       timelineCallbacks,
       children
     } = this.props;
+    const height = songImage ? height : 60;
     return (
-      <div className={`${audio} ${boxShadowShallow}`}>
+      <div
+        className={`${style.rootContainer} ${audio} ${boxShadowShallow}`}
+        style={{
+          width: `${width}px`,
+          height: `${height}px`
+        }}
+      >
         {
-          React.Children.map(children, (child) => {
-            switch (child.type.displayName) {
-              case 'SongImage':
-                return React.cloneElement(child, { src: songImageSrc });
-              case 'MainPlayer':
-                return React.cloneElement(child, {
-                  controlStates,
-                  controlCallbacks,
-                  timelineStates,
-                  timelineCallbacks
-                });
-              default:
-                return child;
-            }
-          })
+          songImage ?
+            <SongImage
+              src={songImageSrc}
+              height={height - 60}
+            /> : null
         }
+        <MainPlayer
+          width={width}
+          controlStates={controlStates}
+          controlCallbacks={controlCallbacks}
+          timelineStates={timelineStates}
+          timelineCallbacks={timelineCallbacks}
+        >
+          <LikeBtn />
+          <PlaylistBtn />
+        </MainPlayer>
       </div>
     );
   }

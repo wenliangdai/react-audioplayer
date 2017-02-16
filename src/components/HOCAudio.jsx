@@ -217,7 +217,8 @@ const HOCAudio = (Audio) => {
       return newPos;
     }
     render() {
-      const newProps = {
+      const newProps = Object.assign({}, {
+        width: this.props.width,
         color: this.props.color,
         songImageSrc: this.props.playlist[this.state.currentPlaylistPos].img,
         controlStates: {
@@ -243,7 +244,7 @@ const HOCAudio = (Audio) => {
           togglePlayPause: this.togglePlayPause
         },
         children: this.props.children
-      };
+      }, this.props);
       return <Audio {...newProps} />;
     }
   };

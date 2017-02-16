@@ -22,10 +22,8 @@
 .audio {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  min-width: 400px;
-  height: 100%;
-  min-height: 360px;
+  width: 800px;
+  height: 400px;
   margin: auto;
 }
 

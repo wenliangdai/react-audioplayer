@@ -37,7 +37,7 @@
 
 .songImage {
   width: 100%;
-  height: 340px;
+  height: auto;
   user-select: none;
 
   & > img {

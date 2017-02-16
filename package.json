@@ -8,8 +8,9 @@
     "type": "git"
   },
   "jest": {
+    "browser": true,
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|less)$": "identity-obj-proxy"
     }
   },
@@ -33,9 +34,13 @@
     "babel-plugin-transform-class-properties": "^6.22.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.22.0",
     "babel-plugin-transform-object-assign": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.22.0",
     "babel-preset-latest": "^6.22.0",
     "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "babel-preset-stage-3": "^6.22.0",
     "css-loader": "^0.26.1",
     "doiuse": "^2.5.0",
     "enzyme": "^2.7.1",

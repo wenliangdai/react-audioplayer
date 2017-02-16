@@ -1,18 +1,21 @@
 .rootContainer {
-  width: 800px;
-  height: 400px;
+  min-width: 400px;
+  min-height: 60px;
   margin: auto;
 
-  & div {
-    margin: 0;
+  & div,
+  & button,
+  & p {
     box-sizing: border-box;
   }
 
-  & button,
-  & p {
+  & button {
+    border: none;
+  }
+
+  & p,
+  & button {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    border: none;
   }
 }
