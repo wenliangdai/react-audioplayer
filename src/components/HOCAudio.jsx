@@ -8,12 +8,10 @@ const HOCAudio = (Audio) => {
         name: PropTypes.string,
         src: PropTypes.string,
         img: PropTypes.string
-      })).isRequired,
-      color: PropTypes.string
+      })).isRequired
     };
     static defaultProps = {
-      autoPlay: false,
-      color: '#212121'
+      autoPlay: false
     };
     constructor(props) {
       super(props);
@@ -218,8 +216,6 @@ const HOCAudio = (Audio) => {
     }
     render() {
       const newProps = Object.assign({}, {
-        width: this.props.width,
-        color: this.props.color,
         songImageSrc: this.props.playlist[this.state.currentPlaylistPos].img,
         controlStates: {
           playing: this.state.playing,

@@ -21,10 +21,11 @@ const ProgressBar = ({
         {/* A rect to expand the area of clicking */}
         <rect
           x={height / 2}
-          y="0"
+          y={0}
           width={barWidth}
           height={height}
           opacity="0"
+          onMouseDown={() => console.log('caonima')}
         />
         <rect
           x={height / 2}
@@ -55,4 +56,5 @@ ProgressBar.propTypes = {
 ProgressBar.contextTypes = {
   color: PropTypes.string
 };
+
 export default ProgressBar;
