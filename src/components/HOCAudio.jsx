@@ -59,11 +59,11 @@ const HOCAudio = (Audio) => {
     }
     componentWillUnmount() {
       this._clearInterval();
-      this.audioElement.removeEventListener('canplay');
-      this.audioElement.removeEventListener('ended');
-      this.audioElement.removeEventListener('play');
-      this.audioElement.removeEventListener('pause');
-      this.audioElement.removeEventListener('volumechange');
+      this.audioElement.removeEventListener('canplay', this.onCanPlay);
+      this.audioElement.removeEventListener('ended', this.onEnded);
+      this.audioElement.removeEventListener('play', this.onPlay);
+      this.audioElement.removeEventListener('pause', this.onPause);
+      this.audioElement.removeEventListener('volumechange', this.onVolumeChange);
       this.audioElement = null;
     }
     onCanPlay() {
