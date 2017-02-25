@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
-import { songImage, songImageLeft, songImageRight } from '../styles/audioElements.css';
+import { songImage } from '../styles/audioElements.css';
 
 class SongImage extends React.PureComponent {
   static propTypes = {
     src: PropTypes.string.isRequired,
     className: PropTypes.string,
+    width: PropTypes.number,
     height: PropTypes.number
   };
   static defaultProps = {
@@ -14,12 +15,15 @@ class SongImage extends React.PureComponent {
   };
   render() {
     const className = `${songImage} ${this.props.className}`.trim();
-    const albumLength = this.props.height - 60;
+    const albumLength = Math.min(this.props.width * 0.4, this.props.height) - 80;
+    const scrollBarWidth = 15;
     return (
       <div className={className} style={{
         height: `${this.props.height}px`
       }}>
-        <section className={songImageLeft}>
+        <section style={{
+          width: `${this.props.width * 0.4}px`
+        }}>
           <img
             src={this.props.src}
             alt="Album cover image"
@@ -29,7 +33,19 @@ class SongImage extends React.PureComponent {
             }}
           />
         </section>
-        <section className={songImageRight}>
+        <section style={{
+          width: `${this.props.width * 0.6 + scrollBarWidth}px`,
+          marginRight: `-${scrollBarWidth}px`
+        }}>
+          <p>Comments AreaComments AreaComments AreaComments Area</p>
+          <p>Comments Area</p>
+          <p>Comments Area</p>
+          <p>Comments Area</p>
+          <p>Comments Area</p>
+          <p>Comments Area</p>
+          <p>Comments Area</p>
+          <p>Comments Area</p>
+          <p>Comments Area</p>
           <p>Comments Area</p>
         </section>
         {

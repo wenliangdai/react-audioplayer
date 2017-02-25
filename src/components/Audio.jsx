@@ -72,6 +72,7 @@ class Audio extends React.PureComponent {
           songImage ?
             <SongImage
               src={songImageSrc}
+              width={width}
               height={height - 60}
             /> : null
         }
