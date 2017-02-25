@@ -4,6 +4,8 @@
   margin: auto;
 
   & div,
+  & section,
+  & img,
   & button,
   & p {
     box-sizing: border-box;

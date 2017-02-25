@@ -6,16 +6,13 @@ import style from '../styles/audioElements.css';
 
 class Timeline extends React.Component {
   static propTypes = {
-    appWidth: PropTypes.number,
+    appWidth: PropTypes.number.isRequired,
     duration: PropTypes.number.isRequired
-  };
-  static defaultProps = {
-    appWidth: 0
   };
   constructor(props) {
     super(props);
     this.state = {
-      barWidth: props.appWidth / 2,
+      barWidth: Math.round(props.appWidth * (2 / 5)),
       translate: 0
     };
     this.holding = false;
@@ -86,25 +83,24 @@ class Timeline extends React.Component {
   }
   render() {
     const handlerLength = 12;
-    const containerWidth = this.state.barWidth + handlerLength;
+    const textWidth = 30;
+    const containerWidth = this.state.barWidth + handlerLength + (textWidth * 2);
     const barHeight = 4;
     return (
       <div className={style.timeLine} style={{ width: containerWidth }}>
-        <AudioTitleTime
-          title={this.props.title}
-          progress={(this.state.translate / this.state.barWidth) * this.props.duration}
-          duration={this.props.duration}
-        />
         <ProgressBar
           width={containerWidth}
           height={handlerLength}
           barWidth={this.state.barWidth}
           barHeight={barHeight}
+          textWidth={textWidth}
           translate={this.state.translate}
+          duration={this.props.duration}
           onMouseDown={this._onMouseDownProgressBar}
         >
           <ProgressBarHandler
             length={handlerLength}
+            textWidth={textWidth}
             translate={`translate(${this.state.translate})`}
             onMouseDown={this._onMouseDownProgressBarHandler}
           />
@@ -112,13 +108,13 @@ class Timeline extends React.Component {
       </div>
     );
   }
-  componentDidMount() {
-    if (this.state.barWidth === 0) {
-      this.setState({
-        barWidth: Math.round(document.querySelector(`.${style.timeLine}`).parentNode.getBoundingClientRect().width / 2)
-      });
-    }
-  }
+  // componentDidMount() {
+  //   if (this.state.barWidth === 0) {
+  //     this.setState({
+  //       barWidth: Math.round(document.querySelector(`.${style.timeLine}`).parentNode.getBoundingClientRect().width * (2 / 5))
+  //     });
+  //   }
+  // }
 }
 
 export default Timeline;

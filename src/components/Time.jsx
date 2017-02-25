@@ -16,7 +16,11 @@ const makeTimeString = function(h, m, s) {
   }
 }
 
-const Time = ({ time }) => {
+const Time = ({
+  time,
+  x,
+  y
+}, {color}) => {
   let remaining = time;
   const hour = Math.floor(remaining / 3600);
   remaining -= hour * 3600;
@@ -24,8 +28,19 @@ const Time = ({ time }) => {
   remaining -= minute * 60;
   const second = Math.floor(remaining);
   const timeString = makeTimeString(hour, minute, second);
-
-  return <p>{timeString}</p>;
+  return (
+    <text
+      x={x}
+      y={y}
+      fill={color}
+      fontSize={16}
+    >
+      {timeString}
+    </text>
+  );
+};
+Time.contextTypes = {
+  color: React.PropTypes.string
 };
 
 export default Time;

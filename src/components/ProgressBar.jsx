@@ -1,11 +1,14 @@
 import React, { PropTypes } from 'react';
+import Time from './Time';
 
 const ProgressBar = ({
   width,
   height,
   barWidth,
   barHeight,
+  textWidth,
   translate,
+  duration,
   onMouseDown,
   children
 }, { color }) => {
@@ -17,25 +20,26 @@ const ProgressBar = ({
       height={height}
       viewBox={`0 0 ${width} ${height}`}
     >
+      <Time time={(translate / barWidth) * duration} x={0} y={height} />
+      <Time time={duration} x={width - textWidth} y={height} />
       <g onMouseDown={onMouseDown}>
         {/* A rect to expand the area of clicking */}
         <rect
-          x={height / 2}
+          x={(height / 2) + textWidth}
           y={0}
           width={barWidth}
           height={height}
           opacity="0"
-          onMouseDown={() => console.log('caonima')}
         />
         <rect
-          x={height / 2}
+          x={(height / 2) + textWidth}
           y={diff}
           width={barWidth}
           height={barHeight}
           fill="#E0E0E0" rx="2" ry="2"
         />
         <rect
-          x={height / 2}
+          x={(height / 2) + textWidth}
           y={diff}
           width={translate}
           height={barHeight}

@@ -133,6 +133,7 @@ class VolumeContainer extends React.PureComponent {
             >
               <ProgressBarHandler
                 length={this.svgWidth}
+                textWidth={0}
                 translate={`translate(0, ${this.state.translate})`}
                 onMouseDown={this.onMouseDown}
               />
