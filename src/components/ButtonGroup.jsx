@@ -1,23 +1,16 @@
 import React from 'react';
-import { flexButtonBox } from '../styles/audioComponents.css';
+import style from '../styles/audioComponents.css';
 
-class ButtonGroup extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.style = {
-      width: `${React.Children.count(props.children) * 40}px`
-    };
-  }
-  render() {
-    return (
-      <div
-        className={flexButtonBox}
-        style={this.style}
-      >
-        { this.props.children }
-      </div>
-    );
-  }
+const ButtonGroup = ({ children }) => {
+  const _style = { width: `${React.Children.count(children) * 40}px` };
+  return (
+    <div
+      className={style.flexButtonBox}
+      style={_style}
+    >
+      { children }
+    </div>
+  );
 }
 
 export default ButtonGroup;

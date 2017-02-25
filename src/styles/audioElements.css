@@ -8,6 +8,14 @@
     background-color: #fff;
     cursor: pointer;
   };
+
+  --inner-absolute-layout: {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  };
 }
 
 .svgBtnDefault {
@@ -39,8 +47,6 @@
   display: flex;
   width: 100%;
   height: auto;
-  background-size: cover;
-  background-position: center center;
   user-select: none;
   overflow: hidden;
   position: relative;
@@ -61,34 +67,29 @@
   & > section:nth-child(2) {
     position: relative;
     height: 100%;
-    overflow: auto;
     z-index: 10;
+    overflow: auto;
     font-size: 35px;
-    /*border: 2px solid #f00;*/
 
     & > p {
       width: 100%;
     }
   }
 
-  & > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: blur(5px);
-    position: absolute;
-    top: 0;
-    left: 0;
+  & > .songImageMask {
+    @apply --inner-absolute-layout;
+
+    background-color: rgba(28, 28, 28, 0.28);
+    z-index: 5;
   }
 
-  & > div {
-    width: 100%;
-    height: 100%;
+  & > .songImageBackground {
+    @apply --inner-absolute-layout;
+
     background-size: cover;
     background-position: center center;
-    position: absolute;
-    top: 0;
-    left: 0;
+    filter: blur(3px);
+    z-index: 0;
   }
 }
 

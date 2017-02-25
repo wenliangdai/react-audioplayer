@@ -3,8 +3,8 @@ import HOCAudio from './HOCAudio';
 import SongImage from './SongImage';
 import MainPlayer from './MainPlayer';
 import { LikeBtn, PlaylistBtn } from './buttons/index';
-import style from '../styles/audioReset.css';
-import { audio, boxShadowShallow } from '../styles/audioComponents.css';
+import styleNormalize from '../styles/audioReset.css';
+import style from '../styles/audioComponents.css';
 
 class Audio extends React.PureComponent {
   static propTypes = {
@@ -62,7 +62,7 @@ class Audio extends React.PureComponent {
     const height = songImage ? this.props.height : 60;
     return (
       <div
-        className={`${style.rootContainer} ${audio} ${boxShadowShallow}`}
+        className={`${styleNormalize.rootContainer} ${style.audio} ${style.boxShadowShallow}`}
         style={{
           width: `${width}px`,
           height: `${height}px`
