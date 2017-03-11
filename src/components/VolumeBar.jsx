@@ -4,6 +4,8 @@ const VolumeBar = ({
   width,
   height,
   barWidth,
+  handlerWidth,
+  handlerHeight,
   translate,
   onClick,
   children
@@ -19,17 +21,17 @@ const VolumeBar = ({
       <g onClick={onClick}>
         <rect
           x={diff}
-          y={width / 2}
+          y={handlerHeight / 2}
           width={barWidth}
-          height={height - width}
-          fill={color} rx="2" ry="2"
+          height={height - handlerHeight}
+          fill={color}
         />
         <rect
           x={diff}
-          y={width / 2}
+          y={handlerHeight / 2}
           width={barWidth}
           height={translate}
-          fill="#E0E0E0" rx="2" ry="2"
+          fill="#E0E0E0"
         />
       </g>
       { children }

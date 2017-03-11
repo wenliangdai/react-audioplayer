@@ -12,7 +12,8 @@ class Timeline extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      barWidth: Math.round(props.appWidth * (2 / 5)),
+      showHandler: false,
+      barWidth: props.appWidth - 12,
       translate: 0
     };
     this.holding = false;
@@ -21,6 +22,8 @@ class Timeline extends React.Component {
     this.onmouseupSaver = null;
     this.changeTranslate = this.changeTranslate.bind(this);
     this._onMouseDownProgressBar = this._onMouseDownProgressBar.bind(this);
+    this._onMouseOverProgressBar = this._onMouseOverProgressBar.bind(this);
+    this._onMouseOutProgressBar = this._onMouseOutProgressBar.bind(this);
     this._onMouseDownProgressBarHandler = this._onMouseDownProgressBarHandler.bind(this);
     this._onMouseUp = this._onMouseUp.bind(this);
   }
@@ -31,6 +34,12 @@ class Timeline extends React.Component {
       this.changeTranslate(length);
       this.shouldTogglePlayPause = nextProps.playing;
     }
+  }
+  _onMouseOverProgressBar() {
+    this.setState({ showHandler: true });
+  }
+  _onMouseOutProgressBar() {
+    this.setState({ showHandler: false });
   }
   _onMouseDownProgressBar(e) {
     e.stopPropagation();
@@ -82,25 +91,28 @@ class Timeline extends React.Component {
     this.setState({ translate });
   }
   render() {
-    const handlerLength = 12;
-    const textWidth = 30;
-    const containerWidth = this.state.barWidth + handlerLength + (textWidth * 2);
+    const handlerWidth = 12;
+    const handlerHeight = 12;
+    const containerWidth = this.state.barWidth + handlerWidth;
     const barHeight = 4;
     return (
-      <div className={style.timeLine} style={{ width: containerWidth }}>
+      <div className={style.timeLine} style={{ width: containerWidth, transform: 'translateY(-4px)' }}>
         <ProgressBar
           width={containerWidth}
-          height={handlerLength}
-          barWidth={this.state.barWidth}
+          height={handlerHeight}
+          barWidth={this.state.barWidth + handlerWidth}
           barHeight={barHeight}
-          textWidth={textWidth}
+          handlerWidth={handlerWidth}
           translate={this.state.translate}
           duration={this.props.duration}
           onMouseDown={this._onMouseDownProgressBar}
+          onMouseOver={this._onMouseOverProgressBar}
+          onMouseOut={this._onMouseOutProgressBar}
         >
           <ProgressBarHandler
-            length={handlerLength}
-            textWidth={textWidth}
+            width={handlerWidth}
+            height={handlerHeight}
+            visibility={this.state.showHandler || this.holding}
             translate={`translate(${this.state.translate})`}
             onMouseDown={this._onMouseDownProgressBarHandler}
           />

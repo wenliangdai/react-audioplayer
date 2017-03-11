@@ -4,10 +4,10 @@ import playlist from '../songs/playlist.json';
 
 const App = () => (
   <Audio
-    width={800}
-    height={300}
+    width={600}
+    height={320}
     fullPlayer={true}
-    color="#3498db"
+    color="#F44336"
     autoPlay={true}
     playlist={playlist.source}
   />

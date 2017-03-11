@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Motion, spring } from 'react-motion';
 import { VolumeHighBtn, VolumeLowBtn, VolumeMutedBtn } from './buttons/index';
 import ProgressBarHandler from './ProgressBarHandler';
 import VolumeBar from './VolumeBar';
@@ -16,14 +17,16 @@ class VolumeContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      mouseOverBox: false,
       translate: props.volume,
       volume: props.volume,
       mutedVolume: 100
     };
+    this.handlerWidth = 12;
+    this.handlerHeight = 12;
     this.svgWidth = 12;
     this.svgHeight = 72;
     this.volumeWidth = 4;
-    this.draggerLength = 12;
     this.holding = false;
     this.onmousemoveSaver = null;
     this.onmouseupSaver = null;
@@ -31,6 +34,7 @@ class VolumeContainer extends React.PureComponent {
     this.onClickMute = this.onClickMute.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseDragging = this.onMouseDragging.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);
     this._onMouseUp = this._onMouseUp.bind(this);
   }
@@ -64,8 +68,8 @@ class VolumeContainer extends React.PureComponent {
         if (newTranslate < 0) {
           newTranslate = 0;
         }
-        if (newTranslate > 60) {
-          newTranslate = 60;
+        if (newTranslate > 72 - this.handlerHeight) {
+          newTranslate = 72 - this.handlerHeight;
         }
         this.setState({
           translate: newTranslate,
@@ -76,12 +80,12 @@ class VolumeContainer extends React.PureComponent {
     };
   }
   onMouseOver() {
-    document.querySelector('.volumebar-show-hide').hidden = false;
+    // document.querySelector('.volumebar-show-hide').hidden = false;
+    this.setState({ mouseOverBox: true });
   }
   onMouseOut() {
-    if (!this.holding) {
-      document.querySelector('.volumebar-show-hide').hidden = true;
-    }
+      // document.querySelector('.volumebar-show-hide').hidden = true;
+      this.setState({ mouseOverBox: false });
   }
   onClickMute() {
     if (this.state.volume > 0) {
@@ -95,13 +99,14 @@ class VolumeContainer extends React.PureComponent {
     document.onmousemove = this.onmousemoveSaver;
     document.onmouseup = this.onmouseupSaver;
     this.holding = false;
-    if (!document.querySelector('.volumebar-show-hide').hidden) {
-      document.querySelector('.volumebar-show-hide').hidden = true;
-    }
+    // if (!this.state.mouseOverBox) {
+    //   this.setState({ mouseOverBox: 0 });
+    // }
+
     this.props.setVolume(this.state.volume / 100);
   }
   render() {
-    let boxClassName = `${style.volumeAdjustBox} ${style.boxShadowShallow}`;
+    let boxClassName = `${style.volumeAdjustBox}`;
     if (this.props.downwards) {
       boxClassName = `${boxClassName} ${style.volumeAdjustBoxToBottom}`;
     }
@@ -121,29 +126,45 @@ class VolumeContainer extends React.PureComponent {
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
       >
-        <section className="volumebar-show-hide" hidden>
-          <div className={boxClassName} hidden>
-            <p>{this.state.volume}</p>
-            <VolumeBar
-              width={this.svgWidth}
-              height={this.svgHeight}
-              barWidth={this.volumeWidth}
-              translate={this.state.translate}
-              onClick={this.onClick}
-            >
-              <ProgressBarHandler
-                length={this.svgWidth}
-                textWidth={0}
-                translate={`translate(0, ${this.state.translate})`}
-                onMouseDown={this.onMouseDown}
-              />
-            </VolumeBar>
-          </div>
-        </section>
+        <Motion style={{
+          h: (this.state.mouseOverBox || this.holding) ? spring(90) : spring(0),
+          o: this.state.boxHeight === 0 ? spring(0) : spring(1)
+        }}>
+          {({h, o}) =>
+            <div className={boxClassName} style={{
+              width: '40px',
+              height: `${h}px`,
+              transform: `translate3d(0, -${h}px, 0)`,
+              opacity: `${o}`
+            }}>
+              {/* <p>{this.state.volume}</p> */}
+              <VolumeBar
+                width={this.svgWidth}
+                height={this.svgHeight}
+                barWidth={this.volumeWidth}
+                handlerWidth={this.handlerWidth}
+                handlerHeight={this.handlerHeight * (h/80)}
+                translate={this.state.translate}
+                onClick={this.onClick}
+              >
+                <ProgressBarHandler
+                  width={this.handlerWidth}
+                  height={this.handlerHeight}
+                  visibility={true}
+                  translate={`translate(0, ${this.state.translate})`}
+                  onMouseDown={this.onMouseDown}
+                />
+              </VolumeBar>
+            </div>
+          }
+        </Motion>
+        {/* <section className="volumebar-show-hide" hidden> */}
+
+        {/* </section> */}
         <VolumeBtn onClick={this.onClickMute} />
       </div>
     );
   }
-}
+};
 
 export default VolumeContainer;

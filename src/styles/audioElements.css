@@ -1,14 +1,4 @@
 :root {
-  --button-svg: {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    height: 40px;
-    background-color: #fff;
-    cursor: pointer;
-  };
-
   --inner-absolute-layout: {
     position: absolute;
     top: 0;
@@ -19,12 +9,22 @@
 }
 
 .svgBtnDefault {
-  @apply --button-svg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  cursor: pointer;
+
+  & > svg {
+    margin: auto;
+  }
 }
 
 .timeLine {
   width: 400px;
-  height: 60px;
+  height: 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,10 +37,20 @@
 
 .mainPlayer {
   width: 100%;
-  height: 60px;
+  height: 52px;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+
+  & > .btnStack {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 .commentsWrapper {

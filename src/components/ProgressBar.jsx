@@ -6,10 +6,12 @@ const ProgressBar = ({
   height,
   barWidth,
   barHeight,
-  textWidth,
+  handlerWidth,
   translate,
   duration,
   onMouseDown,
+  onMouseOver,
+  onMouseOut,
   children
 }, { color }) => {
   const diff = (height - barHeight) / 2;
@@ -19,31 +21,31 @@ const ProgressBar = ({
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
     >
-      <Time time={(translate / barWidth) * duration} x={0} y={height} />
-      <Time time={duration} x={width - textWidth} y={height} />
       <g onMouseDown={onMouseDown}>
         {/* A rect to expand the area of clicking */}
         <rect
-          x={(height / 2) + textWidth}
+          x={0}
           y={0}
           width={barWidth}
           height={height}
           opacity="0"
         />
         <rect
-          x={(height / 2) + textWidth}
+          x={0}
           y={diff}
           width={barWidth}
           height={barHeight}
-          fill="#E0E0E0" rx="2" ry="2"
+          fill="#E0E0E0"
         />
         <rect
-          x={(height / 2) + textWidth}
+          x={0}
           y={diff}
           width={translate}
           height={barHeight}
-          fill={color} rx="2" ry="2"
+          fill={color}
         />
       </g>
       { children }

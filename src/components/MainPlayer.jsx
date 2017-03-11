@@ -16,22 +16,24 @@ const MainPlayer = ({
   const classNameCollection = `${style.mainPlayer} ${className}`.trim();
   return (
     <div className={classNameCollection}>
-      <Controls
-        {...controlStates}
-        {...controlCallbacks}
-      />
       <Timeline
         appWidth={width}
         {...timelineStates}
         {...timelineCallbacks}
       />
-      {
-        React.Children.count(children) > 0 ?
-          <ButtonGroup>
-            { children }
-          </ButtonGroup> :
-          null
-      }
+      <div className={style.btnStack}>
+        <Controls
+          {...controlStates}
+          {...controlCallbacks}
+        />
+        {
+          React.Children.count(children) > 0 ?
+            <ButtonGroup>
+              { children }
+            </ButtonGroup> :
+            null
+        }
+      </div>
     </div>
   );
 };
