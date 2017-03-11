@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { VolumeHighBtn, VolumeLowBtn, VolumeMutedBtn } from './buttons/index';
 import ProgressBarHandler from './ProgressBarHandler';
 import VolumeBar from './VolumeBar';
-import { volumeContainer, volumeAdjustBox, boxShadowShallow, volumeAdjustBoxToBottom } from '../styles/audioComponents.css';
+import style from '../styles/audioComponents.css';
 
 class VolumeContainer extends React.PureComponent {
   static propTypes = {
@@ -101,9 +101,9 @@ class VolumeContainer extends React.PureComponent {
     this.props.setVolume(this.state.volume / 100);
   }
   render() {
-    let boxClassName = `${volumeAdjustBox} ${boxShadowShallow}`;
+    let boxClassName = `${style.volumeAdjustBox} ${style.boxShadowShallow}`;
     if (this.props.downwards) {
-      boxClassName = `${volumeAdjustBox} ${boxShadowShallow} ${volumeAdjustBoxToBottom}`;
+      boxClassName = `${boxClassName} ${style.volumeAdjustBoxToBottom}`;
     }
     let VolumeBtn;
     if (this.state.volume > 0) {
@@ -117,7 +117,7 @@ class VolumeContainer extends React.PureComponent {
     }
     return (
       <div
-        className={volumeContainer}
+        className={style.volumeContainer}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
       >

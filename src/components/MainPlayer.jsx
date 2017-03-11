@@ -2,21 +2,20 @@ import React, { PropTypes } from 'react';
 import Timeline from './Timeline';
 import Controls from './Controls';
 import ButtonGroup from './ButtonGroup';
-import { mainPlayer } from '../styles/audioElements.css';
+import style from '../styles/audioElements.css';
 
 const MainPlayer = ({
   width,
   className,
-  style,
   controlStates,
   controlCallbacks,
   timelineStates,
   timelineCallbacks,
   children
 }) => {
-  const classNameCollection = `${mainPlayer} ${className}`.trim();
+  const classNameCollection = `${style.mainPlayer} ${className}`.trim();
   return (
-    <div className={classNameCollection} style={style}>
+    <div className={classNameCollection}>
       <Controls
         {...controlStates}
         {...controlCallbacks}
@@ -37,12 +36,10 @@ const MainPlayer = ({
   );
 };
 MainPlayer.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.shape({})
+  className: PropTypes.string
 };
 MainPlayer.defaultProps = {
-  className: '',
-  style: {}
+  className: ''
 };
 
 export default MainPlayer;
