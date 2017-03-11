@@ -54,6 +54,7 @@ class Audio extends React.PureComponent {
     const {
       width,
       fullPlayer,
+      onCommentSubmit,
       CommentsWrapperStates,
       controlStates,
       controlCallbacks,
@@ -81,13 +82,14 @@ class Audio extends React.PureComponent {
         }
         <MainPlayer
           width={width}
+          onCommentSubmit={fullPlayer ? onCommentSubmit : null}
           controlStates={controlStates}
           controlCallbacks={controlCallbacks}
           timelineStates={timelineStates}
           timelineCallbacks={timelineCallbacks}
         >
-          <LikeBtn />
-          <PlaylistBtn />
+          {/* <LikeBtn />
+          <PlaylistBtn /> */}
         </MainPlayer>
       </div>
     );

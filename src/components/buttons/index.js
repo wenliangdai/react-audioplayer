@@ -10,6 +10,8 @@ import SkipPrevBtn from './SkipPrevBtn';
 import VolumeHighBtn from './VolumeHighBtn';
 import VolumeLowBtn from './VolumeLowBtn';
 import VolumeMutedBtn from './VolumeMutedBtn';
+import CommentStartBtn from './CommentStartBtn';
+import CommentSendBtn from './CommentSendBtn';
 
 export {
   LikeBtn,
@@ -23,5 +25,7 @@ export {
   SkipPrevBtn,
   VolumeHighBtn,
   VolumeLowBtn,
-  VolumeMutedBtn
+  VolumeMutedBtn,
+  CommentStartBtn,
+  CommentSendBtn
 };

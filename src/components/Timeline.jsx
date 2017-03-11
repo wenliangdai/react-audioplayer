@@ -68,6 +68,7 @@ class Timeline extends React.Component {
       if (this.holding) {
         const translate = (event.pageX - mouseDownX) + startTranslate;
         this.changeTranslate(translate);
+        this.props.updateProgressTime((this.state.translate / this.state.barWidth) * this.props.duration);
       }
     };
   }
@@ -120,13 +121,6 @@ class Timeline extends React.Component {
       </div>
     );
   }
-  // componentDidMount() {
-  //   if (this.state.barWidth === 0) {
-  //     this.setState({
-  //       barWidth: Math.round(document.querySelector(`.${style.timeLine}`).parentNode.getBoundingClientRect().width * (2 / 5))
-  //     });
-  //   }
-  // }
 }
 
 export default Timeline;

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import style from '../styles/audioElements.css';
 
 const length2two = function(num) {
   if (num === 0) {return '00'; }
@@ -16,11 +17,7 @@ const makeTimeString = function(h, m, s) {
   }
 }
 
-const Time = ({
-  time,
-  x,
-  y
-}, {color}) => {
+const Time = ({ time }, { color }) => {
   let remaining = time;
   const hour = Math.floor(remaining / 3600);
   remaining -= hour * 3600;
@@ -29,14 +26,9 @@ const Time = ({
   const second = Math.floor(remaining);
   const timeString = makeTimeString(hour, minute, second);
   return (
-    <text
-      x={x}
-      y={y}
-      fill={color}
-      fontSize={16}
-    >
+    <p className={style.time}>
       {timeString}
-    </text>
+    </p>
   );
 };
 Time.contextTypes = {
