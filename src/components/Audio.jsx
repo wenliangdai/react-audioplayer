@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import HOCAudio from './HOCAudio';
-import SongImage from './SongImage';
+import CommentsWrapper from './CommentsWrapper';
 import MainPlayer from './MainPlayer';
 import { LikeBtn, PlaylistBtn } from './buttons/index';
 import styleNormalize from '../styles/audioReset.css';
@@ -10,9 +10,11 @@ class Audio extends React.PureComponent {
   static propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
-    songImage: PropTypes.bool,
+    fullPlayer: PropTypes.bool,
     color: PropTypes.string,
-    songImageSrc: PropTypes.string,
+    CommentsWrapperStates: PropTypes.shape({
+      songImageSrc: PropTypes.string,
+    }),
     controlStates: PropTypes.shape({
       playing: PropTypes.bool,
       playingState: PropTypes.oneOf([0, 1, 2]),
@@ -51,15 +53,15 @@ class Audio extends React.PureComponent {
   render() {
     const {
       width,
-      songImage,
-      songImageSrc,
+      fullPlayer,
+      CommentsWrapperStates,
       controlStates,
       controlCallbacks,
       timelineStates,
       timelineCallbacks,
       children
     } = this.props;
-    const height = songImage ? this.props.height : 60;
+    const height = fullPlayer ? this.props.height : 60;
     return (
       <div
         className={`${styleNormalize.rootContainer} ${style.audio} ${style.boxShadowShallow}`}
@@ -69,11 +71,12 @@ class Audio extends React.PureComponent {
         }}
       >
         {
-          songImage ?
-            <SongImage
-              src={songImageSrc}
+          fullPlayer ?
+            <CommentsWrapper
               width={width}
               height={height - 60}
+              progress={timelineStates.progress}
+              {...CommentsWrapperStates}
             /> : null
         }
         <MainPlayer

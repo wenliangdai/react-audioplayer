@@ -4,7 +4,7 @@ import ProgressBar from '../src/components/ProgressBar.jsx';
 
 describe('<ProgressBar />', () => {
 
-  it('should render UI correctly', () => {
+  it.skip('should render UI correctly', () => {
     const wrapper = shallow(
       <ProgressBar
         width={100}

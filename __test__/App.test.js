@@ -57,15 +57,15 @@ describe('<Audio />', () => {
     expect(wrapper.state('currentPlaylistPos')).toEqual(0);
   });
 
-  it('should not render <SongImage /> if prop songImage={false}, which is the default', () => {
+  it('should not render <CommentsWrapper /> if prop songImage={false}, which is the default', () => {
     const wrapper = mount(
       <Audio
         playlist={playlist.source}
       />
     );
-    expect(wrapper.find('SongImage')).toHaveLength(0);
-    wrapper.setProps({ songImage: true });
-    expect(wrapper.find('SongImage')).toHaveLength(1);
+    expect(wrapper.find('CommentsWrapper')).toHaveLength(0);
+    wrapper.setProps({ fullPlayer: true });
+    expect(wrapper.find('CommentsWrapper')).toHaveLength(1);
   });
 
   it('should switch between PlayBtn/PauseBtn when state.playing changes', () => {

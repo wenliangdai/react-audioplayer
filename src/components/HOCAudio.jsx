@@ -7,7 +7,11 @@ const HOCAudio = (Audio) => {
       playlist: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
         src: PropTypes.string,
-        img: PropTypes.string
+        img: PropTypes.string,
+        comments: PropTypes.arrayOf(PropTypes.shape({
+          time: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+          content: PropTypes.string
+        }))
       })).isRequired
     };
     static defaultProps = {
@@ -216,7 +220,11 @@ const HOCAudio = (Audio) => {
     }
     render() {
       const newProps = Object.assign({}, {
-        songImageSrc: this.props.playlist[this.state.currentPlaylistPos].img,
+        CommentsWrapperStates: {
+          songImageSrc: this.props.playlist[this.state.currentPlaylistPos].img,
+          comments: this.props.playlist[this.state.currentPlaylistPos].comments,
+          pos: this.state.currentPlaylistPos
+        },
         controlStates: {
           playing: this.state.playing,
           playingState: this.state.playingState,
