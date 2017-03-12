@@ -18,8 +18,8 @@ class CommentsContainer extends React.Component {
       clearScreen: false
     };
     this.willLeave = this.willLeave.bind(this);
-    this.onMouseOver = this.onMouseOver.bind(this);
-    this.onMouseOut = this.onMouseOut.bind(this);
+    this.onMouseEnter = this.onMouseEnter.bind(this);
+    this.onMouseLeave = this.onMouseLeave.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,16 +51,12 @@ class CommentsContainer extends React.Component {
     return this.state.scroll;
   }
 
-  onMouseOver(e) {
-    e.stopPropagation();
+  onMouseEnter(e) {
     this.setState({ scroll: false });
   }
 
-  onMouseOut(e) {
-    e.stopPropagation();
-    if (e.target.nodeType === 1 && !(e.target.tagName.toLowerCase() === 'p')) {
-      this.setState({ scroll: true });
-    }
+  onMouseLeave(e) {
+    this.setState({ scroll: true });
   }
 
   sortComments(a, b) {
@@ -104,7 +100,7 @@ class CommentsContainer extends React.Component {
         }))}
       >
         {interpolatedStyles =>
-          <div className={this.props.className} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
+          <div className={this.props.className} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
             {interpolatedStyles.map(config => {
               return <Comment
                 key={config.key}

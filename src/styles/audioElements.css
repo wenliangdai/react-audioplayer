@@ -108,6 +108,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    align-items: center;
     width: 60%;
     height: 100%;
     padding-bottom: 10px;

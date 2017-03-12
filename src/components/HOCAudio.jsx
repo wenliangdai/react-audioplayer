@@ -27,6 +27,7 @@ const HOCAudio = (Audio) => {
       this.onEnded = this.onEnded.bind(this);
       this.onPlay = this.onPlay.bind(this);
       this.onPause = this.onPause.bind(this);
+      // this.onTimeUpdate = this.onTimeUpdate.bind(this);
       this.setVolume = this.setVolume.bind(this);
       this.setProgress = this.setProgress.bind(this);
       this.skipToNext = this.skipToNext.bind(this);
@@ -57,6 +58,7 @@ const HOCAudio = (Audio) => {
       this.audioElement.addEventListener('play', this.onPlay);
       this.audioElement.addEventListener('pause', this.onPause);
       this.audioElement.addEventListener('volumechange', this.onVolumeChange);
+      // this.audioElement.addEventListener('timeupdate', this.onTimeUpdate);
 
       this.loadSrc();
       this.setState({ volume: this.audioElement.volume });
@@ -83,7 +85,7 @@ const HOCAudio = (Audio) => {
       this.setState({ playing: true });
       this.intervalId = setInterval(() => {
         this.setState({ progress: this.audioElement.currentTime });
-      }, 1000);
+      }, 900);
     }
     onPause() {
       console.log('audio onpause');
@@ -96,6 +98,10 @@ const HOCAudio = (Audio) => {
         this.handleEndedProgress();
       }
     }
+    // onTimeUpdate(e) {
+    //   this.setState({ progress: this.audioElement.currentTime });
+    //   console.log(e.target.currentTime);
+    // }
     handleEndedProgress() {
       this.playNext = true;
       switch (this.state.playingState) {
