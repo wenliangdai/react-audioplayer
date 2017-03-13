@@ -9,7 +9,8 @@ class CommentInputContainer extends React.Component {
     super(props);
     this.state = {
       showInput: false,
-      inputContent: ''
+      inputContent: '',
+      inputWidth: 150
     };
     this._onClickStartBtn = this._onClickStartBtn.bind(this);
     this._onClickSendBtn = this._onClickSendBtn.bind(this);
@@ -18,7 +19,11 @@ class CommentInputContainer extends React.Component {
   }
   _onClickStartBtn(e) {
     e.stopPropagation();
-    this.setState({ showInput: true });
+    const inputWidth = document.querySelector(`.${style.commentInputContainer}`).parentNode.getBoundingClientRect().width - 390;
+    this.setState({
+      showInput: true,
+      inputWidth: inputWidth > 0 ? inputWidth : 150
+    });
     const input = e.currentTarget.previousSibling.firstChild;
     input.focus();
     input.select();
@@ -43,12 +48,13 @@ class CommentInputContainer extends React.Component {
     this.setState({ inputContent: e.target.value });
   }
   render() {
+
     return (
       <div className={style.commentInputContainer} onClick={(e) => {
         e.stopPropagation();
       }}>
         <Motion style={{
-          width: spring(this.state.showInput ? 200 : 0),
+          width: spring(this.state.showInput ? this.state.inputWidth : 0),
           opacity: spring(this.state.showInput ? 1 : 0),
         }}>
           {({width, opacity}) =>

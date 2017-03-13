@@ -21,6 +21,7 @@ class MainPlayer extends React.Component {
   render() {
     const {
       width,
+      name,
       comment,
       volumeOrientationDown,
       className,
@@ -54,18 +55,14 @@ class MainPlayer extends React.Component {
               onCommentSubmit={onCommentSubmit}
             /> : null
           }
-          <div className={style.timeContainer} style={{ color: this.context.color }}>
-            <Time time={this.state.progressTime} />
-            <span>{'/'}</span>
-            <Time time={timelineStates.duration} />
+          <div className={style.timeNameContainer} style={{ color: this.context.color }}>
+            <div className={style.nameContainer} title={name}>{name}</div>
+            <div className={style.timeContainer}>
+              <Time time={this.state.progressTime} />
+              <span>{'/'}</span>
+              <Time time={timelineStates.duration} />
+            </div>
           </div>
-          {/* {
-            React.Children.count(children) > 0 ?
-              <ButtonGroup>
-                { children }
-              </ButtonGroup> :
-              null
-          } */}
         </div>
       </div>
     );

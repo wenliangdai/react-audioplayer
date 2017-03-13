@@ -55,6 +55,7 @@ class Audio extends React.PureComponent {
   render() {
     const {
       width,
+      name,
       fullPlayer,
       comment,
       volumeOrientationDown,
@@ -87,6 +88,7 @@ class Audio extends React.PureComponent {
         }
         <MainPlayer
           width={width}
+          name={name}
           comment={fullPlayer ? comment : false}
           volumeOrientationDown={volumeOrientationDown}
           onCommentSubmit={fullPlayer ? onCommentSubmit : null}

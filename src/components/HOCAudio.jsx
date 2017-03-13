@@ -226,6 +226,7 @@ const HOCAudio = (Audio) => {
     }
     render() {
       const newProps = Object.assign({}, {
+        name: this.props.playlist[this.state.currentPlaylistPos].name,
         CommentsWrapperStates: {
           songImageSrc: this.props.playlist[this.state.currentPlaylistPos].img,
           comments: (this.props.fullPlayer && this.props.comment) ? this.props.playlist[this.state.currentPlaylistPos].comments : null,
@@ -244,7 +245,6 @@ const HOCAudio = (Audio) => {
           skipToPrevious: this.skipToPrevious
         },
         timelineStates: {
-          title: this.props.playlist[this.state.currentPlaylistPos].name,
           playing: this.state.playing,
           progress: this.state.progress,
           duration: this.state.duration
