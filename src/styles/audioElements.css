@@ -169,7 +169,7 @@
   & > form {
     width: auto;
     height: 30px;
-    margin-right: 5px;
+    margin: 0 2px;
     border: none;
     outline: none;
 

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { combineClassNames } from '../../util-functions.js';
 import { svgBtnDefault } from '../../styles/audioElements.css';
 
 class Button extends React.PureComponent {
@@ -13,9 +14,10 @@ class Button extends React.PureComponent {
     this.state = { mouseOver: false };
   }
   render() {
+    const newClassName = combineClassNames(svgBtnDefault, this.props.className);
     return (
       <button
-        className={svgBtnDefault}
+        className={newClassName}
         onClick={this.props.onClick}
         onMouseOver={() => {
           this.setState({ mouseOver: true });

@@ -28,8 +28,6 @@ class VolumeContainer extends React.PureComponent {
     this.svgHeight = 72;
     this.volumeWidth = 4;
     this.holding = false;
-    this.onmousemoveSaver = null;
-    this.onmouseupSaver = null;
     this.onClick = this.onClick.bind(this);
     this.onClickMute = this.onClickMute.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
@@ -37,6 +35,8 @@ class VolumeContainer extends React.PureComponent {
     this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);
     this._onMouseUp = this._onMouseUp.bind(this);
+
+    this.onDraggingFunctionRef = null;
   }
   componentWillReceiveProps(nextProps) {
     if (!this.holding) {
@@ -58,8 +58,9 @@ class VolumeContainer extends React.PureComponent {
     if (document.onmouseup) {
       this.onmouseupSaver = document.onmouseup;
     }
-    document.onmousemove = this.onMouseDragging(e.clientY, this.state.translate);
-    document.onmouseup = this._onMouseUp;
+    this.onDraggingFunctionRef = this.onMouseDragging(e.clientY, this.state.translate);
+    document.addEventListener('mousemove', this.onDraggingFunctionRef);
+    document.addEventListener('mouseup', this._onMouseUp);
   }
   onMouseDragging(mouseDownX, startTranslate) {
     return (e) => {
@@ -80,11 +81,9 @@ class VolumeContainer extends React.PureComponent {
     };
   }
   onMouseOver() {
-    // document.querySelector('.volumebar-show-hide').hidden = false;
     this.setState({ mouseOverBox: true });
   }
   onMouseOut() {
-      // document.querySelector('.volumebar-show-hide').hidden = true;
       this.setState({ mouseOverBox: false });
   }
   onClickMute() {
@@ -96,14 +95,10 @@ class VolumeContainer extends React.PureComponent {
     }
   }
   _onMouseUp() {
-    document.onmousemove = this.onmousemoveSaver;
-    document.onmouseup = this.onmouseupSaver;
     this.holding = false;
-    // if (!this.state.mouseOverBox) {
-    //   this.setState({ mouseOverBox: 0 });
-    // }
-
     this.props.setVolume(this.state.volume / 100);
+    document.removeEventListener('mousemove', this.onDraggingFunctionRef);
+    document.removeEventListener('mouseup', this._onMouseUp);
   }
   render() {
     let boxClassName = `${style.volumeAdjustBox}`;
@@ -127,17 +122,16 @@ class VolumeContainer extends React.PureComponent {
         onMouseOut={this.onMouseOut}
       >
         <Motion style={{
-          h: (this.state.mouseOverBox || this.holding) ? spring(90) : spring(0),
-          o: this.state.boxHeight === 0 ? spring(0) : spring(1)
+          h: spring((this.state.mouseOverBox || this.holding) ? (this.props.downwards ? 40 : 90) : 0),
+          o: spring(this.state.boxHeight === 0 ? 0 : 1)
         }}>
           {({h, o}) =>
             <div className={boxClassName} style={{
               width: '40px',
-              height: `${h}px`,
-              transform: `translate3d(0, -${h}px, 0)`,
+              height: this.props.downwards ? `${h*(9/4)}px` : `${h}px`,
+              transform: this.props.downwards ? `translate3d(0, ${h}px, 0)` : `translate3d(0, -${h}px, 0)`,
               opacity: `${o}`
             }}>
-              {/* <p>{this.state.volume}</p> */}
               <VolumeBar
                 width={this.svgWidth}
                 height={this.svgHeight}
@@ -158,9 +152,6 @@ class VolumeContainer extends React.PureComponent {
             </div>
           }
         </Motion>
-        {/* <section className="volumebar-show-hide" hidden> */}
-
-        {/* </section> */}
         <VolumeBtn onClick={this.onClickMute} />
       </div>
     );

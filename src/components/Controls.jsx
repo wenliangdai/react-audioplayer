@@ -11,7 +11,8 @@ const Controls = ({
   togglePlayPause,
   togglePlayingState,
   skipToNext,
-  skipToPrevious
+  skipToPrevious,
+  volumeOrientationDown
 }) => {
   let PlayPauseBtn;
   let PlayingStateBtn;
@@ -47,6 +48,7 @@ const Controls = ({
       <VolumeContainer
         volume={volume}
         setVolume={setVolume}
+        downwards={volumeOrientationDown}
       />
     </ButtonGroup>
   );

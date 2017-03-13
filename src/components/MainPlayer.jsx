@@ -21,6 +21,8 @@ class MainPlayer extends React.Component {
   render() {
     const {
       width,
+      comment,
+      volumeOrientationDown,
       className,
       onCommentSubmit,
       controlStates,
@@ -31,7 +33,9 @@ class MainPlayer extends React.Component {
     } = this.props;
     const classNameCollection = `${style.mainPlayer} ${className}`.trim();
     return (
-      <div className={classNameCollection}>
+      <div className={classNameCollection} onClick={(e) => {
+        // this._onClickToCloseInput();
+      }}>
         <Timeline
           appWidth={width}
           updateProgressTime={this.updateProgressTime}
@@ -40,12 +44,16 @@ class MainPlayer extends React.Component {
         />
         <div className={style.btnStack}>
           <Controls
+            volumeOrientationDown={volumeOrientationDown}
             {...controlStates}
             {...controlCallbacks}
           />
-          <CommentInputContainer
-            onCommentSubmit={onCommentSubmit}
-          />
+          {
+            comment ?
+            <CommentInputContainer
+              onCommentSubmit={onCommentSubmit}
+            /> : null
+          }
           <div className={style.timeContainer} style={{ color: this.context.color }}>
             <Time time={this.state.progressTime} />
             <span>{'/'}</span>

@@ -1,6 +1,6 @@
 .rootContainer {
-  min-width: 400px;
-  min-height: 60px;
+  min-width: 300px;
+  min-height: 52px;
   margin: auto;
 
   & div,
@@ -14,6 +14,7 @@
 
   & button {
     border: none;
+    outline: none;
   }
 
   & p,

@@ -11,6 +11,8 @@ class Audio extends React.PureComponent {
     width: PropTypes.number,
     height: PropTypes.number,
     fullPlayer: PropTypes.bool,
+    comment: PropTypes.bool,
+    volumeOrientationDown: PropTypes.bool,
     color: PropTypes.string,
     CommentsWrapperStates: PropTypes.shape({
       songImageSrc: PropTypes.string,
@@ -39,8 +41,8 @@ class Audio extends React.PureComponent {
     })
   }
   static defaultProps = {
-    width: 800,
-    height: 400,
+    width: 400,
+    height: 300,
     songImage: false,
     color: '#282828'
   }
@@ -54,6 +56,8 @@ class Audio extends React.PureComponent {
     const {
       width,
       fullPlayer,
+      comment,
+      volumeOrientationDown,
       onCommentSubmit,
       CommentsWrapperStates,
       controlStates,
@@ -74,6 +78,7 @@ class Audio extends React.PureComponent {
         {
           fullPlayer ?
             <CommentsWrapper
+              comment={comment}
               width={width}
               height={height - 52}
               progress={timelineStates.progress}
@@ -82,6 +87,8 @@ class Audio extends React.PureComponent {
         }
         <MainPlayer
           width={width}
+          comment={fullPlayer ? comment : false}
+          volumeOrientationDown={volumeOrientationDown}
           onCommentSubmit={fullPlayer ? onCommentSubmit : null}
           controlStates={controlStates}
           controlCallbacks={controlCallbacks}

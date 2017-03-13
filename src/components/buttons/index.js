@@ -12,6 +12,7 @@ import VolumeLowBtn from './VolumeLowBtn';
 import VolumeMutedBtn from './VolumeMutedBtn';
 import CommentStartBtn from './CommentStartBtn';
 import CommentSendBtn from './CommentSendBtn';
+import CloseBtn from './CloseBtn';
 
 export {
   LikeBtn,
@@ -27,5 +28,6 @@ export {
   VolumeLowBtn,
   VolumeMutedBtn,
   CommentStartBtn,
-  CommentSendBtn
+  CommentSendBtn,
+  CloseBtn
 };

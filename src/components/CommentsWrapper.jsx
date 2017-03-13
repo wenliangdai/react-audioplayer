@@ -9,7 +9,8 @@ class CommentsWrapper extends React.PureComponent {
     songImageSrc: PropTypes.string.isRequired,
     className: PropTypes.string,
     width: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    comment: PropTypes.bool
   };
   static defaultProps = {
     songImageSrc: '',
@@ -25,8 +26,10 @@ class CommentsWrapper extends React.PureComponent {
     this.documentClickHandler = this.documentClickHandler.bind(this);
   }
   componentDidMount() {
-    const commentsContainer = document.querySelector(`.${style.commentsContainer}`);
-    commentsContainer.addEventListener('click', this.onClickComment);
+    if (this.props.comment) {
+      const commentsContainer = document.querySelector(`.${style.commentsContainer}`);
+      commentsContainer.addEventListener('click', this.onClickComment);
+    }
   }
   documentClickHandler(event) {
     if (!event.target.matches(`.${style.commentsContainer} p`)) {
@@ -61,7 +64,8 @@ class CommentsWrapper extends React.PureComponent {
       width,
       height,
       progress,
-      comments
+      comments,
+      comment
     } = this.props;
     const _className = combineClassNames(style.commentsWrapper, className);
     const albumLength = Math.min(width * 0.4, height) - 40;
@@ -81,19 +85,24 @@ class CommentsWrapper extends React.PureComponent {
               src={songImageSrc}
               alt="Album cover image"
             />
-            <FullComment
-              className={style.fullComment}
-              show={this.state.fullComment}
-              content={this.state.fullCommentTextNode}
-            />
+            {
+              comment ? <FullComment
+                className={style.fullComment}
+                show={this.state.fullComment}
+                content={this.state.fullCommentTextNode}
+              /> : null
+            }
           </div>
         </section>
-        <CommentsContainer
-          className={style.commentsContainer}
-          height={height}
-          progress={progress}
-          comments={comments}
-        />
+        {
+          comment ? <CommentsContainer
+            className={style.commentsContainer}
+            height={height}
+            progress={progress}
+            comments={comments}
+          /> : null
+        }
+
         <div className={style.commentsWrapperBackgroundMask}></div>
         <div className={style.commentsWrapperBackground} style={{ backgroundImage: `url(${songImageSrc})` }}/>
       </div>

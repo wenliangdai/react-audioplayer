@@ -1,6 +1,7 @@
 import React from 'react';
 import { Motion, spring } from 'react-motion';
 import * as Buttons from './buttons/index';
+import ButtonGroup from './ButtonGroup';
 import style from '../styles/audioElements.css';
 
 class CommentInputContainer extends React.Component {
@@ -12,9 +13,11 @@ class CommentInputContainer extends React.Component {
     };
     this._onClickStartBtn = this._onClickStartBtn.bind(this);
     this._onClickSendBtn = this._onClickSendBtn.bind(this);
+    this._onClickCloseBtn = this._onClickCloseBtn.bind(this);
     this._onInputChange = this._onInputChange.bind(this);
   }
   _onClickStartBtn(e) {
+    e.stopPropagation();
     this.setState({ showInput: true });
     const input = e.currentTarget.previousSibling.firstChild;
     input.focus();
@@ -25,7 +28,12 @@ class CommentInputContainer extends React.Component {
     if (this.props.onCommentSubmit) {
       this.props.onCommentSubmit(e, this.state.inputContent);
     }
-
+    this.setState({
+      showInput: false,
+      inputContent: ''
+    });
+  }
+  _onClickCloseBtn() {
     this.setState({
       showInput: false,
       inputContent: ''
@@ -36,9 +44,11 @@ class CommentInputContainer extends React.Component {
   }
   render() {
     return (
-      <div className={style.commentInputContainer}>
+      <div className={style.commentInputContainer} onClick={(e) => {
+        e.stopPropagation();
+      }}>
         <Motion style={{
-          width: spring(this.state.showInput ? 240 : 0),
+          width: spring(this.state.showInput ? 200 : 0),
           opacity: spring(this.state.showInput ? 1 : 0),
         }}>
           {({width, opacity}) =>
@@ -57,12 +67,11 @@ class CommentInputContainer extends React.Component {
         </Motion>
         {
           this.state.showInput ?
-            <Buttons.CommentSendBtn
-              onClick={this._onClickSendBtn}
-            /> :
-            <Buttons.CommentStartBtn
-              onClick={this._onClickStartBtn}
-            />
+            <ButtonGroup>
+              <Buttons.CloseBtn onClick={this._onClickCloseBtn} />
+              <Buttons.CommentSendBtn onClick={this._onClickSendBtn} />
+            </ButtonGroup> :
+            <Buttons.CommentStartBtn onClick={this._onClickStartBtn} />
         }
       </div>
     );

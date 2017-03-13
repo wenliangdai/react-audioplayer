@@ -228,7 +228,7 @@ const HOCAudio = (Audio) => {
       const newProps = Object.assign({}, {
         CommentsWrapperStates: {
           songImageSrc: this.props.playlist[this.state.currentPlaylistPos].img,
-          comments: this.props.playlist[this.state.currentPlaylistPos].comments,
+          comments: (this.props.fullPlayer && this.props.comment) ? this.props.playlist[this.state.currentPlaylistPos].comments : null,
           pos: this.state.currentPlaylistPos
         },
         controlStates: {

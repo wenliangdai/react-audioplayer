@@ -13,19 +13,19 @@ class Timeline extends React.Component {
     super(props);
     this.state = {
       showHandler: false,
-      barWidth: props.appWidth - 12,
+      barWidth: (props.appWidth < 300) ? 300 : props.appWidth,
       translate: 0
     };
     this.holding = false;
     this.shouldTogglePlayPause = this.props.playing;
-    this.onmousemoveSaver = null;
-    this.onmouseupSaver = null;
     this.changeTranslate = this.changeTranslate.bind(this);
     this._onMouseDownProgressBar = this._onMouseDownProgressBar.bind(this);
     this._onMouseOverProgressBar = this._onMouseOverProgressBar.bind(this);
     this._onMouseOutProgressBar = this._onMouseOutProgressBar.bind(this);
     this._onMouseDownProgressBarHandler = this._onMouseDownProgressBarHandler.bind(this);
     this._onMouseUp = this._onMouseUp.bind(this);
+
+    this.onMouseMoveFunctionRef = null;
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.duration !== 0 && !this.holding) {
@@ -49,19 +49,18 @@ class Timeline extends React.Component {
     const newTranslate = e.pageX - timelineDisToLeft;
     this.changeTranslate(newTranslate);
     this.holding = true;
-    if (document.onmousemove) { this.onmousemoveSaver = document.onmousemove; }
-    if (document.onmouseup) { this.onmouseupSaver = document.onmouseup; }
-    document.onmousemove = this._onMouseMove(e.pageX, newTranslate);
-    document.onmouseup = this._onMouseUp;
+    this.onMouseMoveFunctionRef = this._onMouseMove(e.pageX, newTranslate);
+    document.addEventListener('mousemove', this.onMouseMoveFunctionRef);
+    document.addEventListener('mouseup', this._onMouseUp);
   }
   _onMouseDownProgressBarHandler(e) {
     e.stopPropagation();
     this.holding = true;
+    console.log('Timeline: _onMouseDownProgressBarHandler');
     if (this.shouldTogglePlayPause) { this.props.togglePlayPause(); }
-    if (document.onmousemove) { this.onmousemoveSaver = document.onmousemove; }
-    if (document.onmouseup) { this.onmouseupSaver = document.onmouseup; }
-    document.onmousemove = this._onMouseMove(e.pageX, this.state.translate);
-    document.onmouseup = this._onMouseUp;
+    this.onMouseMoveFunctionRef = this._onMouseMove(e.pageX, this.state.translate);
+    document.addEventListener('mousemove', this.onMouseMoveFunctionRef);
+    document.addEventListener('mouseup', this._onMouseUp);
   }
   _onMouseMove(mouseDownX, startTranslate) {
     return (event) => {
@@ -79,10 +78,12 @@ class Timeline extends React.Component {
     if (this.shouldTogglePlayPause && this.props.playing) { setTimeout(() => this.props.togglePlayPause(), 0); }
     // Normally, when this.shouldTogglePlayPause is true, this.props.playing should be false, except the case above.
     if (this.shouldTogglePlayPause && !this.props.playing) { this.props.togglePlayPause(); }
-    document.onmousemove = this.onmousemoveSaver;
-    document.onmouseup = this.onmouseupSaver;
+
     this.holding = false;
     this.props.setProgress((this.state.translate / this.state.barWidth) * this.props.duration);
+
+    document.removeEventListener('mousemove', this.onMouseMoveFunctionRef);
+    document.removeEventListener('mouseup', this._onMouseUp);
   }
   changeTranslate(newTranslate) {
     let translate = newTranslate;
@@ -94,14 +95,14 @@ class Timeline extends React.Component {
   render() {
     const handlerWidth = 12;
     const handlerHeight = 12;
-    const containerWidth = this.state.barWidth + handlerWidth;
+    const containerWidth = this.state.barWidth;
     const barHeight = 4;
     return (
       <div className={style.timeLine} style={{ width: containerWidth, transform: 'translateY(-4px)' }}>
         <ProgressBar
           width={containerWidth}
           height={handlerHeight}
-          barWidth={this.state.barWidth + handlerWidth}
+          barWidth={this.state.barWidth}
           barHeight={barHeight}
           handlerWidth={handlerWidth}
           translate={this.state.translate}
@@ -114,7 +115,7 @@ class Timeline extends React.Component {
             width={handlerWidth}
             height={handlerHeight}
             visibility={this.state.showHandler || this.holding}
-            translate={`translate(${this.state.translate})`}
+            translate={`translate(${this.state.translate-6})`}
             onMouseDown={this._onMouseDownProgressBarHandler}
           />
         </ProgressBar>
