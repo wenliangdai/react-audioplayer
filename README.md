@@ -1,5 +1,6 @@
 # react-audioplayer
 [![npm version](https://badge.fury.io/js/react-audioplayer.svg)](https://www.npmjs.com/package/react-audioplayer)
+
 A customizable HTML5 audio player for React.js
 
 ## Features
