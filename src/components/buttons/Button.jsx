@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { combineClassNames } from '../../util-functions.js';
+import { combineClassNames } from '../../util-functions';
 import { svgBtnDefault } from '../../styles/audioElements.css';
 
 class Button extends React.PureComponent {
@@ -33,7 +33,7 @@ class Button extends React.PureComponent {
       </button>
     );
   }
-};
+}
 Button.contextTypes = {
   color: React.PropTypes.string
 };

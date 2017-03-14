@@ -3,7 +3,6 @@ import Timeline from './Timeline';
 import Controls from './Controls';
 import CommentInputContainer from './CommentInputContainer';
 import Time from './Time';
-import ButtonGroup from './ButtonGroup';
 import style from '../styles/audioElements.css';
 
 class MainPlayer extends React.Component {
@@ -29,14 +28,11 @@ class MainPlayer extends React.Component {
       controlStates,
       controlCallbacks,
       timelineStates,
-      timelineCallbacks,
-      children
+      timelineCallbacks
     } = this.props;
     const classNameCollection = `${style.mainPlayer} ${className}`.trim();
     return (
-      <div className={classNameCollection} onClick={(e) => {
-        // this._onClickToCloseInput();
-      }}>
+      <div className={classNameCollection}>
         <Timeline
           appWidth={width}
           updateProgressTime={this.updateProgressTime}
@@ -51,9 +47,9 @@ class MainPlayer extends React.Component {
           />
           {
             comment ?
-            <CommentInputContainer
-              onCommentSubmit={onCommentSubmit}
-            /> : null
+              <CommentInputContainer
+                onCommentSubmit={onCommentSubmit}
+              /> : null
           }
           <div className={style.timeNameContainer} style={{ color: this.context.color }}>
             <div className={style.nameContainer} title={name}>{name}</div>
@@ -67,7 +63,7 @@ class MainPlayer extends React.Component {
       </div>
     );
   }
-};
+}
 MainPlayer.propTypes = {
   className: PropTypes.string
 };

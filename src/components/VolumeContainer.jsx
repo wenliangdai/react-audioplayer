@@ -84,7 +84,7 @@ class VolumeContainer extends React.PureComponent {
     this.setState({ mouseOverBox: true });
   }
   onMouseOut() {
-      this.setState({ mouseOverBox: false });
+    this.setState({ mouseOverBox: false });
   }
   onClickMute() {
     if (this.state.volume > 0) {
@@ -111,29 +111,35 @@ class VolumeContainer extends React.PureComponent {
     } else {
       VolumeBtn = VolumeMutedBtn;
     }
+    const motionH = this.props.volumeOrientationDown ? 40 : 90;
     return (
       <div
         className={style.volumeContainer}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
       >
-        <Motion style={{
-          h: spring((this.state.mouseOverBox || this.holding) ? (this.props.volumeOrientationDown ? 40 : 90) : 0),
-          o: spring(this.state.boxHeight === 0 ? 0 : 1)
-        }}>
-          {({h, o}) =>
-            <div className={style.volumeAdjustBox} style={{
-              width: '40px',
-              height: this.props.volumeOrientationDown ? `${h*(9/4)}px` : `${h}px`,
-              transform: this.props.volumeOrientationDown ? `translate3d(0, ${h}px, 0)` : `translate3d(0, -${h}px, 0)`,
-              opacity: `${o}`
-            }}>
+        <Motion
+          style={{
+            h: spring((this.state.mouseOverBox || this.holding) ? motionH : 0),
+            opacity: spring(this.state.mouseOverBox ? 1 : 0)
+          }}
+        >
+          {({ h, opacity }) =>
+            <div
+              className={style.volumeAdjustBox}
+              style={{
+                width: '40px',
+                height: this.props.volumeOrientationDown ? `${h * (9 / 4)}px` : `${h}px`,
+                transform: this.props.volumeOrientationDown ? `translate3d(0, ${h}px, 0)` : `translate3d(0, -${h}px, 0)`,
+                opacity
+              }}
+            >
               <VolumeBar
                 width={this.svgWidth}
                 height={this.svgHeight}
                 barWidth={this.volumeWidth}
                 handlerWidth={this.handlerWidth}
-                handlerHeight={this.handlerHeight * (h/80)}
+                handlerHeight={this.handlerHeight * (h / 80)}
                 translate={this.state.translate}
                 onClick={this.onClick}
               >
@@ -152,6 +158,6 @@ class VolumeContainer extends React.PureComponent {
       </div>
     );
   }
-};
+}
 
 export default VolumeContainer;

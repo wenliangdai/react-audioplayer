@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import Time from './Time';
 
 const ProgressBar = ({
   width,
