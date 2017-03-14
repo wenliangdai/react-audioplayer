@@ -50,7 +50,7 @@ const HOCAudio = (Audio) => {
       };
     }
     componentDidMount() {
-      console.log('Audio mounted!');
+      // console.log('Audio mounted!');
       // set audio element event listeners
       this.audioElement = document.createElement('audio');
       this.audioElement.addEventListener('canplay', this.onCanPlay);
@@ -73,14 +73,14 @@ const HOCAudio = (Audio) => {
       this.audioElement = null;
     }
     onCanPlay() {
-      console.log('audio oncanplay');
+      // console.log('audio oncanplay');
       this.playNext = this.state.playing;
       this.setState({
         duration: this.audioElement.duration
       });
     }
     onPlay() {
-      console.log('audio onplay');
+      // console.log('audio onplay');
       this.playNext = true;
       this.setState({ playing: true });
       this.intervalId = setInterval(() => {
@@ -88,12 +88,12 @@ const HOCAudio = (Audio) => {
       }, 900);
     }
     onPause() {
-      console.log('audio onpause');
+      // console.log('audio onpause');
       this.setState({ playing: false });
       this._clearInterval();
     }
     onEnded() {
-      console.log('audio onended');
+      // console.log('audio onended');
       if (this.playNext) {
         this.handleEndedProgress();
       }
@@ -149,13 +149,13 @@ const HOCAudio = (Audio) => {
           break;
         }
         default: {
-          console.log('onend BUG!!!');
+          // console.log('onend BUG!!!');
           break;
         }
       }
     }
     setVolume(volume) {
-      console.log(`volume is set to ${volume}`);
+      // console.log(`volume is set to ${volume}`);
       this.audioElement.volume = volume;
       this.setState({ volume });
     }
@@ -167,17 +167,17 @@ const HOCAudio = (Audio) => {
       }
       this.audioElement.currentTime = progress;
       this.setState({ progress });
-      console.log(`progress is set to ${progress}`);
+      // console.log(`progress is set to ${progress}`);
     }
     _clearInterval() {
-      console.log('interval cleared');
+      // console.log('interval cleared');
       if (this.intervalId !== null) {
         clearInterval(this.intervalId);
         this.intervalId = null;
       }
     }
     loadSrc() {
-      console.log('load src');
+      // console.log('load src');
       if (this.state.currentPlaylistPos < this.props.playlist.length) {
         this.audioElement.src = this.props.playlist[this.state.currentPlaylistPos].src;
         this.audioElement.load();
@@ -189,9 +189,9 @@ const HOCAudio = (Audio) => {
       }
     }
     togglePlayPause() {
-      console.log('toggle playpause');
+      // console.log('toggle playpause');
       if (this.state.playing) {
-        console.log('togglePlayPause(): playing');
+        // console.log('togglePlayPause(): playing');
         this.audioElement.pause();
       } else if (this.audioElement.currentTime === this.audioElement.duration) {
         this.handleEndedProgress();
@@ -200,12 +200,12 @@ const HOCAudio = (Audio) => {
       }
     }
     skipToNext() {
-      console.log('skip to next');
+      // console.log('skip to next');
       this.state.currentPlaylistPos = this.setCycleNumPos(this.state.currentPlaylistPos, 1, this.props.playlist.length);
       this.loadSrc();
     }
     skipToPrevious() {
-      console.log('skip to next');
+      // console.log('skip to next');
       this.state.currentPlaylistPos = this.setCycleNumPos(this.state.currentPlaylistPos, -1, this.props.playlist.length);
       this.loadSrc();
     }

@@ -15,6 +15,9 @@ const App = () => (
     autoPlay={false}
     volumeOrientationDown={false}
     playlist={playlist.source}
+    style={{
+      border: '1px solid black'
+    }}
   />
 );
 

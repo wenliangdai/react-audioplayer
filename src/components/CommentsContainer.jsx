@@ -13,7 +13,7 @@ class CommentsContainer extends React.Component {
     super(props);
     this.state = {
       visibleComments: [],
-      commentHeight: 35,
+      commentHeight: 32,
       scroll: true,
       clearScreen: false
     };

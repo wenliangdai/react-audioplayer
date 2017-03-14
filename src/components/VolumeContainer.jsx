@@ -101,10 +101,6 @@ class VolumeContainer extends React.PureComponent {
     document.removeEventListener('mouseup', this._onMouseUp);
   }
   render() {
-    let boxClassName = `${style.volumeAdjustBox}`;
-    if (this.props.downwards) {
-      boxClassName = `${boxClassName} ${style.volumeAdjustBoxToBottom}`;
-    }
     let VolumeBtn;
     if (this.state.volume > 0) {
       if (this.state.volume > 50) {
@@ -126,7 +122,7 @@ class VolumeContainer extends React.PureComponent {
           o: spring(this.state.boxHeight === 0 ? 0 : 1)
         }}>
           {({h, o}) =>
-            <div className={boxClassName} style={{
+            <div className={style.volumeAdjustBox} style={{
               width: '40px',
               height: this.props.downwards ? `${h*(9/4)}px` : `${h}px`,
               transform: this.props.downwards ? `translate3d(0, ${h}px, 0)` : `translate3d(0, -${h}px, 0)`,

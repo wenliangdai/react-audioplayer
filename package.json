@@ -1,11 +1,16 @@
 {
-  "name": "react-audio",
+  "name": "react-audio-palyer",
   "version": "0.0.1",
   "description": "A customizable html5 audio player for React.js",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": {
     "url": "https://github.com/wenliangdai/react-audio.git",
     "type": "git"
+  },
+  "peerDependencies": {
+    "react": ">=0.13.2 || ^0.14 || ^15.0.0",
+    "react-dom": ">=0.13.2 || ^0.14 || ^15.0.0",
+    "react-motion": "^0.4.0"
   },
   "jest": {
     "browser": true,
@@ -19,12 +24,10 @@
     "test-s": "jest --silent",
     "start": "NODE_ENV=development webpack-dev-server --config ./webpack/webpack.config.babel.js --progress",
     "prebuild": "yarn run clean",
-    "build": "NODE_ENV=production webpack  --config ./webpack/webpack.config.babel.js --progress",
+    "build": "NODE_ENV=production webpack  --config ./webpack/webpack.config.babel.js --progress --display-modules",
     "clean": "rimraf ./dist && mkdir dist",
     "lint": "./node_modules/.bin/eslint 'src/**/*.@(js|jsx)'"
   },
-  "author": "Wenliang Dai <daiwenliang123@gmail.com>",
-  "license": "MIT",
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.22.2",
@@ -61,6 +64,8 @@
     "style-loader": "^0.13.1",
     "stylelint": "^7.8.0",
     "stylelint-config-standard": "^16.0.0",
+    "uglify-js": "^2.8.12",
+    "uglifyjs-webpack-plugin": "^0.3.0",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0",
     "webpack-merge": "^2.6.1"
@@ -69,5 +74,16 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-motion": "^0.4.7"
-  }
+  },
+  "author": "Wenliang Dai <daiwenliang123@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "component",
+    "react-component",
+    "media",
+    "audio",
+    "player",
+    "comment"
+  ]
 }

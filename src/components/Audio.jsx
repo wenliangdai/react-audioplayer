@@ -68,13 +68,14 @@ class Audio extends React.PureComponent {
       children
     } = this.props;
     const height = fullPlayer ? this.props.height : 52;
+    const newStyle = Object.assign({}, this.props.style, {
+      width: `${width}px`,
+      height: `${height}px`
+    });
     return (
       <div
-        className={`${styleNormalize.rootContainer} ${style.audio} ${style.boxShadowShallow}`}
-        style={{
-          width: `${width}px`,
-          height: `${height}px`
-        }}
+        className={`${styleNormalize.rootContainer} ${style.audio}`}
+        style={newStyle}
       >
         {
           fullPlayer ?

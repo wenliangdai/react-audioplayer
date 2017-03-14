@@ -43,7 +43,7 @@ class Timeline extends React.Component {
   }
   _onMouseDownProgressBar(e) {
     e.stopPropagation();
-    console.log('Timeline: _onMouseDownProgressBar');
+    // console.log('Timeline: _onMouseDownProgressBar');
     if (this.shouldTogglePlayPause) { this.props.togglePlayPause(); }
     const timelineDisToLeft = e.target.parentNode.getBoundingClientRect().left;
     const newTranslate = e.pageX - timelineDisToLeft;
@@ -56,7 +56,7 @@ class Timeline extends React.Component {
   _onMouseDownProgressBarHandler(e) {
     e.stopPropagation();
     this.holding = true;
-    console.log('Timeline: _onMouseDownProgressBarHandler');
+    // console.log('Timeline: _onMouseDownProgressBarHandler');
     if (this.shouldTogglePlayPause) { this.props.togglePlayPause(); }
     this.onMouseMoveFunctionRef = this._onMouseMove(e.pageX, this.state.translate);
     document.addEventListener('mousemove', this.onMouseMoveFunctionRef);
@@ -72,7 +72,7 @@ class Timeline extends React.Component {
     };
   }
   _onMouseUp() {
-    console.log('Timeline: _onMouseUp()');
+    // console.log('Timeline: _onMouseUp()');
     /* When the _onMouseUp() event happen really quick after the _onMouseDownProgressBar(),
        i.e. React hasn't called setState, enqueue a togglePlayPause() to the loop. */
     if (this.shouldTogglePlayPause && this.props.playing) { setTimeout(() => this.props.togglePlayPause(), 0); }
