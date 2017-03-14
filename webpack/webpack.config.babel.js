@@ -17,7 +17,7 @@ export default merge({
     path: path.join(ROOT_DIR, 'dist'),
     filename: 'bundle.js',
     publicPath: '/static/',
-    library: 'reactAudio',
+    library: 'reactAudioplayer',
     libraryTarget: 'var'
   },
   module: {

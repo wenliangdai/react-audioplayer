@@ -3,7 +3,6 @@ import React, { PropTypes } from 'react';
 const HOCAudio = (Audio) => {
   return class HOCAudioComponent extends React.Component {
     static propTypes = {
-      autoPlay: PropTypes.bool,
       playlist: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
         src: PropTypes.string,
@@ -14,19 +13,17 @@ const HOCAudio = (Audio) => {
         }))
       })).isRequired
     };
-    static defaultProps = {
-      autoPlay: false
-    };
     constructor(props) {
       super(props);
-
       if (!this.props.playlist || this.props.playlist.length === 0) {
         throw new Error('You should provide a playlist which contains at least 1 audio object');
       }
-
-      if (this.props.fullPlayer && this.props.comment) {
+      if (this.props.fullPlayer) {
         this.props.playlist.forEach((song) => {
-          if (!song.comments) {
+          if (!song.img) {
+            throw new Error('You should provide song.img when the fullPlayer is enabled.');
+          }
+          if (this.props.comment && !song.comments) {
             throw new Error('You turned on commenting function and you need to provide the `comments` field for each song in the playlist');
           }
         });

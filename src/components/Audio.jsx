@@ -10,8 +10,10 @@ class Audio extends React.PureComponent {
     width: PropTypes.number,
     height: PropTypes.number,
     fullPlayer: PropTypes.bool,
+    autoPlay: PropTypes.bool,
     comment: PropTypes.bool,
     volumeOrientationDown: PropTypes.bool,
+    onCommentSubmit: PropTypes.func,
     color: PropTypes.string,
     CommentsWrapperStates: PropTypes.shape({
       songImageSrc: PropTypes.string,
@@ -43,10 +45,12 @@ class Audio extends React.PureComponent {
     width: 400,
     height: 300,
     songImage: false,
-    color: '#282828',
+    color: '#212121',
     fullPlayer: false,
+    autoPlay: false,
     comment: false,
-    volumeOrientationDown: false
+    volumeOrientationDown: false,
+    onCommentSubmit: null
   }
   static childContextTypes = {
     color: PropTypes.string

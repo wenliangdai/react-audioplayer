@@ -31,7 +31,7 @@ class CommentInputContainer extends React.Component {
   _onClickSendBtn(e) {
     e.preventDefault();
     if (this.props.onCommentSubmit) {
-      this.props.onCommentSubmit(e, this.state.inputContent);
+      this.props.onCommentSubmit(this.state.inputContent);
     }
     this.setState({
       showInput: false,

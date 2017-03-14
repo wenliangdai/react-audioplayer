@@ -8,11 +8,11 @@ const App = () => (
     height={200}
     fullPlayer={true}
     comment={true}
-    onCommentSubmit={(e, text) => {
-      console.log(e, text);
-    }}
-    color="#F44336"
-    autoPlay={false}
+    // onCommentSubmit={(text) => {
+    //   console.log(text);
+    // }}
+    // color="#F44336"
+    autoPlay={true}
     volumeOrientationDown={false}
     playlist={playlist.source}
     style={{

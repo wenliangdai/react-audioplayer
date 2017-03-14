@@ -5,14 +5,14 @@ import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 const config = {
   devtool: 'source-map',
   entry: {
-    index: path.join(__dirname, '../src/react-audio-player.js')
+    index: path.join(__dirname, '../src/react-audioplayer.js')
   },
   output: {
     path: path.join(__dirname, '../build'),
     publicPath: 'build/',
-    filename: 'react-audio-player.js',
-    sourceMapFilename: 'react-audio-player.map',
-    library: 'ReactAudioPlayer',
+    filename: 'react-audioplayer.js',
+    sourceMapFilename: 'react-audioplayer.map',
+    library: 'ReactAudioplayer',
     libraryTarget: 'umd'
   },
   plugins: [
