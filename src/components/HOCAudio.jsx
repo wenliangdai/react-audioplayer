@@ -19,6 +19,19 @@ const HOCAudio = (Audio) => {
     };
     constructor(props) {
       super(props);
+
+      if (!this.props.playlist || this.props.playlist.length === 0) {
+        throw new Error('You should provide a playlist which contains at least 1 audio object');
+      }
+
+      if (this.props.fullPlayer && this.props.comment) {
+        this.props.playlist.forEach(song => {
+          if (!song.comments) {
+            throw new Error('You turned on commenting function and you need to provide the `comments` field for each song in the playlist');
+          }
+        });
+      }
+
       // bind methods
       this.playNext = props.autoPlay; // A boolean to determine whether to play the next song or not
       this.loadSrc = this.loadSrc.bind(this);
@@ -48,6 +61,7 @@ const HOCAudio = (Audio) => {
           discardPile: []
         }
       };
+
     }
     componentDidMount() {
       // console.log('Audio mounted!');

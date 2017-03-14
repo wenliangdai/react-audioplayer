@@ -1,7 +1,6 @@
 .rootContainer {
   min-width: 300px;
   min-height: 52px;
-  margin: auto;
 
   & div,
   & section,

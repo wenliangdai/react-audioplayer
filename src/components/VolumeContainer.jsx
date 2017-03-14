@@ -7,12 +7,12 @@ import style from '../styles/audioComponents.css';
 
 class VolumeContainer extends React.PureComponent {
   static propTypes = {
-    downwards: PropTypes.bool,
+    volumeOrientationDown: PropTypes.bool,
     volume: PropTypes.number.isRequired,
     setVolume: PropTypes.func.isRequired
   };
   static defaultProps = {
-    downwards: false
+    volumeOrientationDown: false
   };
   constructor(props) {
     super(props);
@@ -118,14 +118,14 @@ class VolumeContainer extends React.PureComponent {
         onMouseOut={this.onMouseOut}
       >
         <Motion style={{
-          h: spring((this.state.mouseOverBox || this.holding) ? (this.props.downwards ? 40 : 90) : 0),
+          h: spring((this.state.mouseOverBox || this.holding) ? (this.props.volumeOrientationDown ? 40 : 90) : 0),
           o: spring(this.state.boxHeight === 0 ? 0 : 1)
         }}>
           {({h, o}) =>
             <div className={style.volumeAdjustBox} style={{
               width: '40px',
-              height: this.props.downwards ? `${h*(9/4)}px` : `${h}px`,
-              transform: this.props.downwards ? `translate3d(0, ${h}px, 0)` : `translate3d(0, -${h}px, 0)`,
+              height: this.props.volumeOrientationDown ? `${h*(9/4)}px` : `${h}px`,
+              transform: this.props.volumeOrientationDown ? `translate3d(0, ${h}px, 0)` : `translate3d(0, -${h}px, 0)`,
               opacity: `${o}`
             }}>
               <VolumeBar
