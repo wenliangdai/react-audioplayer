@@ -11,8 +11,8 @@ describe('<Audio />', () => {
         playlist={playlist.source}
       />
     );
-    expect(wrapper.find('Audio').prop('width')).toEqual(800);
-    expect(wrapper.find('Audio').prop('height')).toEqual(400);
+    expect(wrapper.find('Audio').prop('width')).toEqual(400);
+    expect(wrapper.find('Audio').prop('height')).toEqual(300);
     wrapper.setProps({
       width: 600,
       height: 200
@@ -27,7 +27,7 @@ describe('<Audio />', () => {
         playlist={playlist.source}
       />
     );
-    expect(wrapper.find('Audio').prop('color')).toEqual('#282828');
+    expect(wrapper.find('Audio').prop('color')).toEqual('#212121');
     wrapper.setProps({ color: '#123456' });
     expect(wrapper.find('Audio').prop('color')).toEqual('#123456');
   });
