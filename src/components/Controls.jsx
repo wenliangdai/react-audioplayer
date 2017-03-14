@@ -48,7 +48,7 @@ const Controls = ({
       <VolumeContainer
         volume={volume}
         setVolume={setVolume}
-        downwards={volumeOrientationDown}
+        volumeOrientationDown={volumeOrientationDown}
       />
     </ButtonGroup>
   );

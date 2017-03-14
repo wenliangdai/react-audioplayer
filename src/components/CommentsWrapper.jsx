@@ -32,7 +32,7 @@ class CommentsWrapper extends React.PureComponent {
     }
   }
   documentClickHandler(event) {
-    if (!event.target.matches(`.${style.commentsContainer} p`)) {
+    if (!document.querySelector(`.${style.commentsContainer}`).contains(event.target)) {
       this.setState({ fullComment: false });
       document.removeEventListener(event.type, this.documentClickHandler);
     }
