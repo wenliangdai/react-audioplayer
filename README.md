@@ -1,4 +1,5 @@
 # react-audioplayer
+[![](https://img.shields.io/travis/wenliangdai/react-audioplayer.svg?style=flat-square](https://travis-ci.org/wenliangdai/react-audioplayer)
 [![npm package](https://img.shields.io/npm/v/react-audioplayer.svg?style=flat-square)](https://www.npmjs.com/package/react-audioplayer)
 
 A customizable HTML5 audio player for React.js
