@@ -40,10 +40,10 @@ import Audio from 'react-audioplayer';
 | fullPlayer             | bool       | false                   | no           | If true, shows song image given in the playlist. Otherwise just shows the basic player |
 | comment                | bool       | false                   | no           | If true, enables comment function. When fullPlayer is false, this is forced to be false. You need to specify `onCommentSubmit` to handle user input |
 | onCommentSubmit (text) | Function   | null                    | no           | When a user submits a new comment, this function will be invoked and the input content will be passed as an argument |
-| playlist               | array      | null                    | yes          | An array of song information objects, see below for details |
+| playlist               | array      | null                    | yes          | An array of song information objects, see [below](#playlist) for details |
 | style                  | object     | null                    | no           | A normal style object. For example, you can add border or boxShadow to the component |
 
-#### playlist prop
+#### playlist prop<a name="playlist"></a>
 playlist is an array of songObj, where
 ```js
 songObj = {
