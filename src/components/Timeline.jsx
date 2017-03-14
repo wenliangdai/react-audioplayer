@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import AudioTitleTime from './AudioTitleTime';
 import ProgressBar from './ProgressBar';
 import ProgressBarHandler from './ProgressBarHandler';
 import style from '../styles/audioElements.css';
@@ -115,7 +114,7 @@ class Timeline extends React.Component {
             width={handlerWidth}
             height={handlerHeight}
             visibility={this.state.showHandler || this.holding}
-            translate={`translate(${this.state.translate-6})`}
+            translate={`translate(${this.state.translate - 6})`}
             onMouseDown={this._onMouseDownProgressBarHandler}
           />
         </ProgressBar>

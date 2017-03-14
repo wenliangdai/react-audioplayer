@@ -25,7 +25,7 @@ const HOCAudio = (Audio) => {
       }
 
       if (this.props.fullPlayer && this.props.comment) {
-        this.props.playlist.forEach(song => {
+        this.props.playlist.forEach((song) => {
           if (!song.comments) {
             throw new Error('You turned on commenting function and you need to provide the `comments` field for each song in the playlist');
           }
@@ -61,7 +61,6 @@ const HOCAudio = (Audio) => {
           discardPile: []
         }
       };
-
     }
     componentDidMount() {
       // console.log('Audio mounted!');

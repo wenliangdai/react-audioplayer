@@ -6,28 +6,9 @@ class Comment extends React.Component {
   constructor(props) {
     super(props);
     this.state = { full: false, hover: false };
-  }
-  getMotionStyle() {
-    if (this.state.hover) {
-      return {
-        // y: spring(10),
-        // h: spring(100),
-        opacity: spring(1)
-      };
-    }
-    return {
-      // y: spring(0),
-      // h: spring(35),
-      opacity: spring(0.8)
-    };
-  }
-  getStyle(motionStyle) {
-    // if (Object.keys(motionStyle) === 0) {return this.props.style;}
-    return Object.assign({}, this.props.style, {
-      transform: `translate3d(0, -${motionStyle.y}px, 0)`,
-      // height: `${motionStyle.h}px`,
-      backgroundColor: `rgba(255, 255, 255, ${motionStyle.opacity})`
-    });
+    this.onClick = this.onClick.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
   }
   onClick() {
     this.setState({ full: !this.state.full });
@@ -38,6 +19,22 @@ class Comment extends React.Component {
   onMouseOut() {
     this.setState({ hover: false });
   }
+  getMotionStyle() {
+    if (this.state.hover) {
+      return {
+        opacity: spring(1)
+      };
+    }
+    return {
+      opacity: spring(0.8)
+    };
+  }
+  getStyle(motionStyle) {
+    return Object.assign({}, this.props.style, {
+      transform: `translate3d(0, -${motionStyle.y}px, 0)`,
+      backgroundColor: `rgba(255, 255, 255, ${motionStyle.opacity})`
+    });
+  }
   render() {
     return (
       <Motion
@@ -47,9 +44,9 @@ class Comment extends React.Component {
           <p
             className={style.comment}
             style={this.getStyle(interpolatedStyle)}
-            onClick={this.onClick.bind(this)}
-            onMouseOver={this.onMouseOver.bind(this)}
-            onMouseOut={this.onMouseOut.bind(this)}
+            onClick={this.onClick}
+            onMouseOver={this.onMouseOver}
+            onMouseOut={this.onMouseOut}
           >
             {this.props.content}
           </p>

@@ -1,2 +1,3 @@
-import Audio from './components/Audio.jsx';
+import Audio from './components/Audio';
+
 export default Audio;

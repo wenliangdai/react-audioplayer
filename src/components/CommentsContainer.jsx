@@ -1,5 +1,5 @@
 import React from 'react';
-import { TransitionMotion, spring, presets } from 'react-motion';
+import { TransitionMotion, spring } from 'react-motion';
 import Comment from './Comment';
 
 class CommentsContainer extends React.Component {
@@ -24,38 +24,37 @@ class CommentsContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      className,
       height,
       progress,
       comments
     } = nextProps;
     // get the comments whose .time are smaller than audio progress
-    let _comments = comments.filter(comment => {
+    const filteredComments = comments.filter((comment) => {
       return progress >= comment.time;
     })
     .sort(this.sortComments);
 
-    const length = _comments.length;
+    const length = filteredComments.length;
     if (length === 0) { return this.setState({ visibleComments: [] }); }
 
     const maxItems = Math.floor(height / this.state.commentHeight);
     if (length > maxItems) {
       return this.setState({
-        visibleComments: _comments.slice(length - maxItems, length)
+        visibleComments: filteredComments.slice(length - maxItems, length)
       });
     }
-    return this.setState({ visibleComments: _comments });
+    return this.setState({ visibleComments: filteredComments });
   }
 
   shouldComponentUpdate() {
     return this.state.scroll;
   }
 
-  onMouseEnter(e) {
+  onMouseEnter() {
     this.setState({ scroll: false });
   }
 
-  onMouseLeave(e) {
+  onMouseLeave() {
     this.setState({ scroll: true });
   }
 
@@ -101,13 +100,13 @@ class CommentsContainer extends React.Component {
       >
         {interpolatedStyles =>
           <div className={this.props.className} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
-            {interpolatedStyles.map(config => {
-              return <Comment
+            {interpolatedStyles.map(config => (
+              <Comment
                 key={config.key}
                 content={config.data}
                 style={config.style}
-              />;
-            })}
+              />
+            ))}
           </div>
         }
       </TransitionMotion>

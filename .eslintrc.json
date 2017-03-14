@@ -20,7 +20,7 @@
         "max-len": [
           2,
           {
-            "code": 150,
+            "code": 200,
             "tabWidth": 4,
             "ignoreUrls": true,
             "ignoreStrings": true

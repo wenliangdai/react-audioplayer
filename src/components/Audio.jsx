@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import HOCAudio from './HOCAudio';
 import CommentsWrapper from './CommentsWrapper';
 import MainPlayer from './MainPlayer';
-import { LikeBtn, PlaylistBtn } from './buttons/index';
 import styleNormalize from '../styles/audioReset.css';
 import style from '../styles/audioComponents.css';
 
@@ -44,7 +43,10 @@ class Audio extends React.PureComponent {
     width: 400,
     height: 300,
     songImage: false,
-    color: '#282828'
+    color: '#282828',
+    fullPlayer: false,
+    comment: false,
+    volumeOrientationDown: false
   }
   static childContextTypes = {
     color: PropTypes.string
@@ -64,8 +66,7 @@ class Audio extends React.PureComponent {
       controlStates,
       controlCallbacks,
       timelineStates,
-      timelineCallbacks,
-      children
+      timelineCallbacks
     } = this.props;
     const height = fullPlayer ? this.props.height : 52;
     const newStyle = Object.assign({}, this.props.style, {

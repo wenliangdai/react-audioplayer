@@ -2,15 +2,15 @@ import React from 'react';
 import style from '../styles/audioComponents.css';
 
 const ButtonGroup = ({ children }) => {
-  const _style = { width: `${React.Children.count(children) * 40}px` };
+  const newStyle = { width: `${React.Children.count(children) * 40}px` };
   return (
     <div
       className={style.flexButtonBox}
-      style={_style}
+      style={newStyle}
     >
       { children }
     </div>
   );
-}
+};
 
 export default ButtonGroup;

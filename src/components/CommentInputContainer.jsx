@@ -48,21 +48,20 @@ class CommentInputContainer extends React.Component {
     this.setState({ inputContent: e.target.value });
   }
   render() {
-
     return (
-      <div className={style.commentInputContainer} onClick={(e) => {
-        e.stopPropagation();
-      }}>
-        <Motion style={{
-          width: spring(this.state.showInput ? this.state.inputWidth : 0),
-          opacity: spring(this.state.showInput ? 1 : 0),
-        }}>
-          {({width, opacity}) =>
+      <div className={style.commentInputContainer}>
+        <Motion
+          style={{
+            width: spring(this.state.showInput ? this.state.inputWidth : 0),
+            opacity: spring(this.state.showInput ? 1 : 0),
+          }}
+        >
+          {({ width, opacity }) =>
             <form onSubmit={this._onClickSendBtn}>
               <input
                 style={{
                   width: `${width}px`,
-                  opacity: opacity,
+                  opacity,
                   borderBottom: `2px solid ${this.context.color}`
                 }}
                 value={this.state.inputContent}
@@ -82,9 +81,9 @@ class CommentInputContainer extends React.Component {
       </div>
     );
   }
-};
+}
 CommentInputContainer.contextTypes = {
   color: React.PropTypes.string
-}
+};
 
 export default CommentInputContainer;

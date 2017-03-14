@@ -1,13 +1,11 @@
 import React, { PropTypes } from 'react';
 import CommentsContainer from './CommentsContainer';
 import FullComment from './FullComment';
-import { combineClassNames } from '../util-functions';
 import style from '../styles/audioElements.css';
 
 class CommentsWrapper extends React.PureComponent {
   static propTypes = {
     songImageSrc: PropTypes.string.isRequired,
-    className: PropTypes.string,
     width: PropTypes.number,
     height: PropTypes.number,
     comment: PropTypes.bool
@@ -31,12 +29,6 @@ class CommentsWrapper extends React.PureComponent {
       commentsContainer.addEventListener('click', this.onClickComment);
     }
   }
-  documentClickHandler(event) {
-    if (!document.querySelector(`.${style.commentsContainer}`).contains(event.target)) {
-      this.setState({ fullComment: false });
-      document.removeEventListener(event.type, this.documentClickHandler);
-    }
-  }
   onClickComment(e) {
     const target = e.target;
     if (target.tagName.toLowerCase() === 'p') {
@@ -54,12 +46,17 @@ class CommentsWrapper extends React.PureComponent {
         return this.setState({ fullComment: false });
       }
 
-      return this.setState({ fullCommentTextNode: target.firstChild });
+      this.setState({ fullCommentTextNode: target.firstChild });
+    }
+  }
+  documentClickHandler(event) {
+    if (!document.querySelector(`.${style.commentsContainer}`).contains(event.target)) {
+      this.setState({ fullComment: false });
+      document.removeEventListener(event.type, this.documentClickHandler);
     }
   }
   render() {
     const {
-      className,
       songImageSrc,
       width,
       height,
@@ -67,12 +64,14 @@ class CommentsWrapper extends React.PureComponent {
       comments,
       comment
     } = this.props;
-    const _className = combineClassNames(style.commentsWrapper, className);
     const albumLength = Math.min(width * 0.4, height) - 40;
     return (
-      <div className={_className} style={{
-        height: `${height}px`
-      }}>
+      <div
+        className={style.commentsWrapper}
+        style={{
+          height: `${height}px`
+        }}
+      >
         <section className={style.albumCoverContainer}>
           <div
             className={style.coverWrapper}
@@ -83,7 +82,7 @@ class CommentsWrapper extends React.PureComponent {
           >
             <img
               src={songImageSrc}
-              alt="Album cover image"
+              alt="Album cover"
             />
             {
               comment ? <FullComment
@@ -103,8 +102,13 @@ class CommentsWrapper extends React.PureComponent {
           /> : null
         }
 
-        <div className={style.commentsWrapperBackgroundMask}></div>
-        <div className={style.commentsWrapperBackground} style={{ backgroundImage: `url(${songImageSrc})` }}/>
+        <div className={style.commentsWrapperBackgroundMask} />
+        <div
+          className={style.commentsWrapperBackground}
+          style={{
+            backgroundImage: `url(${songImageSrc})`
+          }}
+        />
       </div>
     );
   }
