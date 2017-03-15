@@ -5,7 +5,7 @@
 
 A customizable HTML5 audio player for React.js
 
-[Live demo](https://wenliangdai.github.io/ "Live Demo")
+<a href="https://wenliangdai.github.io/" target="_blank" title="Live Demo">Live demo</a>
 
 ## Features
 - A ready-to-use web audio player for React.js
