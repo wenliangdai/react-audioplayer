@@ -8,17 +8,15 @@ A customizable HTML5 audio player for React.js
 ## Features
 - A ready-to-use web audio player for React.js
 - Highly-customizable. You can change theme color, size, functions of this player as you want.
-- Just one single component on the top to use with beautiful UI.
+- Just one single component on the top to use (Almost no learning cost).
 
 ## Install
 - npm: `npm install react-audioplayer --save`
 - yarn: `yarn add react-audioplayer`
-- script tag: `<script src="https://unpkg.com/react-audioplayer/build/react-audioplayer.js"></script>`
 
 ## Usage
+A simple example below.
 ```js
-// A simple example
-
 import Audio from 'react-audioplayer';
 // In your render() function:
 <Audio
