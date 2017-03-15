@@ -5,6 +5,8 @@
 
 A customizable HTML5 audio player for React.js
 
+[Live demo](https://wenliangdai.github.io/ "Live Demo")
+
 ## Features
 - A ready-to-use web audio player for React.js
 - Highly-customizable. You can change theme color, size, functions of this player as you want.
