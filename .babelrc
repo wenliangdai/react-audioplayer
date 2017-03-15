@@ -15,6 +15,12 @@
       "plugins": [
         "transform-es2015-modules-commonjs"
       ]
+    },
+    "production": {
+      "optional": [
+        "optimisation.react.inlineElements",
+        "optimisation.react.constantElements"
+      ]
     }
   }
 }

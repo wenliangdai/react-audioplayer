@@ -42,3 +42,4 @@ yarn.lock
 
 # Test song data
 src/songs/*
+docs/
