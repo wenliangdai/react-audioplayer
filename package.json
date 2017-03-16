@@ -4,7 +4,7 @@
   "description": "A customizable html5 audio player for React.js",
   "main": "lib/index.js",
   "repository": {
-    "url": "https://github.com/wenliangdai/react-audio.git",
+    "url": "https://github.com/wenliangdai/react-audioplayer.git",
     "type": "git"
   },
   "peerDependencies": {
