@@ -1,22 +1,22 @@
 import React from 'react';
 import Audio from './Audio';
-import playlist from '../songs/playlist.json';
+import playlist from '../playlist.json';
 
 const App = () => (
   <Audio
-    width={800}
-    height={200}
+    width={600}
+    height={300}
     fullPlayer={true}
     comment={true}
-    // onCommentSubmit={(text) => {
-    //   console.log(text);
-    // }}
-    // color="#F44336"
+    onCommentSubmit={(text) => {
+      alert(text);
+    }}
+    color="#F44336"
     autoPlay={true}
     volumeOrientationDown={false}
-    playlist={playlist.source}
+    playlist={playlist.playlist}
     style={{
-      border: '1px solid black'
+      boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.2)'
     }}
   />
 );

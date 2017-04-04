@@ -29,7 +29,7 @@ import Audio from 'react-audioplayer';
 />
 ```
 
-### Accepted props
+### Acceptable props
 | prop name              | value type | default value           | isRequired   | explanation                    |
 | ---------------------- | ---------- | ----------------------- | ------------ | ------------------------------ |
 | width                  | number     | 400                     | no           | Width of the <Audio /> component (px) |
@@ -66,7 +66,8 @@ $ git clone https://github.com/wenliangdai/react-audioplayer.git
 $ npm install
 $ npm start
 ```
+Then a localhost is open on port 8080.
 
-## Issues
-- PR
+## Need help or find a bug?
+- github issues
 - Email: daiwenliang123@gmail.com
