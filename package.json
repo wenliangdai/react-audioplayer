@@ -1,6 +1,6 @@
 {
   "name": "react-audioplayer",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A customizable html5 audio player for React.js",
   "main": "lib/index.js",
   "repository": {
