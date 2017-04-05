@@ -30,11 +30,11 @@ const config = {
   ],
   externals: {
     react: {
-      root: "React",
-      commonjs: "react",
-      commonjs2: "react",
-      amd: "react",
-      umd: "react"
+      root: 'React',
+      commonjs: 'react',
+      commonjs2: 'react',
+      amd: 'react',
+      umd: 'react'
     },
     'react-dom': {
       root: 'ReactDOM',
@@ -44,11 +44,11 @@ const config = {
       umd: 'react-dom',
     },
     'react-motion': {
-      root: "ReactMotion",
-      commonjs: "react-motion",
-      commonjs2: "react-motion",
-      amd: "react-motion",
-      umd: "react-motion"
+      root: 'ReactMotion',
+      commonjs: 'react-motion',
+      commonjs2: 'react-motion',
+      amd: 'react-motion',
+      umd: 'react-motion'
     }
   }
 };

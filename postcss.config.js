@@ -5,6 +5,7 @@ module.exports = {
     //   ignore: ['flexbox', 'object-fit', 'filter']
     // }),
     require('stylelint')({}),
-    require('postcss-cssnext')({})
+    require('postcss-cssnext')({}),
+    require('postcss-clean')({})
   ]
-}
+};
