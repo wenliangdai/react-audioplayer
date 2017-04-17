@@ -11,12 +11,12 @@ const App = () => (
     onCommentSubmit={(text) => {
       alert(text);
     }}
-    color="#F44336"
+    color="#212121"
     autoPlay={true}
-    volumeOrientationDown={false}
+    volumeOrientationDown={true}
     playlist={playlist.playlist}
     style={{
-      boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.2)'
+      boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.2)',
     }}
   />
 );

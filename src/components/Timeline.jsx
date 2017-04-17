@@ -101,7 +101,6 @@ class Timeline extends React.Component {
         <ProgressBar
           width={containerWidth}
           height={handlerHeight}
-          barWidth={this.state.barWidth}
           barHeight={barHeight}
           handlerWidth={handlerWidth}
           translate={this.state.translate}

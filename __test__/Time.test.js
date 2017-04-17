@@ -2,7 +2,7 @@ import React from 'react';
 import Time from '../src/components/Time.jsx';
 import { shallow } from 'enzyme';
 
-describe.skip('<Time />', () => {
+describe('<Time />', () => {
 
   it('should render one <p> html element', () => {
     const wrapper = shallow(<Time time={200} />);

@@ -3,7 +3,6 @@ import React, { PropTypes } from 'react';
 const ProgressBar = ({
   width,
   height,
-  barWidth,
   barHeight,
   handlerWidth,
   translate,
@@ -28,14 +27,14 @@ const ProgressBar = ({
         <rect
           x={0}
           y={0}
-          width={barWidth}
+          width={width}
           height={height}
           opacity="0"
         />
         <rect
           x={0}
           y={diff}
-          width={barWidth}
+          width={width}
           height={barHeight}
           fill="#E0E0E0"
         />
