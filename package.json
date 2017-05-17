@@ -1,6 +1,6 @@
 {
   "name": "react-audioplayer",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A customizable html5 audio player for React.js",
   "main": "lib/index.js",
   "repository": {
@@ -23,7 +23,7 @@
     }
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
     "test-s": "jest --silent",
     "start": "NODE_ENV=development webpack-dev-server --config ./webpack/webpack.config.babel.js --progress",
     "prebuild": "yarn run clean",
