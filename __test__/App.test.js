@@ -8,7 +8,7 @@ describe('<Audio />', () => {
   it('should propagate props `width` and `height` correctly', () => {
     const wrapper = mount(
       <Audio
-        playlist={playlist.source}
+        playlist={playlist.playlist}
       />
     );
     expect(wrapper.find('Audio').prop('width')).toEqual(400);
@@ -24,7 +24,7 @@ describe('<Audio />', () => {
   it('should propagate `color` correctly', () => {
     const wrapper = mount(
       <Audio
-        playlist={playlist.source}
+        playlist={playlist.playlist}
       />
     );
     expect(wrapper.find('Audio').prop('color')).toEqual('#212121');
@@ -35,7 +35,7 @@ describe('<Audio />', () => {
   it('should render playingState(cycle, repeat, shuffle) buttons correctly', () => {
     const wrapper = mount(
       <Audio
-        playlist={playlist.source}
+        playlist={playlist.playlist}
       />
     );
     expect(wrapper.find('CycleBtn')).toHaveLength(1);
@@ -48,7 +48,7 @@ describe('<Audio />', () => {
   it('should skip to previous/next when clicking on SkipPrevBtn/SkipNextBtn', () => {
     const wrapper = mount(
       <Audio
-        playlist={playlist.source}
+        playlist={playlist.playlist}
       />
     );
     wrapper.find('SkipNextBtn').simulate('click');
@@ -60,7 +60,7 @@ describe('<Audio />', () => {
   it('should not render <CommentsWrapper /> if prop songImage={false}, which is the default', () => {
     const wrapper = mount(
       <Audio
-        playlist={playlist.source}
+        playlist={playlist.playlist}
       />
     );
     expect(wrapper.find('CommentsWrapper')).toHaveLength(0);
@@ -71,7 +71,7 @@ describe('<Audio />', () => {
   it('should switch between PlayBtn/PauseBtn when state.playing changes', () => {
     const wrapper = mount(
       <Audio
-        playlist={playlist.source}
+        playlist={playlist.playlist}
       />
     );
     expect(wrapper.find('PlayBtn')).toHaveLength(1);

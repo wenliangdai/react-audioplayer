@@ -1,6 +1,6 @@
 import React from 'react';
 import Audio from './Audio';
-import playlist from '../playlist.json';
+import playlist from '../songs/playlist.json';
 
 const App = () => (
   <Audio
@@ -13,10 +13,11 @@ const App = () => (
     }}
     color="#212121"
     autoPlay={true}
-    volumeOrientationDown={true}
     playlist={playlist.playlist}
     style={{
       boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.2)',
+      width: '800px',
+      height: '400px'
     }}
   />
 );

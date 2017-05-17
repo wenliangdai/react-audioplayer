@@ -73,10 +73,14 @@ class Audio extends React.PureComponent {
       timelineCallbacks
     } = this.props;
     const height = fullPlayer ? this.props.height : 52;
-    const newStyle = Object.assign({}, this.props.style, {
+    const newStyle = Object.assign({}, {
       width: `${width}px`,
       height: `${height}px`
-    });
+    }, this.props.style);
+    
+    const _width = parseInt(newStyle.width);
+    const _height = parseInt(newStyle.height);
+    
     return (
       <div
         className={`${styleNormalize.rootContainer} ${style.audio}`}
@@ -86,14 +90,14 @@ class Audio extends React.PureComponent {
           fullPlayer ?
             <CommentsWrapper
               comment={comment}
-              width={width}
-              height={height - 52}
+              width={_width}
+              height={_height - 52}
               progress={timelineStates.progress}
               {...CommentsWrapperStates}
             /> : null
         }
         <MainPlayer
-          width={width}
+          width={_width}
           name={name}
           comment={fullPlayer ? comment : false}
           volumeOrientationDown={volumeOrientationDown}
