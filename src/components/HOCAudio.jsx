@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 const HOCAudio = (Audio) => {
   return class HOCAudioComponent extends React.Component {
@@ -43,6 +45,10 @@ const HOCAudio = (Audio) => {
       this.skipToNext = this.skipToNext.bind(this);
       this.skipToPrevious = this.skipToPrevious.bind(this);
       this.togglePlayingState = this.togglePlayingState.bind(this);
+      this.playEventHandler = this.playEventHandler.bind(this);
+      this.pauseEventHandler = this.pauseEventHandler.bind(this);
+      this.skipToNextEventHandler = this.skipToNextEventHandler.bind(this);
+      this.skipToPreviousEventHandler = this.skipToPreviousEventHandler.bind(this);
 
       const discardPileSize = Math.ceil(props.playlist.length / 2);
       this.state = {
@@ -58,29 +64,6 @@ const HOCAudio = (Audio) => {
           discardPile: []
         }
       };
-    }
-    componentDidMount() {
-      // console.log('Audio mounted!');
-      // set audio element event listeners
-      this.audioElement = document.createElement('audio');
-      this.audioElement.addEventListener('canplay', this.onCanPlay);
-      this.audioElement.addEventListener('ended', this.onEnded);
-      this.audioElement.addEventListener('play', this.onPlay);
-      this.audioElement.addEventListener('pause', this.onPause);
-      this.audioElement.addEventListener('volumechange', this.onVolumeChange);
-      // this.audioElement.addEventListener('timeupdate', this.onTimeUpdate);
-
-      this.loadSrc();
-      this.setState({ volume: this.audioElement.volume });
-    }
-    componentWillUnmount() {
-      this._clearInterval();
-      this.audioElement.removeEventListener('canplay', this.onCanPlay);
-      this.audioElement.removeEventListener('ended', this.onEnded);
-      this.audioElement.removeEventListener('play', this.onPlay);
-      this.audioElement.removeEventListener('pause', this.onPause);
-      this.audioElement.removeEventListener('volumechange', this.onVolumeChange);
-      this.audioElement = null;
     }
     onCanPlay() {
       // console.log('audio oncanplay');
@@ -267,7 +250,59 @@ const HOCAudio = (Audio) => {
       }, this.props);
       return <Audio {...newProps} />;
     }
+
+    playEventHandler() {
+      this.audioElement.play();
+    }
+
+    pauseEventHandler() {
+      this.audioElement.pause();
+    }
+
+    skipToNextEventHandler() {
+      this.skipToNext();
+    }
+
+    skipToPreviousEventHandler() {
+      this.skipToPrevious();
+    }
+
+    componentDidMount() {
+      // console.log('Audio mounted!');
+      // set audio element event listeners
+      console.log(this)
+      this.audioElement = document.createElement('audio');
+      this.audioElement.addEventListener('canplay', this.onCanPlay);
+      this.audioElement.addEventListener('ended', this.onEnded);
+      this.audioElement.addEventListener('play', this.onPlay);
+      this.audioElement.addEventListener('pause', this.onPause);
+      this.audioElement.addEventListener('volumechange', this.onVolumeChange);
+
+      this.loadSrc();
+      this.setState({ volume: this.audioElement.volume });
+
+      ReactDOM.findDOMNode(this).addEventListener('audio-play', this.playEventHandler);
+      ReactDOM.findDOMNode(this).addEventListener('audio-pause', this.pauseEventHandler);
+      ReactDOM.findDOMNode(this).addEventListener('audio-skip-to-next', this.skipToNextEventHandler);
+      ReactDOM.findDOMNode(this).addEventListener('audio-skip-to-previous', this.skipToPreviousEventHandler);
+    }
+
+    componentWillUnmount() {
+      this._clearInterval();
+      this.audioElement.removeEventListener('canplay', this.onCanPlay);
+      this.audioElement.removeEventListener('ended', this.onEnded);
+      this.audioElement.removeEventListener('play', this.onPlay);
+      this.audioElement.removeEventListener('pause', this.onPause);
+      this.audioElement.removeEventListener('volumechange', this.onVolumeChange);
+      this.audioElement = null;
+
+      ReactDOM.findDOMNode(this).removeEventListener('audio-play', this.playEventHandler);
+      ReactDOM.findDOMNode(this).removeEventListener('audio-pause', this.pauseEventHandler);
+      ReactDOM.findDOMNode(this).removeEventListener('audio-skip-to-next', this.skipToNextEventHandler);
+      ReactDOM.findDOMNode(this).removeEventListener('audio-skip-to-previous', this.skipToPreviousEventHandler);
+    }
   };
+  
 };
 
 export default HOCAudio;

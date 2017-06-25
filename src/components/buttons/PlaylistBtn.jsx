@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './Button';
 
 const PlaylistBtn = (props, context) => (
@@ -20,7 +21,7 @@ const PlaylistBtn = (props, context) => (
   </Button>
 );
 PlaylistBtn.contextTypes = {
-  color: React.PropTypes.string
+  color: PropTypes.string
 };
 
 export default PlaylistBtn;

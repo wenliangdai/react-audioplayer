@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './Button';
 
 const RepeatBtn = (props, context) => (
@@ -23,7 +24,7 @@ const RepeatBtn = (props, context) => (
   </Button>
 );
 RepeatBtn.contextTypes = {
-  color: React.PropTypes.string
+  color: PropTypes.string
 };
 
 export default RepeatBtn;

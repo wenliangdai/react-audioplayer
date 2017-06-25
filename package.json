@@ -75,8 +75,9 @@
     "webpack-merge": "^2.6.1"
   },
   "dependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "react-motion": "^0.4.7"
   },
   "author": "Wenliang Dai <daiwenliang123@gmail.com>",

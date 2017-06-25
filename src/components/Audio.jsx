@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import HOCAudio from './HOCAudio';
 import CommentsWrapper from './CommentsWrapper';
 import MainPlayer from './MainPlayer';
@@ -55,9 +56,11 @@ class Audio extends React.PureComponent {
   static childContextTypes = {
     color: PropTypes.string
   };
+  
   getChildContext() {
     return { color: this.props.color };
   }
+
   render() {
     const {
       width,

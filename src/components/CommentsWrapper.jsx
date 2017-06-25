@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import CommentsContainer from './CommentsContainer';
 import FullComment from './FullComment';
 import style from '../styles/audioElements.css';

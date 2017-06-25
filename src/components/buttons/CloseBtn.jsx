@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './Button';
 
 const CloseBtn = (props, context) => (
@@ -9,7 +10,7 @@ const CloseBtn = (props, context) => (
   </Button>
 );
 CloseBtn.contextTypes = {
-  color: React.PropTypes.string
+  color: PropTypes.string
 };
 
 export default CloseBtn;

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { combineClassNames } from '../../util-functions';
 import { svgBtnDefault } from '../../styles/audioElements.css';
 
@@ -35,7 +36,7 @@ class Button extends React.PureComponent {
   }
 }
 Button.contextTypes = {
-  color: React.PropTypes.string
+  color: PropTypes.string
 };
 
 export default Button;

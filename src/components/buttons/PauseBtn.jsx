@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './Button';
 
 const PauseBtn = (props, context) => (
@@ -12,7 +13,7 @@ const PauseBtn = (props, context) => (
   </Button>
 );
 PauseBtn.contextTypes = {
-  color: React.PropTypes.string
+  color: PropTypes.string
 };
 
 export default PauseBtn;

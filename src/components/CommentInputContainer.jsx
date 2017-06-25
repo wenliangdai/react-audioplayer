@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
 import * as Buttons from './buttons/index';
 import ButtonGroup from './ButtonGroup';
@@ -83,7 +84,7 @@ class CommentInputContainer extends React.Component {
   }
 }
 CommentInputContainer.contextTypes = {
-  color: React.PropTypes.string
+  color: PropTypes.string
 };
 
 export default CommentInputContainer;

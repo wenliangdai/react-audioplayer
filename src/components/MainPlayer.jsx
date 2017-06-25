@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Timeline from './Timeline';
 import Controls from './Controls';
 import CommentInputContainer from './CommentInputContainer';

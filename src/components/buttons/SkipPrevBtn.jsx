@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './Button';
 
 const SkipPrevBtn = (props, context) => (
@@ -12,7 +13,7 @@ const SkipPrevBtn = (props, context) => (
   </Button>
 );
 SkipPrevBtn.contextTypes = {
-  color: React.PropTypes.string
+  color: PropTypes.string
 };
 
 export default SkipPrevBtn;

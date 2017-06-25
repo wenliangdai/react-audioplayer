@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './Button';
 
 const VolumeHighBtn = (props, context) => (
@@ -11,7 +12,7 @@ const VolumeHighBtn = (props, context) => (
   </Button>
 );
 VolumeHighBtn.contextTypes = {
-  color: React.PropTypes.string
+  color: PropTypes.string
 };
 
 export default VolumeHighBtn;

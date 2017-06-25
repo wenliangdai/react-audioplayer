@@ -60,6 +60,42 @@ commentObj = {
 ```
 `songObj.img` is required when `fullPlay = true`, `songObj.comments` is required when `comment = true`.
 
+## Manually control the state of the player in code
+To play/pause/skip-to-next/skip-to-previous the player in code, four event listeners are added inside the `<Audio />` component.
+
+The name of these events are:
+- `audio-play`
+- `audio-pause`
+- `audio-skip-to-next`
+- `audio-skip-to-previous`
+
+and a typical example:
+```js
+class App extends React.Component {
+  someMethod() {
+    // Some code ...
+    // This code can only be able to execute when the audio component is already mounted
+    ReactDOM.findDOMNode(this.audioComponent).dispatchEvent(new Event('audio-play'));
+  }
+
+  render() {
+    return (
+      <Audio
+        width={600}
+        height={300}
+        playlist={playlist}
+        
+        // store a reference of the audio component
+        ref={audioComponent => { this.audioComponent = audioComponent; }}
+      />
+    );
+  }
+}
+```
+As you can see in the example above, there are two steps:
+  1. Store the audio component using ref
+  2. Get the DOM node (ReactDOM.findDOMNode) and dispatch the event (dispatchEvent)
+
 ## Development
 ```bash
 $ git clone https://github.com/wenliangdai/react-audioplayer.git

@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TransitionMotion, spring } from 'react-motion';
 import Comment from './Comment';
 
 class CommentsContainer extends React.Component {
   static propTypes = {
-    className: React.PropTypes.string,
-    height: React.PropTypes.number,
-    progress: React.PropTypes.number
+    className: PropTypes.string,
+    height: PropTypes.number,
+    progress: PropTypes.number
   }
 
   constructor(props) {

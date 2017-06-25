@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './Button';
 
 const CycleBtn = (props, context) => (
@@ -20,7 +21,7 @@ const CycleBtn = (props, context) => (
   </Button>
 );
 CycleBtn.contextTypes = {
-  color: React.PropTypes.string
+  color: PropTypes.string
 };
 
 export default CycleBtn;

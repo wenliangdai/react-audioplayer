@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from './Button';
 
 const CommentStartBtn = (props, context) => (
@@ -9,7 +10,7 @@ const CommentStartBtn = (props, context) => (
   </Button>
 );
 CommentStartBtn.contextTypes = {
-  color: React.PropTypes.string
+  color: PropTypes.string
 };
 
 export default CommentStartBtn;

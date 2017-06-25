@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
 import { VolumeHighBtn, VolumeLowBtn, VolumeMutedBtn } from './buttons/index';
 import ProgressBarHandler from './ProgressBarHandler';
