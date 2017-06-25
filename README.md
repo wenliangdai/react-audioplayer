@@ -96,6 +96,9 @@ As you can see in the example above, there are two steps:
   1. Store the audio component using ref
   2. Get the DOM node (ReactDOM.findDOMNode) and dispatch the event (dispatchEvent)
 
+## TODO
+  - Loading animation and optimisation
+
 ## Development
 ```bash
 $ git clone https://github.com/wenliangdai/react-audioplayer.git
@@ -103,6 +106,9 @@ $ npm install
 $ npm start
 ```
 Then a localhost is open on port 8080.
+
+## ChangeLog
+Details changes for each release are documented in the [release notes](https://github.com/wenliangdai/react-audioplayer/releases) or the `ChangeLog.md` file.
 
 ## Need help or find a bug?
 - github issues
