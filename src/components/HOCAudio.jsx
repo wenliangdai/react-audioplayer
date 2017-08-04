@@ -270,7 +270,6 @@ const HOCAudio = (Audio) => {
     componentDidMount() {
       // console.log('Audio mounted!');
       // set audio element event listeners
-      console.log(this)
       this.audioElement = document.createElement('audio');
       this.audioElement.addEventListener('canplay', this.onCanPlay);
       this.audioElement.addEventListener('ended', this.onEnded);
